@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_navigation">
+
+    <include app:graph="@navigation/prelogin_navigation" />
+    <action android:id="@+id/action_navigation_to_preloginGraph"
+        app:destination="@+id/action_navigation_to_home_Navigation">
+    </action>
+
+    <include app:graph="@navigation/home_navigation" />
+    <action android:id="@+id/action_navigation_to_home_Navigation"
+        app:destination="@+id/action_navigation_to_preloginGraph">
+    </action>
+</navigation>

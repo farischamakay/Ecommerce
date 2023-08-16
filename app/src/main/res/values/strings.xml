@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Ecommerce</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="onboarding_selanjutnya">Selanjutnya</string>
+    <string name="password_hint">Password</string>
+    <string name="gmail_hint">Email</string>
+    <string name="masuk">Masuk</string>
+    <string name="text_ket_1">Dengan masuk disini, kamu menyetujui</string>
+    <string name="text_ket_1a">Dengan daftar disini, kamu menyetujui</string>
+    <string name="txt_ket_2"><![CDATA[Syarat & Ketentuan]]></string>
+    <string name="txt_ket_3">serta</string>
+    <string name="txt_ket_5">TokoPhincon</string>
+    <string name="txt_ket_4">Kebijakan Privasi</string>
+    <string name="daftar">Daftar</string>
+    <string name="txt_option">atau daftar dengan</string>
+    <string name="selesai">Selesai</string>
+    <string name="name">Name</string>
+    <string name="home">Home</string>
+    <string name="store">Store</string>
+    <string name="whistlist">Whistlist</string>
+    <string name="transaction">Transaction</string>
 </resources>
