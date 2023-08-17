@@ -8,8 +8,8 @@
 
     <action
         android:id="@+id/prelogin_to_main"
-        app:popUpTo="@id/main_to_prelogin"
         app:destination="@id/home_navigation"
+        app:popUpTo="@id/prelogin_navigation"
         app:popUpToInclusive="true">
 
     </action>
@@ -19,7 +19,7 @@
     <action
         android:id="@+id/main_to_prelogin"
         app:destination="@id/prelogin_navigation"
-        app:popUpTo="@id/main_to_prelogin"
+        app:popUpTo="@id/home_navigation"
         app:popUpToInclusive="true">
 
     </action>

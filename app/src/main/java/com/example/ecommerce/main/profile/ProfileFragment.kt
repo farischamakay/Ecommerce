@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isNotEmpty
+import androidx.core.widget.doOnTextChanged
 import com.example.ecommerce.R
 import com.example.ecommerce.databinding.FragmentProfileBinding
 
@@ -65,6 +67,10 @@ class ProfileFragment : Fragment() {
                     }
                 })
             alertDialogBuilder.show()
+        }
+
+        binding.layoutUsername.editText?.doOnTextChanged { inputUsername, _, _, _ ->
+            binding.btnGoHome.isEnabled = inputUsername.toString().isNotEmpty()
         }
 
     }

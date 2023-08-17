@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ecommerce.databinding.FragmentMainBinding
 
@@ -35,8 +36,8 @@ class MainFragment : Fragment() {
 
         binding.bottomNavigation.setupWithNavController(navController)
         binding.bottomNavigation.setOnItemReselectedListener {
-
         }
+
     }
 
     override fun onDestroyView() {

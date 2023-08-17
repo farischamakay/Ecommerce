@@ -2,25 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/homeFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/home"
         android:icon="@drawable/ic_homepage"/>
     <item
-        android:id="@+id/store"
+        android:id="@+id/storeFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/store"
         android:icon="@drawable/ic_storepage"/>
     <item
-        android:id="@+id/whistlist"
+        android:id="@+id/wishlistFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/ic_whislist"
         android:title="@string/whistlist" />
     <item
-        android:id="@+id/transaction"
+        android:id="@+id/transactionFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/ic_transaction"

@@ -21,7 +21,7 @@
         android:label="fragment_transaction"
         tools:layout="@layout/fragment_transaction" />
     <fragment
-        android:id="@+id/whistlistFragment"
+        android:id="@+id/wishlistFragment"
         android:name="com.example.ecommerce.main.whistlist.WhistlistFragment"
         android:label="fragment_whistlist"
         tools:layout="@layout/fragment_whistlist" />
