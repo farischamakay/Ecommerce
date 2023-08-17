@@ -40,11 +40,9 @@ class LoginFragment : Fragment() {
         binding.btnToHome.setOnClickListener {
             findNavController().navigate(R.id.prelogin_to_main)
         }
-
-
     }
 
-    fun validator(){
+    private fun validator(){
         val el = binding.layoutEmailLogin
         val et = binding.inputEmailLogin
         val pl = binding.layoutPasswordLogin

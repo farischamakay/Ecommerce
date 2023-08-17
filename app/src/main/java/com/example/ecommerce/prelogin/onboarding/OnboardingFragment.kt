@@ -1,8 +1,7 @@
 package com.example.ecommerce.prelogin.onboarding
 
-import android.content.Context
+
 import android.os.Bundle
-import android.provider.Settings.Global.putString
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,36 +10,40 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.isInvisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.OnBoardingAdapter
 import com.example.ecommerce.data.model.OnBoardingItem
 import com.example.ecommerce.databinding.FragmentOnboardingBinding
-import com.google.android.material.R.color.m3_ref_palette_primary40
+import com.example.ecommerce.preferences.PreferenceProvider
 
 class OnboardingFragment : Fragment() {
 
-    private lateinit var indicatorContainer : LinearLayout
+    private var _binding : FragmentOnboardingBinding ?= null
+    private val binding get() = _binding!!
 
+    private lateinit var indicatorContainer : LinearLayout
+    private lateinit var viewModel : OnboardingViewModel
+    private lateinit var onboaridngPreferenceManager: PreferenceProvider
     private val onboardingItems = listOf(
         OnBoardingItem(R.drawable.img_onboarding_one),
         OnBoardingItem(R.drawable.img_onboarding_two),
         OnBoardingItem(R.drawable.img_onboarding_three)
     )
 
-    private var _binding : FragmentOnboardingBinding ?= null
-    private val binding get() = _binding!!
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        onboaridngPreferenceManager = PreferenceProvider(requireContext())
+        viewModel = ViewModelProvider(this).get(OnboardingViewModel::class.java)
+        if (viewModel.isOnboardingCompleted(onboaridngPreferenceManager)) {
+            findNavController().navigate(R.id.action_onboardingFragment_to_loginFragment)
+        } else {
+        }
 
         _binding = FragmentOnboardingBinding.inflate(layoutInflater)
         return binding.root
@@ -70,20 +73,23 @@ class OnboardingFragment : Fragment() {
         (binding.viewpagerOnboarding.getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
         binding.btnToRegister.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            viewModel.markOnboardingCompleted(onboaridngPreferenceManager)
+            findNavController().navigate(R.id.action_onboardingFragment_to_registerFragment)
         }
 
 
         binding.btnLewati.setOnClickListener {
+            viewModel.markOnboardingCompleted(onboaridngPreferenceManager)
             findNavController().navigate(R.id.action_onboardingFragment_to_loginFragment)
 
         }
 
         binding.btnSelanjutnya.setOnClickListener {
             val nextSlide = binding.viewpagerOnboarding.currentItem + 1
-            if(nextSlide < adapter.itemCount) {
+            if (nextSlide < adapter.itemCount) {
                 binding.viewpagerOnboarding.setCurrentItem(nextSlide, true)
             } else {
+                viewModel.markOnboardingCompleted(onboaridngPreferenceManager)
                 findNavController().navigate(R.id.action_onboardingFragment_to_loginFragment)
             }
         }
