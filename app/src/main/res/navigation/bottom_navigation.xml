@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_navigation"
-    app:startDestination="@id/homeFragment2">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/homeFragment2"
+        android:id="@+id/homeFragment"
         android:name="com.example.ecommerce.main.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
@@ -16,8 +16,13 @@
         android:label="fragment_store"
         tools:layout="@layout/fragment_store" />
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.ecommerce.main.profile.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/transactionFragment"
+        android:name="com.example.ecommerce.main.transaction.TransactionFragment"
+        android:label="fragment_transaction"
+        tools:layout="@layout/fragment_transaction" />
+    <fragment
+        android:id="@+id/whistlistFragment"
+        android:name="com.example.ecommerce.main.whistlist.WhistlistFragment"
+        android:label="fragment_whistlist"
+        tools:layout="@layout/fragment_whistlist" />
 </navigation>

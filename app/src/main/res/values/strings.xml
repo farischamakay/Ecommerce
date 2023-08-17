@@ -20,4 +20,9 @@
     <string name="store">Store</string>
     <string name="whistlist">Whistlist</string>
     <string name="transaction">Transaction</string>
+
+    <string-array name="options_select_picture_array">
+        <item>Kamera</item>
+        <item>Galery</item>
+    </string-array>
 </resources>

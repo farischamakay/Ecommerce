@@ -1,6 +1,8 @@
 package com.example.ecommerce.prelogin.onboarding
 
+import android.content.Context
 import android.os.Bundle
+import android.provider.Settings.Global.putString
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,15 +11,16 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
-import androidx.core.view.setMargins
+import androidx.core.view.isInvisible
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.OnBoardingAdapter
 import com.example.ecommerce.data.model.OnBoardingItem
 import com.example.ecommerce.databinding.FragmentOnboardingBinding
+import com.google.android.material.R.color.m3_ref_palette_primary40
 
 class OnboardingFragment : Fragment() {
 
@@ -32,10 +35,13 @@ class OnboardingFragment : Fragment() {
     private var _binding : FragmentOnboardingBinding ?= null
     private val binding get() = _binding!!
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentOnboardingBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -48,10 +54,17 @@ class OnboardingFragment : Fragment() {
         val adapter = OnBoardingAdapter(onboardingItems)
         binding.viewpagerOnboarding.adapter = adapter
 
+
         binding.viewpagerOnboarding.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 setCurrentIndicator(position)
+
+                if (position == adapter.itemCount - 1) {
+                    binding.btnLewati.visibility = View.INVISIBLE
+                } else {
+                    binding.btnLewati.visibility = View.VISIBLE
+                }
             }
         })
         (binding.viewpagerOnboarding.getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
@@ -59,9 +72,13 @@ class OnboardingFragment : Fragment() {
         binding.btnToRegister.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
+
+
         binding.btnLewati.setOnClickListener {
             findNavController().navigate(R.id.action_onboardingFragment_to_loginFragment)
+
         }
+
         binding.btnSelanjutnya.setOnClickListener {
             val nextSlide = binding.viewpagerOnboarding.currentItem + 1
             if(nextSlide < adapter.itemCount) {
