@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.OnBoardingAdapter
-import com.example.ecommerce.data.model.OnBoardingItem
+import com.example.ecommerce.data.models.OnBoardingItem
 import com.example.ecommerce.databinding.FragmentOnboardingBinding
 import com.example.ecommerce.preferences.PreferenceProvider
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OnboardingFragment : Fragment() {
 
     private var _binding : FragmentOnboardingBinding ?= null

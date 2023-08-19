@@ -3,7 +3,7 @@ package com.example.ecommerce.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ecommerce.data.model.OnBoardingItem
+import com.example.ecommerce.data.models.OnBoardingItem
 import com.example.ecommerce.databinding.ItemOnboardingBinding
 
 class OnBoardingAdapter(private val onboardingItems : List<OnBoardingItem>) : RecyclerView.Adapter<OnBoardingAdapter.OnboardingViewHolder>() {
