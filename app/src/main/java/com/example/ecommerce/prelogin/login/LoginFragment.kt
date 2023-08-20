@@ -61,7 +61,7 @@ class LoginFragment : Fragment() {
                         val loginResponse = result.data
                         binding.progressbar.visibility = View.GONE
                         binding.btnToHome.visibility = View.VISIBLE
-                        Toast.makeText(requireContext(),"Login Successfully!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(),"Login berhasil!", Toast.LENGTH_LONG).show()
                         Log.d("LOGINRES", loginResponse.toString())
                         // Handle successful login response
                     }
