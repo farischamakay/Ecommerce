@@ -4,22 +4,22 @@
 
     <item
         android:id="@+id/edit"
+        android:contentDescription="Notification"
         android:icon="@drawable/ic_notification"
         android:title="Notification"
-        android:contentDescription="Notification"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/favorite"
+        android:contentDescription="Shoping Chart"
         android:icon="@drawable/ic_shoping_cart"
         android:title="Shoping Chart"
-        android:contentDescription="Shoping Chart"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/more"
+        android:contentDescription="Menu"
         android:icon="@drawable/ic_menu"
         android:title="Menu"
-        android:contentDescription="Menu"
         app:showAsAction="ifRoom" />
 </menu>

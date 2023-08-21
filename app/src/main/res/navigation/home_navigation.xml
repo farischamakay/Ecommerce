@@ -5,7 +5,8 @@
     android:id="@+id/home_navigation"
     app:startDestination="@id/mainFragment">
 
-    <action android:id="@+id/action_to_app_nav"
+    <action
+        android:id="@+id/action_to_app_nav"
         app:destination="@id/prelogin_navigation">
 
     </action>

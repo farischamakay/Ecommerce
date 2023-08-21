@@ -13,12 +13,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor( private val userRepository: UserRepository) : ViewModel() {
+class RegisterViewModel @Inject constructor(private val userRepository: UserRepository) :
+    ViewModel() {
 
     private val _registerResult = MutableLiveData<ResourcesResult<RegisterResponse>>()
-    val registerResult : LiveData<ResourcesResult<RegisterResponse>> = _registerResult
+    val registerResult: LiveData<ResourcesResult<RegisterResponse>> = _registerResult
 
-    fun registerUser(userRequest: UserRequest){
+    fun registerUser(userRequest: UserRequest) {
         viewModelScope.launch {
             _registerResult.value = ResourcesResult.Loading
             val result = userRepository.registerUser(userRequest)

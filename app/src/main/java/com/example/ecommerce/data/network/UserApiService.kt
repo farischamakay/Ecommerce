@@ -12,11 +12,11 @@ interface UserApiService {
     @POST("login")
     suspend fun login(
         @Body userRequest: UserRequest
-    ) : Response<LoginResponse>
+    ): Response<LoginResponse>
 
     @POST("register")
     suspend fun register(
         @Body userRequest: UserRequest
-    ) : Response<RegisterResponse>
+    ): Response<RegisterResponse>
 
 }

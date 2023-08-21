@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topToolBar"
@@ -21,8 +21,7 @@
             android:layout_height="wrap_content"
             app:title="Masuk"
             app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.AppBar"
-            />
+            app:titleTextAppearance="@style/TextAppearance.AppBar" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -31,51 +30,48 @@
         android:id="@+id/outline_appbar"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/m3_ref_palette_neutral_variant80"
-        app:layout_constraintTop_toBottomOf="@+id/topAppBar">
-    </View>
+        android:background="?colorOutlineVariant"
+        app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_email_login"
+        style="?textInputOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:errorEnabled="true"
         app:helperText="Contoh : text@gmail.com"
-        app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Caption."
-        app:layout_constraintTop_toBottomOf="@id/outline_appbar"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        >
+        app:layout_constraintTop_toBottomOf="@id/outline_appbar">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_email_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:fontFamily="@font/poppins"
             android:hint="@string/gmail_hint"
-            android:fontFamily="@font/poppins"/>
+            android:textSize="16sp" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_password_login"
+        style="?textInputOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:helperText="Minimal 8 karakter"
-        app:layout_constraintTop_toBottomOf="@id/layout_email_login"
         app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Caption."
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-        >
+        app:layout_constraintTop_toBottomOf="@id/layout_email_login">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_password_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:fontFamily="@font/poppins"
+            android:hint="@string/password_hint"
             android:inputType="textPassword"
-            android:hint="@string/password_hint"/>
+            android:textSize="16sp" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,71 +85,64 @@
             android:id="@+id/btn_to_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/masuk"
             android:enabled="false"
             android:fontFamily="@font/poppins"
+            android:text="@string/masuk"
             android:textStyle="bold"
-            android:textSize="14sp"
             android:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-        </Button>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             android:elevation="4dp"
             android:indeterminate="true"
-            android:indeterminateTint="@color/material_dynamic_primary40"
-            app:layout_constraintTop_toTopOf="parent"
+            android:indeterminateTint="?colorPrimary"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            >
-        </ProgressBar>
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/backline"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
-        android:background="@color/m3_ref_palette_neutral_variant80"
-        app:layout_constraintTop_toBottomOf="@+id/layout_button">
-    </View>
+        android:background="?colorOutlineVariant"
+        app:layout_constraintTop_toBottomOf="@+id/layout_button" />
 
     <TextView
         android:id="@+id/txt_other_option"
-        android:layout_width="400px"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/txt_option"
-        android:fontFamily="@font/poppins"
-        android:textSize="12sp"
-        android:gravity="center"
         android:background="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:text="@string/txt_option"
+        android:textSize="12sp"
+        app:layout_constraintBaseline_toBottomOf="@id/backline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBaseline_toBottomOf="@id/backline">
-    </TextView>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_daftar"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/daftar"
-        android:fontFamily="@font/poppins"
-        android:textStyle="bold"
-        android:textSize="14sp"
         android:layout_margin="10dp"
         android:backgroundTint="@color/white"
-        android:textColor="@color/m3_ref_palette_primary40"
-        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:fontFamily="@font/poppins"
+        android:text="@string/daftar"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/txt_other_option" />
 
     <LinearLayout
@@ -162,30 +151,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/btn_daftar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/btn_daftar">
 
-            <TextView
-                android:id="@+id/txt_ket_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_ket_1"
-                android:textSize="12sp"
-                android:fontFamily="@font/poppins"
-                app:layout_constraintEnd_toStartOf="@id/txt_ket_2">
-            </TextView>
+        <TextView
+            android:id="@+id/txt_ket_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="@string/text_ket_1"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/txt_ket_2" />
 
-            <TextView
-                android:id="@+id/txt_ket_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:textColor="@color/m3_ref_palette_primary40"
-                android:text="@string/txt_ket_2"
-                android:textSize="12sp"
-                android:fontFamily="@font/poppins"
-                android:layout_toEndOf="@id/txt_ket_1"/>
+        <TextView
+            android:id="@+id/txt_ket_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/txt_ket_2"
+            android:textColor="?colorPrimary"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -194,36 +181,33 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear_layout_ket1"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_ket1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
-            android:textSize="12sp"
-            android:text="@string/txt_ket_3">
-        </TextView>
+            android:text="@string/txt_ket_3"
+            android:textSize="12sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:textSize="12sp"
+            android:layout_marginStart="5dp"
             android:fontFamily="@font/poppins"
             android:text="@string/txt_ket_4"
-            android:textColor="@color/m3_ref_palette_primary40">
-        </TextView>
+            android:textColor="?colorPrimary"
+            android:textSize="12sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:textSize="12sp"
+            android:layout_marginStart="5dp"
             android:fontFamily="@font/poppins"
-            android:text="@string/txt_ket_5" />
+            android:text="@string/txt_ket_5"
+            android:textSize="12sp" />
 
     </LinearLayout>
 

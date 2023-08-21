@@ -7,8 +7,8 @@ import java.io.File
 
 class PhotoUriManager(private val appContext: Context) {
 
-    private var latestUri : Uri? = null
-    private lateinit var pickerUri : Uri
+    private var latestUri: Uri? = null
+    private lateinit var pickerUri: Uri
 
     fun buildNewUri(): Uri {
         val photosDir = File(appContext.cacheDir, PHOTOS_DIR)
@@ -32,7 +32,7 @@ class PhotoUriManager(private val appContext: Context) {
         return latestUri!!
     }
 
-    fun setLatestUri(uri : Uri) : Uri{
+    fun setLatestUri(uri: Uri): Uri {
         return pickerUri
     }
 

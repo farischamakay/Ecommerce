@@ -2,11 +2,9 @@ package com.example.ecommerce.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
+import javax.inject.Inject
 
-class PreferenceProvider (context : Context) {
-
-    private val sharedPreferences : SharedPreferences = context.getSharedPreferences(
-        "onboarding_pref", Context.MODE_PRIVATE)
+class PreferenceProvider @Inject constructor(private val sharedPreferences: SharedPreferences) {
 
     fun saveOnBoardingStatus() {
         val editor = sharedPreferences.edit()
@@ -14,7 +12,7 @@ class PreferenceProvider (context : Context) {
         editor.apply()
     }
 
-    fun isOnBoardingCompleted() : Boolean {
+    fun isOnBoardingCompleted(): Boolean {
         return sharedPreferences.getBoolean("is_onboardinig_completed", false)
     }
 }

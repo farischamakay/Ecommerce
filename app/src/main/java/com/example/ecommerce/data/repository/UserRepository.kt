@@ -20,27 +20,27 @@ class UserRepository @Inject constructor(private val userApiService: UserApiServ
                     ResourcesResult.Failure("Response body is null")
                 }
             } else {
-                ResourcesResult.Failure("Error response: ${response.code()}")
+                ResourcesResult.Failure("Error response: ${response.code()} -> ${response.message()}")
             }
         } catch (e: Exception) {
             ResourcesResult.Failure("Exception: ${e.message}")
         }
     }
 
-    suspend fun registerUser(userRequest: UserRequest) : ResourcesResult<RegisterResponse> {
+    suspend fun registerUser(userRequest: UserRequest): ResourcesResult<RegisterResponse> {
         return try {
             val response = userApiService.register(userRequest)
-            if (response.isSuccessful){
+            if (response.isSuccessful) {
                 val data = response.body()
-                if(data != null) {
+                if (data != null) {
                     ResourcesResult.Success(data)
                 } else {
                     ResourcesResult.Failure("Response Body is null")
                 }
             } else {
-                ResourcesResult.Failure("Error response: ${response.code()}")
+                ResourcesResult.Failure("Error response: ${response.code()} -> ${response.message()}")
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             ResourcesResult.Failure("Exception : ${e.message}")
         }
     }

@@ -3,13 +3,14 @@ package com.example.ecommerce.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ecommerce.data.models.OnBoardingItem
 import com.example.ecommerce.databinding.ItemOnboardingBinding
 
-class OnBoardingAdapter(private val onboardingItems : List<OnBoardingItem>) : RecyclerView.Adapter<OnBoardingAdapter.OnboardingViewHolder>() {
+class OnBoardingAdapter(private val onboardingItems: List<OnBoardingItem>) :
+    RecyclerView.Adapter<OnBoardingAdapter.OnboardingViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnboardingViewHolder {
-        val binding = ItemOnboardingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemOnboardingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return OnboardingViewHolder(binding)
     }
 
@@ -21,5 +22,6 @@ class OnBoardingAdapter(private val onboardingItems : List<OnBoardingItem>) : Re
 
     override fun getItemCount(): Int = onboardingItems.size
 
-    inner class OnboardingViewHolder(var binding: ItemOnboardingBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class OnboardingViewHolder(var binding: ItemOnboardingBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

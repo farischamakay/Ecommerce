@@ -1,9 +1,7 @@
 package com.example.ecommerce.prelogin.login
 
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.ecommerce.R
 import com.example.ecommerce.data.models.request.UserRequest
@@ -22,15 +21,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
-    private var _binding : FragmentLoginBinding ?= null
+    private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+    ): View {
         _binding = FragmentLoginBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -49,47 +47,44 @@ class LoginFragment : Fragment() {
             val password = binding.inputPasswordLogin.text.toString()
             val userRequest = UserRequest(email = email, password = password)
             viewModel.loginUser(userRequest)
+        }
 
-            viewModel.loginResult.observe(viewLifecycleOwner) { result ->
-                when (result) {
-                    is ResourcesResult.Loading -> {
-                        binding.btnToHome.visibility = View.INVISIBLE
-                        binding.progressbar.visibility = View.VISIBLE
-                    }
+        viewModel.loginResult.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is ResourcesResult.Loading -> {
+                    binding.btnToHome.visibility = View.INVISIBLE
+                    binding.progressbar.visibility = View.VISIBLE
+                }
 
-                    is ResourcesResult.Success -> {
-                        val loginResponse = result.data
-                        binding.progressbar.visibility = View.GONE
-                        binding.btnToHome.visibility = View.VISIBLE
-                        Toast.makeText(requireContext(),"Login berhasil!", Toast.LENGTH_LONG).show()
-                        Log.d("LOGINRES", loginResponse.toString())
-                        // Handle successful login response
-                    }
+                is ResourcesResult.Success -> {
+                    binding.progressbar.visibility = View.GONE
+                    binding.btnToHome.visibility = View.VISIBLE
+                    Toast.makeText(requireContext(), "Login berhasil!", Toast.LENGTH_LONG)
+                        .show()
 
-                    is ResourcesResult.Failure -> {
-                        binding.progressbar.visibility = View.GONE
-                        binding.btnToHome.visibility = View.VISIBLE
-                        val errorMessage = result.error
-                        Toast.makeText(requireContext(),errorMessage, Toast.LENGTH_LONG).show()
-                        Log.d("LOGINERR", errorMessage.toString())
-                        // Handle error
-                    }
+                }
+
+                is ResourcesResult.Failure -> {
+                    binding.progressbar.visibility = View.GONE
+                    binding.btnToHome.visibility = View.VISIBLE
+                    val errorMessage = result.error
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
+
                 }
             }
-            //findNavController().navigate(R.id.prelogin_to_main)
         }
     }
 
-    private fun validator(){
+    private fun validator() {
         val el = binding.layoutEmailLogin
         val et = binding.inputEmailLogin
         val pl = binding.layoutPasswordLogin
         val pt = binding.inputPasswordLogin
         val btnHome = binding.btnToHome
 
-        el.editText?.doOnTextChanged{
-            inputEmail, _, _, _ ->
-            if(!Patterns.EMAIL_ADDRESS.matcher(inputEmail).matches()){
+        el.editText?.doOnTextChanged { inputEmail, _, _, _ ->
+            if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail ?: "").matches()
+                && !inputEmail.isNullOrEmpty() ) {
                 el.error = "Email tidak valid"
                 btnHome.isEnabled = false
             } else {
@@ -98,9 +93,8 @@ class LoginFragment : Fragment() {
             }
         }
 
-        pl.editText?.doOnTextChanged(){
-            inputPassword,_,_,_ ->
-            if(inputPassword!!.length < 8){
+        pl.editText?.doOnTextChanged { inputPassword, _, _, _ ->
+            if ((inputPassword?.length ?: 0) < 8 && !inputPassword.isNullOrEmpty()) {
                 pl.error = "Password tidak valid"
                 btnHome.isEnabled = false
             } else {
@@ -111,7 +105,11 @@ class LoginFragment : Fragment() {
 
     }
 
-    private fun updateButtonState(emailEditText: EditText, passwordEditText: EditText, button: Button) {
+    private fun updateButtonState(
+        emailEditText: EditText,
+        passwordEditText: EditText,
+        btnHome: Button
+    ) {
         val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(emailEditText.text.toString()).matches()
         val isPasswordValid = passwordEditText.text.length >= 8
 

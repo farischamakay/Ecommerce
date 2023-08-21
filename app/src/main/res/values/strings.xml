@@ -20,6 +20,8 @@
     <string name="store">Store</string>
     <string name="whistlist">Whistlist</string>
     <string name="transaction">Transaction</string>
+    <string name="gabung_sekarang">Gabung Sekarang</string>
+    <string name="lewati">Lewati</string>
 
     <string-array name="options_select_picture_array">
         <item>Kamera</item>

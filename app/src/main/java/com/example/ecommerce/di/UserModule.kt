@@ -1,20 +1,29 @@
 package com.example.ecommerce.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.example.ecommerce.data.network.UserApiService
 import com.example.ecommerce.data.network.UserAuthInterceptor
 import com.example.ecommerce.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
+
 @Module
+@InstallIn(SingletonComponent::class)
 object UserModule {
+    @Provides
+    @Singleton
+    fun provideSharedPreference(@ApplicationContext context: Context) : SharedPreferences {
+        return context.getSharedPreferences("shared_pref", Context.MODE_PRIVATE)
+    }
 
     @Provides
     @Singleton
@@ -40,26 +49,5 @@ object UserModule {
         return retrofit.create(UserApiService::class.java)
     }
 
-//    @Singleton
-//    @Provides
-//    fun providesRetrofitBuilder(): Retrofit.Builder{
-//        return Retrofit.Builder()
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .baseUrl(BASE_URL)
-//    }
-//
-//    @Singleton
-//    @Provides
-//    fun provideOkHttpClient(authInterceptor: UserAuthInterceptor) : OkHttpClient {
-//        return  OkHttpClient.Builder().addInterceptor(authInterceptor).build()
-//    }
-//
-//    @Singleton
-//    @Provides
-//    fun providesUserApi(retrofitBuilder : Retrofit.Builder, okHttpClient: OkHttpClient) : UserApiService{
-//        return retrofitBuilder
-//            .client(okHttpClient)
-//            .build().create(UserApiService::class.java)
-//    }
 
 }
