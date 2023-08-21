@@ -1,9 +1,11 @@
 package com.example.ecommerce.main.profile
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -12,22 +14,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isNotEmpty
 import androidx.core.widget.doOnTextChanged
+import com.bumptech.glide.Glide
 import com.example.ecommerce.R
 import com.example.ecommerce.databinding.FragmentProfileBinding
+import com.example.ecommerce.utils.PhotoUriManager
 
 class ProfileFragment : Fragment() {
     private  var _binding : FragmentProfileBinding ?= null
     private val binding get() = _binding!!
 
-    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        // Callback is invoked after the user selects a media item or closes the
-        // photo picker.
-        if (uri != null) {
-            Log.d("PhotoPicker", "Selected URI: $uri")
+    private lateinit var photoUriManager: PhotoUriManager
+
+    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val uri = photoUriManager.getLatestUri()
+            Glide.with(this).load(uri).into(binding.imgProfile)
+
+            Log.d("URI_CAM", "Uri : $uri")
+        } else {
+            Log.d("URI_CAM", "Photo capture failed")
+        }
+    }
+
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { mediaUri ->
+        if (mediaUri != null) {
+            val uri = photoUriManager.buildNewUri()
+            photoUriManager.setLatestUri(mediaUri)
+            Glide.with(this).load(uri).into(binding.imgProfile)
+
+            Log.d("PhotoPicker", "Selected URI: $mediaUri")
         } else {
             Log.d("PhotoPicker", "No media selected")
         }
@@ -43,7 +63,9 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.cardProfile.setOnClickListener {
+        photoUriManager = PhotoUriManager(requireContext())
+
+        binding.imgProfile.setOnClickListener {
             val alertDialogBuilder = AlertDialog.Builder(requireContext())
             alertDialogBuilder.setTitle("Pilih Gambar")
             alertDialogBuilder.setItems(R.array.options_select_picture_array,
@@ -51,13 +73,10 @@ class ProfileFragment : Fragment() {
                     dialog, index ->
                     when (index) {
                         0 -> {
-                            val REQUEST_IMAGE_CAPTURE = 1
-                            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                            try {
-                                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-                            } catch (e: ActivityNotFoundException) {
-                                Toast.makeText(requireContext(), "Tidak dapat mengambil gambar", Toast.LENGTH_LONG).show()
-                            }
+                            val uri = photoUriManager.buildNewUri()
+                            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+                            cameraLauncher.launch(cameraIntent)
                         }
 
                         1 -> {

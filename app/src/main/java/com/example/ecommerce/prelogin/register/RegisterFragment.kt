@@ -39,33 +39,34 @@ class RegisterFragment : Fragment() {
         validator()
 
         binding.btnToProfile.setOnClickListener {
-            val email = binding.inputEmailRegister.text.toString()
-            val password = binding.inputPasswordRegister.text.toString()
-            val userRequest = UserRequest(email = email, password = password)
-
-            viewModel.registerUser(userRequest)
-
-            viewModel.registerResult.observe(viewLifecycleOwner) { result ->
-                when(result){
-                    is ResourcesResult.Success -> {
-                        binding.progressbar.visibility = View.INVISIBLE
-                        binding.btnToProfile.visibility = View.VISIBLE
-                        Toast.makeText(requireContext(), "Berhasil membuat akun",
-                            Toast.LENGTH_LONG).show()
-                        findNavController().navigate(R.id.action_registerFragment_to_profileFragment2)
-
-                    }
-                    is ResourcesResult.Loading -> {
-                        binding.btnToProfile.visibility = View.INVISIBLE
-                        binding.progressbar.visibility = View.VISIBLE
-                    }
-                    is ResourcesResult.Failure -> {
-                        binding.progressbar.visibility = View.INVISIBLE
-                        binding.btnToProfile.visibility = View.VISIBLE
-                        Toast.makeText(requireContext(), result.error, Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
+            findNavController().navigate(R.id.action_registerFragment_to_profileFragment2)
+//            val email = binding.inputEmailRegister.text.toString()
+//            val password = binding.inputPasswordRegister.text.toString()
+//            val userRequest = UserRequest(email = email, password = password)
+//
+//            viewModel.registerUser(userRequest)
+//
+//            viewModel.registerResult.observe(viewLifecycleOwner) { result ->
+//                when(result){
+//                    is ResourcesResult.Success -> {
+//                        binding.progressbar.visibility = View.INVISIBLE
+//                        binding.btnToProfile.visibility = View.VISIBLE
+//                        Toast.makeText(requireContext(), "Berhasil membuat akun",
+//                            Toast.LENGTH_LONG).show()
+//                        findNavController().navigate(R.id.action_registerFragment_to_profileFragment2)
+//
+//                    }
+//                    is ResourcesResult.Loading -> {
+//                        binding.btnToProfile.visibility = View.INVISIBLE
+//                        binding.progressbar.visibility = View.VISIBLE
+//                    }
+//                    is ResourcesResult.Failure -> {
+//                        binding.progressbar.visibility = View.INVISIBLE
+//                        binding.btnToProfile.visibility = View.VISIBLE
+//                        Toast.makeText(requireContext(), result.error, Toast.LENGTH_LONG).show()
+//                    }
+//                }
+//            }
         }
 
         binding.btnMasuk.setOnClickListener {
