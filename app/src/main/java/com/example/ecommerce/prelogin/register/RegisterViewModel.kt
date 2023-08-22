@@ -7,13 +7,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.ecommerce.data.models.request.UserRequest
 import com.example.ecommerce.data.models.response.RegisterResponse
 import com.example.ecommerce.data.repository.UserRepository
+import com.example.ecommerce.preferences.PreferenceProvider
 import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(private val userRepository: UserRepository) :
+class RegisterViewModel @Inject constructor(
+    private val userRepository: UserRepository,
+    private val sharedPreferencesManager : PreferenceProvider
+) :
     ViewModel() {
 
     private val _registerResult = MutableLiveData<ResourcesResult<RegisterResponse>>()
@@ -25,6 +29,10 @@ class RegisterViewModel @Inject constructor(private val userRepository: UserRepo
             val result = userRepository.registerUser(userRequest)
             _registerResult.value = result
         }
+    }
+
+    fun saveToken(accessToken : String, refreshToken : String){
+        sharedPreferencesManager.saveAccess(accessToken,refreshToken)
     }
 
 }

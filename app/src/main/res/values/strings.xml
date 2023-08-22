@@ -22,6 +22,7 @@
     <string name="transaction">Transaction</string>
     <string name="gabung_sekarang">Gabung Sekarang</string>
     <string name="lewati">Lewati</string>
+    <string name="log_out">Log Out</string>
 
     <string-array name="options_select_picture_array">
         <item>Kamera</item>

@@ -61,7 +61,7 @@ class LoginFragment : Fragment() {
                     binding.btnToHome.visibility = View.VISIBLE
                     Toast.makeText(requireContext(), "Login berhasil!", Toast.LENGTH_LONG)
                         .show()
-
+                    findNavController().navigate(R.id.prelogin_to_main)
                 }
 
                 is ResourcesResult.Failure -> {

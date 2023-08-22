@@ -2,6 +2,8 @@ package com.example.ecommerce.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.ecommerce.data.network.UserApiService
 import com.example.ecommerce.data.network.UserAuthInterceptor
 import com.example.ecommerce.utils.Constants.BASE_URL
@@ -27,9 +29,21 @@ object UserModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(headerInterceptor: UserAuthInterceptor): OkHttpClient {
+    fun provideChucker(@ApplicationContext context: Context) : ChuckerInterceptor {
+        return ChuckerInterceptor.Builder(context)
+            .collector(ChuckerCollector(context))
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(
+        headerInterceptor: UserAuthInterceptor,
+        chuckerInterceptor: ChuckerInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
+            .addInterceptor(chuckerInterceptor)
             .build()
     }
 
