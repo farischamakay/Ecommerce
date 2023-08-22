@@ -30,4 +30,8 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun saveUserName(username : String){
+        return sharedPreferencesManager.saveUsername(username)
+    }
+
 }

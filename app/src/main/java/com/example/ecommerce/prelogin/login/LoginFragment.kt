@@ -46,7 +46,11 @@ class LoginFragment : Fragment() {
             val email = binding.inputEmailLogin.text.toString()
             val password = binding.inputPasswordLogin.text.toString()
             val userRequest = UserRequest(email = email, password = password)
-            viewModel.loginUser(userRequest)
+
+            if (viewModel.getUsername().isNullOrEmpty())
+                findNavController().navigate(R.id.action_loginFragment_to_profileFragment2)
+            else
+                viewModel.loginUser(userRequest)
         }
 
         viewModel.loginResult.observe(viewLifecycleOwner) { result ->
@@ -59,6 +63,12 @@ class LoginFragment : Fragment() {
                 is ResourcesResult.Success -> {
                     binding.progressbar.visibility = View.GONE
                     binding.btnToHome.visibility = View.VISIBLE
+
+                    val accessToken = result.data.data?.accessToken
+                    val refreshToken = result.data.data?.refreshToken
+                    if (accessToken != null && refreshToken != null) {
+                        viewModel.saveToken(accessToken,refreshToken)
+                    }
                     Toast.makeText(requireContext(), "Login berhasil!", Toast.LENGTH_LONG)
                         .show()
                     findNavController().navigate(R.id.prelogin_to_main)

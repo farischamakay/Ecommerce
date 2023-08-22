@@ -47,6 +47,11 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_profileFragment2"
+            app:destination="@id/profileFragment2"
+            app:popUpTo="@id/prelogin_navigation"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment2"

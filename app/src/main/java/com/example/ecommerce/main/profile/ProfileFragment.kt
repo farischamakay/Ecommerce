@@ -158,6 +158,7 @@ class ProfileFragment : Fragment() {
                     Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_LONG).show()
                 }
                 is ResourcesResult.Success -> {
+                    viewModel.saveUserName(binding.txtUsername.text.toString())
                     Toast.makeText(requireContext(), "Berhasil Upload!", Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.prelogin_to_main)
                 }

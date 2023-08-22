@@ -17,7 +17,19 @@ class PreferenceProvider @Inject constructor(private val sharedPreferences: Shar
         editor.putString("api_access_key", accessKey)
         editor.putString("api_refresh_key", refreshKey)
         editor.apply()
+    }
 
+    fun saveUsername(username : String){
+        val editor = sharedPreferences.edit()
+        editor.putString("userName", username)
+        editor.apply()
+    }
+
+    fun deleteTokenAccess(){
+        val editor = sharedPreferences.edit()
+        editor.remove("api_access_key")
+        editor.remove("api_refresh_key")
+        editor.apply()
     }
 
     fun getApiAccessKey(): String? {
@@ -26,6 +38,9 @@ class PreferenceProvider @Inject constructor(private val sharedPreferences: Shar
 
     fun getRefreshKey() : String? {
         return sharedPreferences.getString("api_refresh_key", null)
+    }
+    fun getUsername() : String? {
+        return sharedPreferences.getString("userName", null)
     }
 
     fun isOnBoardingCompleted(): Boolean {
