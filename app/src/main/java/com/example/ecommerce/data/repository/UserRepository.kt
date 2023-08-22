@@ -1,10 +1,9 @@
 package com.example.ecommerce.data.repository
 
-import android.util.Log
+
 import com.example.ecommerce.data.models.request.ProfileRequest
 import com.example.ecommerce.data.models.request.UserRequest
 import com.example.ecommerce.data.models.response.LoginResponse
-import com.example.ecommerce.data.models.response.ProfileData
 import com.example.ecommerce.data.models.response.ProfileResponse
 import com.example.ecommerce.data.models.response.RegisterResponse
 import com.example.ecommerce.data.network.UserApiService
