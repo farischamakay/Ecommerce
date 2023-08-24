@@ -77,6 +77,9 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
+    //Paging3
+    implementation("androidx.paging:paging-runtime-ktx:3.2.0")
+
     //Chucker
     debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
 

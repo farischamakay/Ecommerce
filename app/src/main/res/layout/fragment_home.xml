@@ -7,6 +7,7 @@
     tools:context=".main.home.HomeFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,6 +21,12 @@
             app:menu="@menu/menu_home_appbar"
             app:navigationIcon="@drawable/ic_home_profile"
             app:title="Username" />
+
+        <View
+            android:id="@+id/backline"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?colorOutlineVariant" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -42,7 +49,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/txt_home"
         app:layout_constraintTop_toBottomOf="@id/txt_home">
-
     </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

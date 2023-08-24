@@ -26,6 +26,11 @@
         <item name="fontFamily">@font/poppins</item>
     </style>
 
+    <style name="TextAppearance.Design.Hint." parent="">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="TextAppearance.AppCompat.Caption." parent="">
         <item name="fontFamily">@font/poppins</item>
         <item name="android:textSize">12sp</item>

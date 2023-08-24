@@ -23,6 +23,29 @@
     <string name="gabung_sekarang">Gabung Sekarang</string>
     <string name="lewati">Lewati</string>
     <string name="log_out">Log Out</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="store_urutkan">Urutkan</string>
+    <string name="store_reset">Reset</string>
+    <string name="store_filter">Filter</string>
+    <string name="store_ulasan">Ulasan</string>
+    <string name="store_penjualan">Penjualan</string>
+    <string name="store_harga_terendah">Harga terendah</string>
+    <string name="store_harga_tertinggi">Harga tertinggi</string>
+    <string name="store_kategori">Kategori</string>
+    <string name="store_apple">Apple</string>
+    <string name="store_asus">Asus</string>
+    <string name="store_dell">Dell</string>
+    <string name="store_lenovo">Lenovo</string>
+    <string name="store_harga">Harga</string>
+    <string name="storeharga_terendah">Harga Terendah</string>
+    <string name="storeharga_tertinggi">Harga Tertinggi</string>
+    <string name="store_tampilkan_produk">Tampilkan Produk</string>
+    <string name="nodesc">nodesc</string>
+    <string name="title_product">Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS</string>
+    <string name="text_pemilik_toko">ProStoreComputer</string>
+    <string name="rating_float">5.00</string>
+    <string name="store_ket_terjual">| Terjual 10</string>
 
     <string-array name="options_select_picture_array">
         <item>Kamera</item>

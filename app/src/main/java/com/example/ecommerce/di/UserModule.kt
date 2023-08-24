@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.example.ecommerce.data.network.TokenAuthenticator
 import com.example.ecommerce.data.network.UserApiService
 import com.example.ecommerce.data.network.UserAuthInterceptor
+import com.example.ecommerce.preferences.PreferenceProvider
 import com.example.ecommerce.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -29,6 +31,12 @@ object UserModule {
 
     @Provides
     @Singleton
+    fun provideTokenAuthenticator(sharedPreferences: PreferenceProvider, chuckerInterceptor: ChuckerInterceptor,userAuthInterceptor: UserAuthInterceptor) : TokenAuthenticator {
+        return TokenAuthenticator(sharedPreferences,chuckerInterceptor,userAuthInterceptor)
+    }
+
+    @Provides
+    @Singleton
     fun provideChucker(@ApplicationContext context: Context) : ChuckerInterceptor {
         return ChuckerInterceptor.Builder(context)
             .collector(ChuckerCollector(context))
@@ -39,11 +47,13 @@ object UserModule {
     @Singleton
     fun provideOkHttpClient(
         headerInterceptor: UserAuthInterceptor,
-        chuckerInterceptor: ChuckerInterceptor
+        chuckerInterceptor: ChuckerInterceptor,
+        tokenInterceptor: TokenAuthenticator
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
             .addInterceptor(chuckerInterceptor)
+            .authenticator(tokenInterceptor)
             .build()
     }
 
