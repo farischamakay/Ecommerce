@@ -80,6 +80,12 @@ dependencies {
     //Paging3
     implementation("androidx.paging:paging-runtime-ktx:3.2.0")
 
+    //Swipe Refresh Layout
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    //Shimmer Effect
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
     //Chucker
     debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
 

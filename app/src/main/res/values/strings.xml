@@ -46,6 +46,8 @@
     <string name="text_pemilik_toko">ProStoreComputer</string>
     <string name="rating_float">5.00</string>
     <string name="store_ket_terjual">| Terjual 10</string>
+    <string name="msg_empty_error">Your requested data is unavailable</string>
+    <string name="reset">Reset</string>
 
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
