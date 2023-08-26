@@ -5,6 +5,8 @@ import androidx.paging.PagingState
 import com.example.ecommerce.data.models.request.ProductRequest
 import com.example.ecommerce.data.models.response.ItemsItem
 import com.example.ecommerce.data.network.ProductApiService
+import retrofit2.HttpException
+import java.io.IOException
 
 class ProductPagingSource (private val productApiService: ProductApiService,
                            private val productRequest: ProductRequest) :
@@ -31,14 +33,17 @@ class ProductPagingSource (private val productApiService: ProductApiService,
                 productRequest.sort,
                 productRequest.limit,
                 position
-                )
+            )
+
 
             LoadResult.Page(
                 data = responseData.data.items,
                 prevKey = if(position == INITIAL_PAGE_INDEX) null else position - 1,
                 nextKey = if (responseData.data.totalPages == position ) null else position + 1
             )
-        } catch (exception : Exception){
+        } catch (exception: IOException) {
+            return LoadResult.Error(exception)
+        } catch (exception: HttpException) {
             return LoadResult.Error(exception)
         }
     }

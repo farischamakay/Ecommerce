@@ -25,12 +25,21 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        if(viewModel.getUsername() != null ) {
+            findNavController().navigate(R.id.prelogin_to_main)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

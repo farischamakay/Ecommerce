@@ -12,6 +12,12 @@
 
     <style name="Theme.Ecommerce" parent="Base.Theme.Ecommerce" />
 
+    <style name="DialogTheme" parent="Base.Theme.Ecommerce">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash</item>
         <item name="windowSplashScreenAnimationDuration">100</item>

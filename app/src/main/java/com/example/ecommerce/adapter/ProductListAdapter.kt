@@ -30,9 +30,10 @@ class ProductListAdapter : PagingDataAdapter<ItemsItem, ProductListAdapter.ListV
             fun bind(data : ItemsItem){
                 Glide.with(binding.root).load(data.image).into(binding.imgThumbnail)
                 binding.txtTitleProduct.text = data.productName
-                binding.txtHargaProduk.text = data.productPrice.toString()
+                binding.txtHargaProduk.text = "Rp. ${data.productPrice}"
                 binding.txtPemilikStore.text = data.brand
                 binding.txtRatingProduct.text = data.productRating.toString()
+                binding.txtJumlahTerjual.text = "Terjual ${data.sale}"
             }
         }
 
