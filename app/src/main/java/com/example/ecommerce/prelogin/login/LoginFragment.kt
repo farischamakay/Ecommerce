@@ -37,7 +37,7 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if(viewModel.getUsername() != null ) {
+        if (viewModel.getUsername() != null) {
             findNavController().navigate(R.id.prelogin_to_main)
         }
     }
@@ -73,12 +73,13 @@ class LoginFragment : Fragment() {
                     val accessToken = result.data.data?.accessToken
                     val refreshToken = result.data.data?.refreshToken
                     if (accessToken != null && refreshToken != null) {
-                        viewModel.saveToken(accessToken,refreshToken)
+                        viewModel.saveToken(accessToken, refreshToken)
                     }
                     Toast.makeText(requireContext(), "Login berhasil!", Toast.LENGTH_LONG)
                         .show()
                     if (viewModel.getUsername().isNullOrEmpty() ||
-                        viewModel.getUsername() != result.data.data?.userName)
+                        viewModel.getUsername() != result.data.data?.userName
+                    )
                         findNavController().navigate(R.id.action_loginFragment_to_profileFragment2)
                     else
                         findNavController().navigate(R.id.prelogin_to_main)
@@ -104,7 +105,8 @@ class LoginFragment : Fragment() {
 
         el.editText?.doOnTextChanged { inputEmail, _, _, _ ->
             if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail ?: "").matches()
-                && !inputEmail.isNullOrEmpty() ) {
+                && !inputEmail.isNullOrEmpty()
+            ) {
                 el.error = "Email tidak valid"
                 btnHome.isEnabled = false
             } else {

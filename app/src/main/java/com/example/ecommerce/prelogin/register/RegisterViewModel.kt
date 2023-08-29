@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val sharedPreferencesManager : PreferenceProvider
+    private val sharedPreferencesManager: PreferenceProvider
 ) :
     ViewModel() {
 
@@ -31,8 +31,8 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    fun saveToken(accessToken : String, refreshToken : String){
-        sharedPreferencesManager.saveAccess(accessToken,refreshToken)
+    fun saveToken(accessToken: String, refreshToken: String) {
+        sharedPreferencesManager.saveAccess(accessToken, refreshToken)
     }
 
 }

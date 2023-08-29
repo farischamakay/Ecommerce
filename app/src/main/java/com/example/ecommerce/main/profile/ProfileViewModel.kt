@@ -16,21 +16,21 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private var sharedPreferencesManager : PreferenceProvider
+    private var sharedPreferencesManager: PreferenceProvider
 ) : ViewModel() {
 
     private val _profileResult = MutableLiveData<ResourcesResult<ProfileResponse>>()
-    val profileResult : LiveData<ResourcesResult<ProfileResponse>> = _profileResult
+    val profileResult: LiveData<ResourcesResult<ProfileResponse>> = _profileResult
 
-    fun updateProfile(profileRequest: ProfileRequest){
+    fun updateProfile(profileRequest: ProfileRequest) {
         viewModelScope.launch {
             _profileResult.value = ResourcesResult.Loading
             val result = userRepository.profileUser(profileRequest)
-             _profileResult.value = result
+            _profileResult.value = result
         }
     }
 
-    fun saveUserName(username : String){
+    fun saveUserName(username: String) {
         return sharedPreferencesManager.saveUsername(username)
     }
 

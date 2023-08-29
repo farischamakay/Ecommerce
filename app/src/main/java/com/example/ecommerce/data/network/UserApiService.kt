@@ -9,7 +9,6 @@ import com.example.ecommerce.data.models.response.RegisterResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -28,8 +27,8 @@ interface UserApiService {
 
     @POST("refresh")
     suspend fun refresh(
-        @Body token : RefreshRequest?
-    ) : Response<RefreshResponse>
+        @Body token: RefreshRequest?
+    ): Response<RefreshResponse>
 
     @Multipart
     @POST("/profile")

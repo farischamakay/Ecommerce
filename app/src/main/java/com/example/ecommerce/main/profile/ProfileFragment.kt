@@ -28,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
 
@@ -114,7 +115,8 @@ class ProfileFragment : Fragment() {
         binding.imgProfile.setOnClickListener {
             val alertDialogBuilder = AlertDialog.Builder(requireContext())
             alertDialogBuilder.setTitle("Pilih Gambar")
-            alertDialogBuilder.setItems(R.array.options_select_picture_array
+            alertDialogBuilder.setItems(
+                R.array.options_select_picture_array
             ) { _, index ->
                 when (index) {
                     0 -> {
@@ -123,6 +125,7 @@ class ProfileFragment : Fragment() {
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mediaUri)
                         cameraLauncher.launch(cameraIntent)
                     }
+
                     1 -> {
                         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                     }
@@ -138,11 +141,13 @@ class ProfileFragment : Fragment() {
 
         binding.btnGoHome.setOnClickListener {
             val username = binding.txtUsername.text.toString()
-            val imageFile = File(mediaUri?.let { it1 -> uriToFile(requireContext(), it1)?.path } ?: "")
+            val imageFile =
+                File(mediaUri?.let { it1 -> uriToFile(requireContext(), it1)?.path } ?: "")
 
-            if(imageFile.exists()){
-                val requestImage = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
-                val imagePart = MultipartBody.Part.createFormData("userImage", imageFile.name, requestImage)
+            if (imageFile.exists()) {
+                val requestImage = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+                val imagePart =
+                    MultipartBody.Part.createFormData("userImage", imageFile.name, requestImage)
                 val userNamePart = MultipartBody.Part.createFormData("userName", username)
 
                 val profileRequest = ProfileRequest(userImage = imagePart, userName = userNamePart)
@@ -153,15 +158,17 @@ class ProfileFragment : Fragment() {
         }
 
         viewModel.profileResult.observe(viewLifecycleOwner) { result ->
-            when(result){
+            when (result) {
                 is ResourcesResult.Loading -> {
                     Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_LONG).show()
                 }
+
                 is ResourcesResult.Success -> {
                     viewModel.saveUserName(binding.txtUsername.text.toString())
                     Toast.makeText(requireContext(), "Berhasil Upload!", Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.prelogin_to_main)
                 }
+
                 is ResourcesResult.Failure -> {
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_LONG).show()
                 }

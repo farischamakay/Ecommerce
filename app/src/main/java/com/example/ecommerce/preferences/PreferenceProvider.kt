@@ -12,20 +12,20 @@ class PreferenceProvider @Inject constructor(private val sharedPreferences: Shar
         editor.apply()
     }
 
-    fun saveAccess(accessKey : String, refreshKey : String){
+    fun saveAccess(accessKey: String, refreshKey: String) {
         val editor = sharedPreferences.edit()
         editor.putString("api_access_key", accessKey)
         editor.putString("api_refresh_key", refreshKey)
         editor.apply()
     }
 
-    fun saveUsername(username : String){
+    fun saveUsername(username: String) {
         val editor = sharedPreferences.edit()
         editor.putString("userName", username)
         editor.apply()
     }
 
-    fun deleteTokenAccess(){
+    fun deleteTokenAccess() {
         val editor = sharedPreferences.edit()
         editor.remove("api_access_key")
         editor.remove("api_refresh_key")
@@ -36,10 +36,11 @@ class PreferenceProvider @Inject constructor(private val sharedPreferences: Shar
         return sharedPreferences.getString("api_access_key", null)
     }
 
-    fun getRefreshKey() : String? {
+    fun getRefreshKey(): String? {
         return sharedPreferences.getString("api_refresh_key", null)
     }
-    fun getUsername() : String? {
+
+    fun getUsername(): String? {
         return sharedPreferences.getString("userName", null)
     }
 

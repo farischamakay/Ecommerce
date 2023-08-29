@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val sharedPreferenceManager : PreferenceProvider
+    private val sharedPreferenceManager: PreferenceProvider
 ) : ViewModel() {
-    fun getUserNameLogin() : String? {
+    fun getUserNameLogin(): String? {
         return sharedPreferenceManager.getUsername()
     }
 }

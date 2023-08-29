@@ -16,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val sharedUserPreferenceManager : PreferenceProvider) : ViewModel() {
+    private val sharedUserPreferenceManager: PreferenceProvider
+) : ViewModel() {
 
 
     private val _loginResult = MutableLiveData<ResourcesResult<LoginResponse>>()
@@ -30,11 +31,11 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun saveToken(accessKey : String, refreshKey : String){
+    fun saveToken(accessKey: String, refreshKey: String) {
         return sharedUserPreferenceManager.saveAccess(accessKey, refreshKey)
     }
 
-    fun getUsername() : String? {
+    fun getUsername(): String? {
         return sharedUserPreferenceManager.getUsername()
     }
 }

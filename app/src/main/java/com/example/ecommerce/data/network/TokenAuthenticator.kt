@@ -17,28 +17,31 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 class TokenAuthenticator @Inject constructor(
-    private val sharedPreferenceManager : PreferenceProvider,
+    private val sharedPreferenceManager: PreferenceProvider,
     private val chuckerInterceptor: ChuckerInterceptor,
     private val userAuthInterceptor: UserAuthInterceptor
 ) : Authenticator {
-    override fun authenticate(route: Route?, response : Response) : Request? {
-        synchronized (this) {
+    override fun authenticate(route: Route?, response: Response): Request? {
+        synchronized(this) {
             val token = runBlocking {
                 sharedPreferenceManager.getRefreshKey()
             }
             return runBlocking {
                 try {
                     val newToken = getNewToken(token)
-                    if(!newToken.isSuccessful || newToken.body() == null ){
+                    if (!newToken.isSuccessful || newToken.body() == null) {
                         sharedPreferenceManager.deleteTokenAccess()
                     }
                     newToken.body()?.let {
-                        sharedPreferenceManager.saveAccess(it.data?.accessToken.toString(), it.data?.refreshToken.toString() )
+                        sharedPreferenceManager.saveAccess(
+                            it.data?.accessToken.toString(),
+                            it.data?.refreshToken.toString()
+                        )
                         response.request.newBuilder()
                             .header("Authorization", "Bearer ${it.data?.accessToken}")
                             .build()
                     }
-                } catch (error : HttpException){
+                } catch (error: HttpException) {
                     if (error.code() == 401) {
                         println("EXPIRED TOKEN")
                         null
@@ -50,7 +53,7 @@ class TokenAuthenticator @Inject constructor(
         }
     }
 
-    private suspend fun getNewToken(refreshToken : String?): retrofit2.Response<RefreshResponse> {
+    private suspend fun getNewToken(refreshToken: String?): retrofit2.Response<RefreshResponse> {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(chuckerInterceptor)
             .addInterceptor(userAuthInterceptor)

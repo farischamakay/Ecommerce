@@ -25,19 +25,23 @@ import javax.inject.Singleton
 object UserModule {
     @Provides
     @Singleton
-    fun provideSharedPreference(@ApplicationContext context: Context) : SharedPreferences {
+    fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences("shared_pref", Context.MODE_PRIVATE)
     }
 
     @Provides
     @Singleton
-    fun provideTokenAuthenticator(sharedPreferences: PreferenceProvider, chuckerInterceptor: ChuckerInterceptor,userAuthInterceptor: UserAuthInterceptor) : TokenAuthenticator {
-        return TokenAuthenticator(sharedPreferences,chuckerInterceptor,userAuthInterceptor)
+    fun provideTokenAuthenticator(
+        sharedPreferences: PreferenceProvider,
+        chuckerInterceptor: ChuckerInterceptor,
+        userAuthInterceptor: UserAuthInterceptor
+    ): TokenAuthenticator {
+        return TokenAuthenticator(sharedPreferences, chuckerInterceptor, userAuthInterceptor)
     }
 
     @Provides
     @Singleton
-    fun provideChucker(@ApplicationContext context: Context) : ChuckerInterceptor {
+    fun provideChucker(@ApplicationContext context: Context): ChuckerInterceptor {
         return ChuckerInterceptor.Builder(context)
             .collector(ChuckerCollector(context))
             .build()

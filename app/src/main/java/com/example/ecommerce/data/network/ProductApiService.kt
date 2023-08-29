@@ -9,18 +9,18 @@ import retrofit2.http.Query
 interface ProductApiService {
     @POST("products")
     suspend fun products(
-        @Query("search") search : String?,
-        @Query("brand") brand : String?,
-        @Query("lowest") lowest : Int?,
-        @Query("highest") highest : Int?,
-        @Query("sort") sort : String?,
-        @Query("limit") limit : Int?,
-        @Query("page") page : Int?
-    ) : ProductResponse
+        @Query("search") search: String?,
+        @Query("brand") brand: String?,
+        @Query("lowest") lowest: Int?,
+        @Query("highest") highest: Int?,
+        @Query("sort") sort: String?,
+        @Query("limit") limit: Int?,
+        @Query("page") page: Int?
+    ): ProductResponse
 
     @POST("search")
     suspend fun search(
-        @Query("query") query  : String?
-    ) : Response<SearchResponse<List<String>>>
+        @Query("query") query: String?
+    ): Response<SearchResponse<List<String>>>
 
 }

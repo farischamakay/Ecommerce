@@ -3,13 +3,12 @@ package com.example.ecommerce.main.store
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.SearchAdapter
@@ -20,16 +19,20 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SearchFragment : DialogFragment() {
 
-    private var _binding : FragmentSearchBinding ?= null
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel : StoreViewModel by viewModels()
+    private val viewModel: StoreViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
+
+        viewModel.param.value?.apply {
+            binding.searchInputText.setText(search)
+        }
         return binding.root
     }
 
@@ -38,11 +41,15 @@ class SearchFragment : DialogFragment() {
 
         binding.rvListSearch.layoutManager = LinearLayoutManager(requireContext())
 
-        val adapter = SearchAdapter(emptyList()) { _ ->
+        val adapter = SearchAdapter(emptyList()) { itemId ->
+            val bundle = Bundle().apply {
+                putString("query", itemId)
+            }
+            requireActivity().supportFragmentManager.setFragmentResult("dataKey", bundle)
             dismiss()
         }
-        binding.rvListSearch.adapter = adapter
 
+        binding.rvListSearch.adapter = adapter
 
         binding.searchInputText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -59,7 +66,9 @@ class SearchFragment : DialogFragment() {
         })
 
         binding.searchInputText.setOnEditorActionListener { _, actionId, _ ->
-            if(actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
+            if (actionId == EditorInfo.IME_ACTION_DONE ||
+                actionId == EditorInfo.IME_ACTION_NEXT
+            ) {
                 val query = binding.searchInputText.text.toString()
                 val bundle = Bundle().apply {
                     putString("query", query)
@@ -73,19 +82,21 @@ class SearchFragment : DialogFragment() {
         }
 
 
-        viewModel.searchResult.observe(viewLifecycleOwner){ results ->
-            when(results) {
+        viewModel.searchResult.observe(viewLifecycleOwner) { results ->
+            when (results) {
                 is ResourcesResult.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
+
                 is ResourcesResult.Failure -> {
                     binding.progressBar.visibility = View.GONE
 
                 }
+
                 is ResourcesResult.Success -> {
                     binding.progressBar.visibility = View.GONE
                     val response = results.data
-                    if(response != null) {
+                    if (response != null) {
                         adapter.updateData(response.data)
                     }
                 }

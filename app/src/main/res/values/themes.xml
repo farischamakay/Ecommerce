@@ -32,6 +32,11 @@
         <item name="fontFamily">@font/poppins</item>
     </style>
 
+    <style name="Chip" parent="Base.Theme.Ecommerce">
+        <item name="fontFamily">@font/poppins</item>
+
+    </style>
+
     <style name="TextAppearance.Design.Hint." parent="">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>

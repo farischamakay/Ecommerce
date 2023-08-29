@@ -7,12 +7,13 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class OnboardingViewModel @Inject constructor(private val sharedPreferenceManager: PreferenceProvider) : ViewModel() {
+class OnboardingViewModel @Inject constructor(private val sharedPreferenceManager: PreferenceProvider) :
+    ViewModel() {
     fun markOnboardingCompleted() {
         sharedPreferenceManager.saveOnBoardingStatus()
     }
 
-    fun isOnboardingCompleted() : Boolean {
+    fun isOnboardingCompleted(): Boolean {
         return sharedPreferenceManager.isOnBoardingCompleted()
     }
 }

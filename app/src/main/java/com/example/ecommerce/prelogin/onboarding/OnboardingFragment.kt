@@ -18,7 +18,6 @@ import com.example.ecommerce.R
 import com.example.ecommerce.adapter.OnBoardingAdapter
 import com.example.ecommerce.adapter.OnBoardingItem
 import com.example.ecommerce.databinding.FragmentOnboardingBinding
-import com.example.ecommerce.preferences.PreferenceProvider
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

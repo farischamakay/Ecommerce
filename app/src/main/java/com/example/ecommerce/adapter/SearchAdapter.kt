@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecommerce.databinding.ItemListSearchBinding
 
-class SearchAdapter(private var results : List<String?>, private val onItemClick: (String) -> Unit) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class SearchAdapter(private var results: List<String?>, private val onItemClick: (String) -> Unit) :
+    RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemListSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemListSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -26,13 +28,13 @@ class SearchAdapter(private var results : List<String?>, private val onItemClick
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(var binding : ItemListSearchBinding) :
-            RecyclerView.ViewHolder(binding.root) {
-                fun bind(item : String){
-                    binding.searchResult.text = item
-                    binding.imgNext.setOnClickListener {
-                        onItemClick(item)
-                    }
-                }
+    inner class ViewHolder(var binding: ItemListSearchBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: String) {
+            binding.searchResult.text = item
+            binding.imgNext.setOnClickListener {
+                onItemClick(item)
             }
+        }
+    }
 }

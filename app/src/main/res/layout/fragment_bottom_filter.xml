@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="30dp">
+    tools:context=".main.store.BottomFilterFragment">
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
         android:id="@+id/handler_drag"
@@ -60,24 +61,28 @@
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/ulasan"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/store_ulasan" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/penjualan"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/store_penjualan" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/harga_terendah"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/store_harga_terendah" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/harga_tertinggi"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,24 +113,28 @@
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/apple"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/store_apple" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/asus"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/store_asus" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/dell"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/store_dell" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/lenovo"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -202,5 +211,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_input_harga" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

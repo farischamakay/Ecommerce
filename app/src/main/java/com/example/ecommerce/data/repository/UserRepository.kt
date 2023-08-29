@@ -48,12 +48,15 @@ class UserRepository @Inject constructor(private val userApiService: UserApiServ
         }
     }
 
-    suspend fun profileUser(profileRequest: ProfileRequest) : ResourcesResult<ProfileResponse> {
+    suspend fun profileUser(profileRequest: ProfileRequest): ResourcesResult<ProfileResponse> {
         return try {
-            val response = userApiService.updateProfile(userName = profileRequest.userName, userImage = profileRequest.userImage)
-            if(response.isSuccessful){
+            val response = userApiService.updateProfile(
+                userName = profileRequest.userName,
+                userImage = profileRequest.userImage
+            )
+            if (response.isSuccessful) {
                 val data = response.body()
-                if(data != null) {
+                if (data != null) {
                     ResourcesResult.Success(data)
                 } else {
                     ResourcesResult.Failure("Response Body is null")
@@ -61,7 +64,7 @@ class UserRepository @Inject constructor(private val userApiService: UserApiServ
             } else {
                 ResourcesResult.Failure("Error response: ${response.code()} -> ${response.message()}")
             }
-        } catch (e : Exception){
+        } catch (e: Exception) {
             ResourcesResult.Failure("Exception : ${e.message}")
         }
     }

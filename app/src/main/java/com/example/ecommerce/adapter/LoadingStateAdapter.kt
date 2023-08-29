@@ -8,12 +8,12 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecommerce.databinding.ItemLoadingFooterBinding
 
-class LoadingStateAdapter(private val retry : () -> Unit) :
+class LoadingStateAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<LoadingStateAdapter.LoadStateViewHolder>() {
 
-    class LoadStateViewHolder(private val binding : ItemLoadingFooterBinding, retry: () -> Unit) :
-            RecyclerView.ViewHolder(binding.root){
-        fun bind(loadState: LoadState){
+    class LoadStateViewHolder(private val binding: ItemLoadingFooterBinding, retry: () -> Unit) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(loadState: LoadState) {
 
             binding.progressBar.isVisible = loadState is LoadState.Loading
 
@@ -31,7 +31,8 @@ class LoadingStateAdapter(private val retry : () -> Unit) :
         parent: ViewGroup,
         loadState: LoadState
     ): LoadStateViewHolder {
-        val binding = ItemLoadingFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemLoadingFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LoadStateViewHolder(binding, retry)
     }
 }

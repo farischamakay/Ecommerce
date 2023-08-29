@@ -1,12 +1,10 @@
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:elevation="4dp"
-    app:cardElevation="6dp"
     android:layout_margin="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:elevation="4dp"
+    app:cardElevation="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,17 +15,17 @@
             android:id="@+id/cardView_thumbnail"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:cardCornerRadius="10dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/img_thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/img_thumbnail_produk"
-                android:contentDescription="@string/nodesc" />
+                android:contentDescription="@string/nodesc"
+                android:src="@drawable/img_thumbnail_produk" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -40,18 +38,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cardView_thumbnail"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_default="wrap"
-            />
+            app:layout_constraintWidth_default="wrap" />
 
         <TextView
             android:id="@+id/txt_harga_produk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
             android:text="@string/harga_product"
             android:textStyle="bold"
-            android:layout_marginStart="15dp"
             app:layout_constraintStart_toEndOf="@id/cardView_thumbnail"
-            app:layout_constraintTop_toBottomOf="@id/txt_title_product"/>
+            app:layout_constraintTop_toBottomOf="@id/txt_title_product" />
 
         <ImageView
             android:id="@+id/img_pemilik_store"
@@ -67,12 +64,11 @@
             android:id="@+id/txt_pemilik_store"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="@string/text_pemilik_toko"
             android:textSize="11sp"
-            android:layout_marginStart="10dp"
             app:layout_constraintStart_toEndOf="@id/img_pemilik_store"
-            app:layout_constraintTop_toBottomOf="@id/txt_harga_produk"
-            />
+            app:layout_constraintTop_toBottomOf="@id/txt_harga_produk" />
 
         <ImageView
             android:id="@+id/icon_star"
@@ -88,23 +84,21 @@
             android:id="@+id/txt_rating_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rating_float"
             android:layout_marginStart="10dp"
+            android:text="@string/rating_float"
             android:textSize="11sp"
             app:layout_constraintStart_toEndOf="@id/icon_star"
-            app:layout_constraintTop_toBottomOf="@id/txt_pemilik_store"
-            />
+            app:layout_constraintTop_toBottomOf="@id/txt_pemilik_store" />
 
         <TextView
             android:id="@+id/txt_jumlah_terjual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/store_ket_terjual"
             android:layout_marginStart="10dp"
+            android:text="@string/store_ket_terjual"
             android:textSize="11sp"
             app:layout_constraintStart_toEndOf="@id/txt_rating_product"
-            app:layout_constraintTop_toBottomOf="@id/txt_pemilik_store"
-            />
+            app:layout_constraintTop_toBottomOf="@id/txt_pemilik_store" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

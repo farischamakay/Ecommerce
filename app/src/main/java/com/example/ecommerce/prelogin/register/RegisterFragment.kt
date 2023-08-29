@@ -53,7 +53,7 @@ class RegisterFragment : Fragment() {
         }
 
         viewModel.registerResult.observe(viewLifecycleOwner) { result ->
-            when(result){
+            when (result) {
                 is ResourcesResult.Success -> {
                     binding.progressbar.visibility = View.INVISIBLE
                     binding.btnToProfile.visibility = View.VISIBLE
@@ -61,19 +61,23 @@ class RegisterFragment : Fragment() {
                     val accessToken = result.data.data?.accessToken
                     val refreshToken = result.data.data?.refreshToken
 
-                    if (accessToken!=null && refreshToken != null) {
-                        viewModel.saveToken(accessToken,refreshToken)
+                    if (accessToken != null && refreshToken != null) {
+                        viewModel.saveToken(accessToken, refreshToken)
                     }
 
-                    Toast.makeText(requireContext(), "Berhasil membuat akun",
-                        Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(), "Berhasil membuat akun",
+                        Toast.LENGTH_LONG
+                    ).show()
                     findNavController().navigate(R.id.action_registerFragment_to_profileFragment2)
 
                 }
+
                 is ResourcesResult.Loading -> {
                     binding.btnToProfile.visibility = View.INVISIBLE
                     binding.progressbar.visibility = View.VISIBLE
                 }
+
                 is ResourcesResult.Failure -> {
                     binding.progressbar.visibility = View.INVISIBLE
                     binding.btnToProfile.visibility = View.VISIBLE
@@ -92,7 +96,9 @@ class RegisterFragment : Fragment() {
         val btnRegister = binding.btnToProfile
 
         elr.editText?.doOnTextChanged { inputEmail, _, _, _ ->
-            if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail ?: "").matches() && !inputEmail.isNullOrEmpty()) {
+            if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail ?: "")
+                    .matches() && !inputEmail.isNullOrEmpty()
+            ) {
                 elr.error = "Email tidak valid"
                 btnRegister.isEnabled = false
             } else {
@@ -102,7 +108,7 @@ class RegisterFragment : Fragment() {
         }
 
         plr.editText?.doOnTextChanged { inputPassword, _, _, _ ->
-            if ((inputPassword?.length  ?: 0) < 8 && !inputPassword.isNullOrEmpty()) {
+            if ((inputPassword?.length ?: 0) < 8 && !inputPassword.isNullOrEmpty()) {
                 plr.error = "Password tidak valid"
                 btnRegister.isEnabled = false
             } else {
