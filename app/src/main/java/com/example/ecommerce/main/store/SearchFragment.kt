@@ -1,18 +1,19 @@
 package com.example.ecommerce.main.store
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.SearchAdapter
 import com.example.ecommerce.databinding.FragmentSearchBinding
+import com.example.ecommerce.utils.Helpers.showSoftKeyboard
 import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,6 +24,7 @@ class SearchFragment : DialogFragment() {
     private val binding get() = _binding!!
 
     private val viewModel: StoreViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +41,8 @@ class SearchFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showSoftKeyboard(requireContext(), binding.searchInputText)
+
         binding.rvListSearch.layoutManager = LinearLayoutManager(requireContext())
 
         val adapter = SearchAdapter(emptyList()) { itemId ->
@@ -51,23 +55,12 @@ class SearchFragment : DialogFragment() {
 
         binding.rvListSearch.adapter = adapter
 
-        binding.searchInputText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                s?.let { viewModel.searchItem(it.toString()) }
-            }
-        })
+        binding.searchInputText.doAfterTextChanged { e ->
+            e?.let { viewModel.searchItem(it.toString()) }
+        }
 
         binding.searchInputText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE ||
-                actionId == EditorInfo.IME_ACTION_NEXT
+            if (actionId == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_SEARCH
             ) {
                 val query = binding.searchInputText.text.toString()
                 val bundle = Bundle().apply {

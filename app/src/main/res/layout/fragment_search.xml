@@ -23,8 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="auto"
+            android:cursorVisible="true"
             android:focusableInTouchMode="true"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionSearch"
             android:inputType="text|textNoSuggestions"
             android:maxLines="1" />
 

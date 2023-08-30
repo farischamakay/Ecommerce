@@ -54,6 +54,17 @@ class StoreFragment : Fragment() {
             }
         )
 
+        gridManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (position == productAdapter.itemCount && productAdapter.isGrid) {
+                    2
+                } else {
+                    1
+                }
+            }
+        }
+
+
         binding.btnChangeGrid.setOnCheckedChangeListener { _, isChecked ->
             productAdapter.isGrid = isChecked
             if (isChecked) {
@@ -89,16 +100,19 @@ class StoreFragment : Fragment() {
                 createChips(it)
                 sort = it
             }
+
             bundle.getString("category")?.let {
                 createChips(it)
                 category = it
             }
+
             bundle.getString("lowest").let {
                 (it?.toIntOrNull())?.let { low ->
                     createChips("> $low")
                 }
                 lowest = it
             }
+
             bundle.getString("highest").let {
                 (it?.toIntOrNull())?.let { high ->
                     createChips("< $high")
@@ -110,7 +124,6 @@ class StoreFragment : Fragment() {
                 sort = sort, brand = category, lowest = lowest?.toIntOrNull(),
                 highest = highest?.toIntOrNull()
             )
-
         }
 
         binding.topAppBar.title = viewModel.getUsername()
@@ -148,7 +161,7 @@ class StoreFragment : Fragment() {
                             if (error.code() == 404) {
                                 binding.layoutError.apply {
                                     imgErrorConnection
-                                    txtErrorCode.text = "Empty List"
+                                    txtErrorCode.text = "Empty"
                                     txtMsgError
                                     btnReset
                                 }
@@ -160,17 +173,19 @@ class StoreFragment : Fragment() {
                                         brand = null, lowest = null, highest = null, sort = null
                                     )
                                     binding.fieldSearchProduct.hint = "Search"
-
                                 }
-
                             }
 
                             if (error.code() == 500) {
                                 binding.layoutError.apply {
                                     imgErrorConnection
-                                    txtErrorCode
+                                    txtErrorCode.text = "500"
                                     txtMsgError.text = "Internal Server Error"
                                     btnReset.text = "Refresh"
+                                }
+
+                                binding.layoutError.btnReset.setOnClickListener {
+                                    productAdapter.refresh()
                                 }
                             }
                         }
@@ -179,18 +194,22 @@ class StoreFragment : Fragment() {
                             binding.layoutError.apply {
                                 imgErrorConnection
                                 txtErrorCode.text = "Connection"
-                                txtMsgError.text = ""
+                                txtMsgError.text = "Your connection is unavailable"
                                 btnReset.text = "Refresh"
+                            }
+
+                            binding.layoutError.btnReset.setOnClickListener {
+                                productAdapter.refresh()
                             }
                         }
                     }
-
                 }
 
                 binding.chipFilter.isVisible = isSuccess
                 binding.btnChangeGrid.isVisible = isSuccess
                 binding.rvProductList.isVisible = isSuccess
-                binding.shimmerLayoutStore.visibility = if (isLoading) View.VISIBLE else View.GONE
+                binding.shimmerLayoutStore.isVisible = isLoading && !productAdapter.isGrid
+                binding.shimmerLayoutGrid.isVisible = isLoading && productAdapter.isGrid
             }
         }
     }

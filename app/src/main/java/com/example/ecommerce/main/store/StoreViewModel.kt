@@ -12,6 +12,8 @@ import com.example.ecommerce.data.repository.ProductRepository
 import com.example.ecommerce.preferences.PreferenceProvider
 import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,6 +28,8 @@ class StoreViewModel @Inject constructor(
 
     private val _searchResult = MutableLiveData<ResourcesResult<SearchResponse<List<String>>?>>()
     val searchResult: LiveData<ResourcesResult<SearchResponse<List<String>>?>> = _searchResult
+
+    private var job: Job? = null
 
     init {
         setQuery()
@@ -55,7 +59,9 @@ class StoreViewModel @Inject constructor(
 
 
     fun searchItem(query: String) {
-        viewModelScope.launch {
+        job?.cancel()
+        job = viewModelScope.launch {
+            delay(800L)
             _searchResult.value = ResourcesResult.Loading
             val result = productRepository.searchProduct(query)
             _searchResult.value = result
