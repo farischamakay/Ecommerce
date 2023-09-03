@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.ecommerce.databinding.FragmentBottomFilterBinding
+import com.example.ecommerce.utils.Helpers.setSelectedChip
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 
 class BottomFilterFragment : BottomSheetDialogFragment() {
 
@@ -86,13 +86,5 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
 
     }
 
-    private fun ChipGroup.setSelectedChip(chipText: String) {
-        for (i in 0 until childCount) {
-            val chip = getChildAt(i) as? Chip
-            if (chip?.text == chipText) {
-                chip.isChecked = true
-                return
-            }
-        }
-    }
+
 }

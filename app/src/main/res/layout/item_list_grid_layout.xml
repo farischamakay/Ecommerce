@@ -1,91 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/shape_card_stroke"
     android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/img_product"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="186dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_thumbnail_produk"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txt_title_product"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/title_product"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_product"
-        app:layout_constraintWidth_default="wrap" />
+        <ImageView
+            android:id="@+id/img_product"
+            android:layout_width="match_parent"
+            android:layout_height="186dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_thumbnail_produk"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txt_harga_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/harga_product"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_title_product" />
+        <TextView
+            android:id="@+id/txt_title_product"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/title_product"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_product"
+            app:layout_constraintWidth_default="wrap" />
 
-    <ImageView
-        android:id="@+id/img_product_brand"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/ic_home_profile"
-        app:layout_constraintBottom_toTopOf="@+id/img_rating"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_harga_product" />
+        <TextView
+            android:id="@+id/txt_harga_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/harga_product"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_title_product" />
 
-    <TextView
-        android:id="@+id/txt_product_brand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:text="@string/text_pemilik_toko"
-        android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@id/img_product_brand"
-        app:layout_constraintTop_toBottomOf="@id/txt_harga_product" />
+        <ImageView
+            android:id="@+id/img_product_brand"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_home_profile"
+            app:layout_constraintBottom_toTopOf="@+id/img_rating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_harga_product" />
 
-    <ImageView
-        android:id="@+id/img_rating"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/ic_star_product"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_product_brand" />
+        <TextView
+            android:id="@+id/txt_product_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/text_pemilik_toko"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_product_brand"
+            app:layout_constraintTop_toBottomOf="@id/txt_harga_product" />
 
-    <TextView
-        android:id="@+id/txt_rating_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:text="@string/rating_float"
-        android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@id/img_rating"
-        app:layout_constraintTop_toBottomOf="@id/txt_product_brand" />
+        <ImageView
+            android:id="@+id/img_rating"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_star_product"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_product_brand" />
 
-    <TextView
-        android:id="@+id/txt_product_terjual"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:text="| Terjual 10"
-        android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@id/txt_rating_product"
-        app:layout_constraintTop_toBottomOf="@id/txt_product_brand" />
+        <TextView
+            android:id="@+id/txt_rating_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/rating_float"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_rating"
+            app:layout_constraintTop_toBottomOf="@id/txt_product_brand" />
 
+        <TextView
+            android:id="@+id/txt_product_terjual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="| Terjual 10"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/txt_rating_product"
+            app:layout_constraintTop_toBottomOf="@id/txt_product_brand" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

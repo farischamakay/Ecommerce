@@ -12,4 +12,8 @@ class HomeViewModel @Inject constructor(
     fun getUserNameLogin(): String? {
         return sharedPreferenceManager.getUsername()
     }
+
+    fun deleteToken() {
+        return sharedPreferenceManager.deleteTokenAccess()
+    }
 }

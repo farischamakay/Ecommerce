@@ -31,6 +31,7 @@ class HomeFragment : Fragment() {
         binding.topAppBar.title = viewModel.getUserNameLogin()
 
         binding.btnLogout.setOnClickListener {
+            viewModel.deleteToken()
             (requireActivity() as MainActivity).logOut()
         }
     }

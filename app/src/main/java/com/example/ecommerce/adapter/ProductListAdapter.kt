@@ -4,17 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerce.data.models.response.ItemsItem
 import com.example.ecommerce.databinding.ItemListGridLayoutBinding
 import com.example.ecommerce.databinding.ItemListProdukBinding
 
-class ProductListAdapter : PagingDataAdapter<ItemsItem, ViewHolder>(DIFF_CALLBACK) {
+class ProductListAdapter(private val onProductClick: (ItemsItem?) -> Unit) :
+    PagingDataAdapter<ItemsItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     var isGrid: Boolean = false
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = getItem(position)
         if (data != null) {
             when (holder) {
@@ -37,35 +38,57 @@ class ProductListAdapter : PagingDataAdapter<ItemsItem, ViewHolder>(DIFF_CALLBAC
         }
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder {
-        when (viewType) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding = when (viewType) {
+            LIST_GRID -> ItemListGridLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+
+            LIST_VIEW -> ItemListProdukBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+
+            else -> throw IllegalArgumentException("Undefined view type")
+        }
+
+        return when (viewType) {
             LIST_GRID -> {
-                val binding = ItemListGridLayoutBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                return GridViewHolder(binding)
+                val gridViewHolder =
+                    GridViewHolder(binding as ItemListGridLayoutBinding, onProductClick)
+                gridViewHolder.itemView.setOnClickListener {
+                    val position = gridViewHolder.bindingAdapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+//                        onProductClick(getItem(position))
+                    }
+                }
+                gridViewHolder
             }
 
             LIST_VIEW -> {
-                val binding = ItemListProdukBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                return ListViewHolder(binding)
+                val listViewHolder =
+                    ListViewHolder(binding as ItemListProdukBinding, onProductClick)
+                listViewHolder.itemView.setOnClickListener {
+                    val position = listViewHolder.bindingAdapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+//                        onProductClick(getItem(position))
+                    }
+                }
+                listViewHolder
             }
 
-            else -> throw throw IllegalArgumentException("Undefined view type")
+            else -> throw IllegalArgumentException("Undefined view type")
         }
     }
 
-    class ListViewHolder(private val binding: ItemListProdukBinding) :
-        ViewHolder(binding.root) {
+    class ListViewHolder(
+        private val binding: ItemListProdukBinding,
+        val onProductClick: (ItemsItem?) -> Unit
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ItemsItem) {
             Glide.with(binding.root).load(data.image).into(binding.imgThumbnail)
             binding.txtTitleProduct.text = data.productName
@@ -73,11 +96,18 @@ class ProductListAdapter : PagingDataAdapter<ItemsItem, ViewHolder>(DIFF_CALLBAC
             binding.txtPemilikStore.text = data.brand
             binding.txtRatingProduct.text = data.productRating.toString()
             binding.txtJumlahTerjual.text = "Terjual ${data.sale}"
+
+            itemView.setOnClickListener {
+                onProductClick(data)
+            }
         }
     }
 
-    class GridViewHolder(private val binding: ItemListGridLayoutBinding) :
-        ViewHolder(binding.root) {
+    class GridViewHolder(
+        private val binding: ItemListGridLayoutBinding,
+        val onProductClick: (ItemsItem?) -> Unit
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
         fun gridBind(data: ItemsItem) {
             Glide.with(binding.root).load(data.image).into(binding.imgProduct)
             binding.txtTitleProduct.text = data.productName
@@ -85,6 +115,10 @@ class ProductListAdapter : PagingDataAdapter<ItemsItem, ViewHolder>(DIFF_CALLBAC
             binding.txtProductBrand.text = data.brand
             binding.txtRatingProduct.text = data.productRating.toString()
             binding.txtProductTerjual.text = "Terjual ${data.sale}"
+
+            itemView.setOnClickListener {
+                onProductClick(data)
+            }
         }
     }
 

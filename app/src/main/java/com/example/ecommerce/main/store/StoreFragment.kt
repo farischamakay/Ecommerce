@@ -1,16 +1,20 @@
 package com.example.ecommerce.main.store
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ecommerce.R
 import com.example.ecommerce.adapter.LoadingStateAdapter
 import com.example.ecommerce.adapter.ProductListAdapter
 import com.example.ecommerce.databinding.FragmentStoreBinding
@@ -31,7 +35,16 @@ class StoreFragment : Fragment() {
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
     private lateinit var productAdapter: ProductListAdapter
+
+
     private val viewModel: StoreViewModel by activityViewModels()
+
+    private val navHostFragment: NavHostFragment by lazy {
+        requireActivity().supportFragmentManager.findFragmentById(R.id.nhf_main) as NavHostFragment
+    }
+    private val navController by lazy {
+        navHostFragment.navController
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,12 +60,22 @@ class StoreFragment : Fragment() {
         val gridManager = GridLayoutManager(requireContext(), 1)
         binding.rvProductList.layoutManager = gridManager
 
-        productAdapter = ProductListAdapter()
+        productAdapter = ProductListAdapter{ itemId ->
+            val bundle = bundleOf( "id" to itemId?.productId)
+            Log.d("BundleId", itemId?.productId.toString())
+            navController.navigate(R.id.action_mainFragment_to_detailProductFragment, bundle)
+
+        }
         binding.rvProductList.adapter = productAdapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 productAdapter.retry()
             }
         )
+
+        binding.swipeLayout.setOnRefreshListener {
+            productAdapter.refresh()
+            binding.swipeLayout.isRefreshing = false
+        }
 
         gridManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -63,7 +86,6 @@ class StoreFragment : Fragment() {
                 }
             }
         }
-
 
         binding.btnChangeGrid.setOnCheckedChangeListener { _, isChecked ->
             productAdapter.isGrid = isChecked
@@ -185,7 +207,7 @@ class StoreFragment : Fragment() {
                                 }
 
                                 binding.layoutError.btnReset.setOnClickListener {
-                                    productAdapter.refresh()
+                                    productAdapter.retry()
                                 }
                             }
                         }
@@ -199,12 +221,11 @@ class StoreFragment : Fragment() {
                             }
 
                             binding.layoutError.btnReset.setOnClickListener {
-                                productAdapter.refresh()
+                                productAdapter.retry()
                             }
                         }
                     }
                 }
-
                 binding.chipFilter.isVisible = isSuccess
                 binding.btnChangeGrid.isVisible = isSuccess
                 binding.rvProductList.isVisible = isSuccess

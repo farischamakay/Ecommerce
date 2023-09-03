@@ -7,23 +7,23 @@
         layout="@layout/item_grid_linear_shimmer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_columnWeight="1"/>
+        android:layout_columnWeight="1" />
 
     <include
         layout="@layout/item_grid_linear_shimmer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_columnWeight="1"/>
+        android:layout_columnWeight="1" />
 
     <include
         layout="@layout/item_grid_linear_shimmer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_columnWeight="1"/>
+        android:layout_columnWeight="1" />
 
     <include
         layout="@layout/item_grid_linear_shimmer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_columnWeight="1"/>
+        android:layout_columnWeight="1" />
 </GridLayout>

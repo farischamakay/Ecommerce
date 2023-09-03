@@ -147,7 +147,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/field_search_product">
 
-        <include layout="@layout/item_grid_shimmer"/>
+        <include layout="@layout/item_grid_shimmer" />
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -214,29 +214,29 @@
         android:id="@+id/swipe_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/layout_filter"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/layout_filter">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_product_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:visibility="visible"
-            tools:listitem="@layout/item_list_produk"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_filter"/>
+            app:layout_constraintTop_toBottomOf="@id/layout_filter"
+            tools:listitem="@layout/item_list_produk" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rv_product_list"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:visibility="visible"-->
-<!--        tools:listitem="@layout/item_list_produk"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/layout_filter"/>-->
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/rv_product_list"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:visibility="visible"-->
+    <!--        tools:listitem="@layout/item_list_produk"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/layout_filter"/>-->
     <include
         android:id="@+id/layout_error"
         layout="@layout/item_content_error"

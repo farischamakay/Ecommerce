@@ -3,6 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    android:background="@drawable/shape_card_stroke"
     android:elevation="4dp"
     app:cardElevation="6dp">
 

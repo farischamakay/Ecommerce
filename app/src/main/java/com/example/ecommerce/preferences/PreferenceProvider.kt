@@ -29,6 +29,7 @@ class PreferenceProvider @Inject constructor(private val sharedPreferences: Shar
         val editor = sharedPreferences.edit()
         editor.remove("api_access_key")
         editor.remove("api_refresh_key")
+        editor.remove("userName")
         editor.apply()
     }
 

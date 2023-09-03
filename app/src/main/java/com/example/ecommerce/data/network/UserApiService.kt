@@ -14,7 +14,6 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 
 interface UserApiService {
-
     @POST("login")
     suspend fun login(
         @Body userRequest: UserRequest

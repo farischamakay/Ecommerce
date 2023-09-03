@@ -6,6 +6,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.example.ecommerce.data.models.response.ItemsItem
+import com.example.ecommerce.data.models.response.ProductDetailResponse
+import com.example.ecommerce.data.models.response.ReviewResponse
 import com.example.ecommerce.data.models.response.SearchResponse
 import com.example.ecommerce.data.network.ProductApiService
 import com.example.ecommerce.utils.ResourcesResult
@@ -42,6 +44,34 @@ class ProductRepository @Inject constructor(
                 ResourcesResult.Failure(response.message())
             }
         } catch (exception: Exception) {
+            ResourcesResult.Failure(exception.message)
+        }
+    }
+
+    suspend fun detailProduct(productId : String) : ResourcesResult<ProductDetailResponse?> {
+        return try {
+            val response = productApiService.details(productId)
+            if(response.isSuccessful){
+                val data = response.body()
+                ResourcesResult.Success(data)
+            } else {
+                ResourcesResult.Failure(response.message())
+            }
+        } catch (exception : Exception) {
+            ResourcesResult.Failure(exception.message)
+        }
+    }
+
+    suspend fun reviewProduct(productId: String) : ResourcesResult<ReviewResponse?> {
+        return try {
+            val response = productApiService.review(productId)
+            if (response.isSuccessful){
+                val data = response.body()
+                ResourcesResult.Success(data)
+            } else {
+                ResourcesResult.Failure(response.message())
+            }
+        } catch (exception : Exception){
             ResourcesResult.Failure(exception.message)
         }
     }

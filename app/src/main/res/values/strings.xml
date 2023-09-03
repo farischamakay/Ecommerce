@@ -51,6 +51,7 @@
     <string name="harga_product">Rp. %s</string>
     <string name="example_search">Lenovo Legion 7</string>
     <string name="txt_error">500</string>
+    <string name="label">label</string>
 
     <string-array name="options_select_picture_array">
         <item>Kamera</item>

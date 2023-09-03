@@ -1,5 +1,6 @@
 package com.example.ecommerce.main.store
 
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,8 @@ import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.ecommerce.data.models.request.ProductRequest
+import com.example.ecommerce.data.models.response.ProductDetailResponse
+import com.example.ecommerce.data.models.response.ReviewResponse
 import com.example.ecommerce.data.models.response.SearchResponse
 import com.example.ecommerce.data.repository.ProductRepository
 import com.example.ecommerce.preferences.PreferenceProvider
@@ -20,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StoreViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-    private val sharedPreferencesManager: PreferenceProvider
+    private val sharedPreferencesManager: PreferenceProvider,
 ) : ViewModel() {
 
     private val _param = MutableLiveData<ProductRequest>()
@@ -29,10 +32,17 @@ class StoreViewModel @Inject constructor(
     private val _searchResult = MutableLiveData<ResourcesResult<SearchResponse<List<String>>?>>()
     val searchResult: LiveData<ResourcesResult<SearchResponse<List<String>>?>> = _searchResult
 
+    private val _detailProduct = MutableLiveData<ResourcesResult<ProductDetailResponse?>>()
+    val detailProduct : LiveData<ResourcesResult<ProductDetailResponse?>> = _detailProduct
+
+    private val _reviewProduct = MutableLiveData<ResourcesResult<ReviewResponse?>>()
+    val reviewProduct : LiveData<ResourcesResult<ReviewResponse?>> = _reviewProduct
+
     private var job: Job? = null
 
     init {
         setQuery()
+
     }
 
     fun setQuery(
@@ -57,7 +67,6 @@ class StoreViewModel @Inject constructor(
         return sharedPreferencesManager.getUsername()
     }
 
-
     fun searchItem(query: String) {
         job?.cancel()
         job = viewModelScope.launch {
@@ -68,5 +77,20 @@ class StoreViewModel @Inject constructor(
         }
     }
 
+    fun detailItem(id: String){
+        viewModelScope.launch {
+            _detailProduct.value = ResourcesResult.Loading
+            val result = productRepository.detailProduct(id)
+            _detailProduct.value = result
+        }
+    }
+
+    fun reviewItem(id: String){
+        viewModelScope.launch {
+            _reviewProduct.value = ResourcesResult.Loading
+            val result = productRepository.reviewProduct(id)
+            _reviewProduct.value = result
+        }
+    }
 
 }
