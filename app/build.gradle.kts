@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-parcelize")
     id("kotlin-kapt")
 }
 
@@ -81,6 +82,11 @@ dependencies {
 
     //Paging3
     implementation("androidx.paging:paging-runtime-ktx:3.2.0")
+
+    //Room
+    implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
 
     //Swipe Refresh Layout
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")

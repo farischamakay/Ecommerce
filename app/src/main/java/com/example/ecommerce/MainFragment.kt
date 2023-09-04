@@ -35,7 +35,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        binding.nhfBotnav
         binding.bottomNavigation.setupWithNavController(navController)
         binding.bottomNavigation.setOnItemReselectedListener {
         }

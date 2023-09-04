@@ -7,11 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.example.ecommerce.data.database.Cart
 import com.example.ecommerce.data.models.request.ProductRequest
 import com.example.ecommerce.data.models.response.ProductDetailResponse
 import com.example.ecommerce.data.models.response.ReviewResponse
 import com.example.ecommerce.data.models.response.SearchResponse
 import com.example.ecommerce.data.repository.ProductRepository
+import com.example.ecommerce.data.repository.RoomCartRepository
 import com.example.ecommerce.preferences.PreferenceProvider
 import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +25,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StoreViewModel @Inject constructor(
     private val productRepository: ProductRepository,
+    private val roomCartRepository: RoomCartRepository,
     private val sharedPreferencesManager: PreferenceProvider,
 ) : ViewModel() {
 
@@ -92,5 +95,12 @@ class StoreViewModel @Inject constructor(
             _reviewProduct.value = result
         }
     }
+
+    fun insertToRoom(cart: Cart){
+        viewModelScope.launch {
+            roomCartRepository.insertCartData(cart)
+        }
+    }
+
 
 }

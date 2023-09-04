@@ -3,6 +3,8 @@ package com.example.ecommerce.main.store
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
@@ -12,6 +14,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerce.R
@@ -56,6 +59,20 @@ class StoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.topAppBar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.cart -> {
+                    navController.navigate(R.id.action_mainFragment_to_cartFragment)
+                    true
+                }
+                R.id.notification -> {
+                    navController.navigate(R.id.main_to_prelogin)
+                    true
+                }
+                else -> false
+            }
+        }
 
         val gridManager = GridLayoutManager(requireContext(), 1)
         binding.rvProductList.layoutManager = gridManager
@@ -158,9 +175,13 @@ class StoreFragment : Fragment() {
             }
         }
 
+
         getData()
 
     }
+
+
+
 
     private fun getData() {
         viewLifecycleOwner.lifecycleScope.launch {

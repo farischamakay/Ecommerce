@@ -48,15 +48,13 @@ class UserRepository @Inject constructor(private val userApiService: UserApiServ
         }
     }
 
-    suspend fun profileUser(profileRequest: ProfileRequest): ResourcesResult<ProfileResponse> {
+    suspend fun profileUser(profileRequest: ProfileRequest?): ResourcesResult<ProfileResponse> {
         return try {
-            val response = (profileRequest.userImage ?: null)?.let {
-                userApiService.updateProfile(
-                    userName = profileRequest.userName,
-                    userImage = it
-                )
-            }
-            if (response?.isSuccessful == true) {
+            val response = userApiService.updateProfile(
+                userName = profileRequest?.userName,
+                userImage = profileRequest?.userImage
+            )
+            if (response.isSuccessful) {
                 val data = response.body()
                 if (data != null) {
                     ResourcesResult.Success(data)

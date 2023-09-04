@@ -19,13 +19,13 @@ class ProfileViewModel @Inject constructor(
     private var sharedPreferencesManager: PreferenceProvider
 ) : ViewModel() {
 
-    private val _profileResult = MutableLiveData<ResourcesResult<ProfileResponse>>()
-    val profileResult: LiveData<ResourcesResult<ProfileResponse>> = _profileResult
+    private val _profileResult = MutableLiveData<ResourcesResult<ProfileResponse?>?>()
+    val profileResult: MutableLiveData<ResourcesResult<ProfileResponse?>?> = _profileResult
 
-    fun updateProfile(profileRequest: ProfileRequest) {
+    fun updateProfile(profileRequest: ProfileRequest?) {
         viewModelScope.launch {
             _profileResult.value = ResourcesResult.Loading
-            val result = userRepository.profileUser(profileRequest)
+            val result = profileRequest?.let { userRepository.profileUser(it) }
             _profileResult.value = result
         }
     }

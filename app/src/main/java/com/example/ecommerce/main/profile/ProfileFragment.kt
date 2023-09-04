@@ -143,15 +143,18 @@ class ProfileFragment : Fragment() {
             val imageFile =
                 File(mediaUri?.let { it1 -> uriToFile(requireContext(), it1)?.path } ?: "")
 
+            val requestImage = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+            val imagePart =
+                MultipartBody.Part.createFormData("userImage", imageFile.name, requestImage)
+            val userNamePart = MultipartBody.Part.createFormData("userName", username)
+
+
             if (imageFile.exists()) {
-                val requestImage = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-                val imagePart =
-                    MultipartBody.Part.createFormData("userImage", imageFile.name, requestImage)
-                val userNamePart = MultipartBody.Part.createFormData("userName", username)
-
-                val profileRequest = ProfileRequest(userImage = imagePart, userName = userNamePart)
-
-                viewModel.updateProfile(profileRequest)
+                viewModel.updateProfile(ProfileRequest(
+                    userImage = imagePart,
+                    userName = userNamePart))
+            } else {
+                viewModel.updateProfile(ProfileRequest(userImage = null, userName = userNamePart))
             }
 
         }
@@ -171,6 +174,8 @@ class ProfileFragment : Fragment() {
                 is ResourcesResult.Failure -> {
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_LONG).show()
                 }
+
+                else -> {}
             }
         }
     }

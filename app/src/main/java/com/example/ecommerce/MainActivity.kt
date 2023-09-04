@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
+
     fun logOut() {
         navController.navigate(R.id.main_to_prelogin)
     }

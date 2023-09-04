@@ -36,7 +36,7 @@
         android:layout_margin="10dp"
         android:text="Pilih Semua"
         android:textStyle="bold"
-        app:checkedState="checked"
+        app:checkedState="unchecked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
@@ -49,6 +49,7 @@
         android:text="Hapus semua"
         android:textAllCaps="false"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
@@ -59,9 +60,66 @@
         android:background="?colorOutlineVariant"
         app:layout_constraintTop_toBottomOf="@id/checkbox_parent" />
 
-    <ListView
+    <include layout="@layout/item_error_cart"
+        android:id="@+id/empty_state"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backline_checkbox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_cart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/backline_bayar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backline_checkbox"
+        tools:listitem="@layout/item_list_cart" />
+
+    <View
+        android:id="@+id/backline_bayar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?colorOutlineVariant"
+        app:layout_constraintTop_toBottomOf="@id/rv_cart" />
+
+    <TextView
+        android:id="@+id/txt_title_total_bayar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/backline_checkbox" />
+        android:text="Total Bayar"
+        android:textSize="12sp"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_cart" />
+
+    <TextView
+        android:id="@+id/txt_total_bayar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp. 200000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_title_total_bayar"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_bayar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Beli"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toBottomOf="@id/backline_bayar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

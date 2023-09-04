@@ -16,11 +16,12 @@ data class ProductDetailResponse(
 
 data class ProductVariantItem(
 
-	@field:SerializedName("variantPrice")
-	val variantPrice: Int? = null,
-
 	@field:SerializedName("variantName")
-	val variantName: String? = null
+	val variantName: String,
+
+	@field:SerializedName("variantPrice")
+	val variantPrice: Int
+
 )
 
 data class ProductDetailData(
@@ -50,7 +51,7 @@ data class ProductDetailData(
 	val sale: Int? = null,
 
 	@field:SerializedName("productVariant")
-	val productVariant: List<ProductVariantItem?>? = null,
+	val productVariant: List<ProductVariantItem>,
 
 	@field:SerializedName("stock")
 	val stock: Int? = null,
