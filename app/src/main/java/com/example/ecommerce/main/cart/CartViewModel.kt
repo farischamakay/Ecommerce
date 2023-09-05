@@ -29,6 +29,15 @@ class CartViewModel @Inject constructor(
         }
     }
 
+    fun updateQuantity(cartList: List<Pair<Cart, Int>>){
+        viewModelScope.launch {
+            val updates = cartList.map { (cartList, quantity) ->
+                cartList.copy(quantity = quantity)
+            }
+            roomCartRepository.updateValues(updates)
+        }
+    }
+
     fun deleteCheckedItems(){
         viewModelScope.launch {
             val checkedItems = getDataRoom.value?.filter { it.isCheck } ?: emptyList()

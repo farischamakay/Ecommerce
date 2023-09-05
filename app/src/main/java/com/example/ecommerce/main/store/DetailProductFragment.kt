@@ -1,11 +1,10 @@
 package com.example.ecommerce.main.store
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.ecommerce.adapter.ImageDetailAdapter
@@ -20,19 +19,19 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailProductFragment : Fragment() {
 
-    private var _binding : FragmentDetailProductBinding ?= null
+    private var _binding: FragmentDetailProductBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel : StoreViewModel by activityViewModels()
+    private val viewModel: StoreViewModel by activityViewModels()
 
-    private var priceSum : Int = 0
-    private var productVarianName : String ?= null
-    private lateinit var data : ProductDetailData
+    private var priceSum: Int = 0
+    private var productVarianName: String? = null
+    private lateinit var data: ProductDetailData
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDetailProductBinding.inflate(inflater, container,false)
+        _binding = FragmentDetailProductBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,10 +47,11 @@ class DetailProductFragment : Fragment() {
         viewModel.detailItem(productId)
 
         viewModel.detailProduct.observe(viewLifecycleOwner) { result ->
-            when(result){
+            when (result) {
                 is ResourcesResult.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
+
                 is ResourcesResult.Success -> {
                     data = result.data?.data!!
                     binding.apply {
@@ -63,7 +63,8 @@ class DetailProductFragment : Fragment() {
                         txtDeskripsiProduk.text = "${data?.description}"
                         txtTotalStar.text = "${data?.productRating}"
                         txtSatisfication.text = "${data?.totalSatisfaction} % pembeli merasa puas"
-                        txtUlasanRate.text = "${data?.totalRating} rating . ${data?.totalReview} Ulasan"
+                        txtUlasanRate.text =
+                            "${data?.totalRating} rating . ${data?.totalReview} Ulasan"
                     }
 
                     val adapter = data.image?.let { ImageDetailAdapter(it) }
@@ -81,7 +82,7 @@ class DetailProductFragment : Fragment() {
                         val price = data.productVariant[a].variantPrice
                         if (data.productPrice != null)
                             priceSum = data.productPrice!! + price
-                            binding.txtDetailHargaProduk.text = "Rp. ${priceSum}"
+                        binding.txtDetailHargaProduk.text = "Rp. ${priceSum}"
 
                     }
 
@@ -90,32 +91,60 @@ class DetailProductFragment : Fragment() {
 
                     binding.btnAllReviews.setOnClickListener {
                         findNavController().navigate(
-                            DetailProductFragmentDirections.actionDetailProductFragmentToReviewFragment(productId))
+                            DetailProductFragmentDirections.actionDetailProductFragmentToReviewFragment(
+                                productId
+                            )
+                        )
                     }
-
-
-
                 }
+
                 is ResourcesResult.Failure -> {
                     binding.progressBar.visibility = View.GONE
                     binding.layoutError.root.visibility = View.VISIBLE
                 }
+
                 else -> {}
             }
         }
 
-        binding.btnTambahKeranjang.setOnClickListener {
-            val dataNew = data.copy(
-                productPrice = priceSum,
-            )
-            viewModel.insertToRoom(convertToCart(dataNew))
-            Snackbar.make(view, "Product berhasil ditambahkan pada keranjang!",
-                Snackbar.LENGTH_LONG).show()
-        }
 
+        viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
+
+            binding.btnTambahKeranjang.setOnClickListener {
+
+                var cartData = response.find { it.productId == productId }
+
+                if(cartData == null){
+                    val dataNew = data.copy(productPrice = priceSum)
+                    viewModel.insertToRoom(convertToCart(dataNew))
+                    Snackbar.make(
+                        view, "Product berhasil ditambahkan pada keranjang!",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+
+                } else {
+                    var qtyCart = cartData.quantity
+
+                        if (qtyCart < (data.stock ?: 0)) {
+                            qtyCart += 1
+                            viewModel.updateQuantity(listOf(convertToCart(data) to qtyCart))
+
+                            Snackbar.make(
+                                view, "Product berhasil ditambahkan pada keranjang!",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        } else {
+                            Snackbar.make(
+                                view, "Stok tidak tersedia",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                }
+            }
+        }
     }
 
-    private fun convertToCart(detailData : ProductDetailData) : Cart {
+    private fun convertToCart(detailData: ProductDetailData): Cart {
         return Cart(
             detailData.productId ?: "",
             detailData.productName,
@@ -133,11 +162,11 @@ class DetailProductFragment : Fragment() {
         )
     }
 
-    private fun createChips(name: String?, varianId : Int) {
+    private fun createChips(name: String?, varianId: Int) {
         val chip = Chip(requireContext())
         chip.apply {
             text = name
-            id  = varianId
+            id = varianId
             isCheckable = true
             binding.apply {
                 if (name != null && name != "")

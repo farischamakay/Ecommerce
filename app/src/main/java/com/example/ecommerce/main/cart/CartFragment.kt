@@ -48,27 +48,43 @@ class CartFragment : Fragment() {
             override fun onItemClicked(cart: List<Pair<Cart, Boolean>>) {
                 viewModel.updateCheckable(cart)
             }
+
+            override fun counterClicked(cart: List<Pair<Cart, Int>>) {
+                viewModel.updateQuantity(cart)
+            }
         })
+
 
         viewModel.getDataRoom.observe(viewLifecycleOwner){ response ->
             if (response.isNullOrEmpty()){
+                binding.checkboxParent.isChecked = false
+                binding.rvCart.visibility = View.GONE
+                binding.bottomCart.visibility = View.GONE
                 binding.emptyState.root.visibility = View.VISIBLE
             } else{
                 binding.emptyState.root.visibility = View.GONE
                 val checkListCheckBox = response.any{ it.isCheck }
+                var totalPrice = 0
+                response.map {
+                    if (it.isCheck){
+                        totalPrice += it.productVariantPrice * it.quantity
+                    }
+                }
 
                 if (checkListCheckBox){
                     binding.btnDeleteList.visibility = View.VISIBLE
+                    binding.txtTotalBayar.text = totalPrice.toString()
                     binding.btnDeleteList.setOnClickListener {
                         viewModel.deleteCheckedItems()
                     }
                 } else {
+                    binding.txtTotalBayar.text = "Rp.0"
                     binding.btnDeleteList.visibility = View.GONE
                 }
 
                 cartAdapter.submitList(response)
-            }
 
+            }
         }
     }
 

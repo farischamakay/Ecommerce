@@ -19,5 +19,5 @@ data class Cart(
     val productVariant: String,
     val productVariantPrice: Int,
     val isCheck: Boolean = false,
-    val quantity: Int = 1,
+    var quantity: Int = 1,
 )

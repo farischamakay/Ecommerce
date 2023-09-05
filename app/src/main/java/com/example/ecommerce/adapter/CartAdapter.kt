@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerce.data.database.Cart
 import com.example.ecommerce.databinding.ItemListCartBinding
+import com.google.android.material.snackbar.Snackbar
 
 class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallback()){
 
@@ -25,11 +26,29 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
             binding.txtGigaByte.text = data.productVariant
             binding.txtJumlahSisa.text = "Sisa ${data.stock.toString()}"
             binding.txtHargaProduk.text = "Rp. ${data.productVariantPrice}"
-            binding.btnKurang.setOnClickListener {  }
+            binding.txtQuantity.text = data.quantity.toString()
+            binding.btnKurang.setOnClickListener {
+                var quantity = data.quantity
+                quantity -= 1
+                binding.txtQuantity.text = data.quantity.toString()
+                onItemClickCallback.counterClicked(listOf(data to quantity))
+            }
+            binding.btnTambahQty.setOnClickListener {
+                if (data.quantity < (data.stock ?: 0)){
+                    var quantity = data.quantity
+                    quantity += 1
+                    binding.txtQuantity.text = quantity.toString()
+                    onItemClickCallback.counterClicked(listOf(data to quantity))
+                } else {
+                    Snackbar.make(
+                        binding.root, "Stok tidak mencukupi!",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            }
             binding.btnCekbox.setOnClickListener {
                 val isChecked = !data.isCheck
                 onItemClickCallback.onItemClicked(listOf(data to isChecked))
-
             }
         }
     }
@@ -43,12 +62,14 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
         val cartItem = getItem(position)
         holder.bind(cartItem)
 
+        holder.binding.txtQuantity.text = cartItem.quantity.toString()
         holder.binding.btnCekbox.isChecked = cartItem.isCheck
 
     }
 
     interface OnItemClickCallback {
         fun onItemClicked(cart: List<Pair<Cart, Boolean>>)
+        fun counterClicked(cart: List<Pair<Cart, Int>>)
     }
 }
 
@@ -60,5 +81,4 @@ private class CartDiffCallback : DiffUtil.ItemCallback<Cart>(){
     override fun areContentsTheSame(oldItem: Cart, newItem: Cart): Boolean {
         return oldItem == newItem
     }
-
 }

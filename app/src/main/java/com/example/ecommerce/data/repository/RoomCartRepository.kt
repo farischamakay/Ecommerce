@@ -10,10 +10,6 @@ class RoomCartRepository @Inject constructor(private val cartDao: CartDao) {
 
     fun fetchCartData() = cartDao.getAll()
 
-//    suspend fun updateCheckable(vararg cart: Cart) = cartDao.updateIsCheck(false)
-
-//    suspend fun updateQuantity()
-
     suspend fun updateValues(cartList: List<Cart>) {
         cartDao.update(*cartList.toTypedArray())
     }

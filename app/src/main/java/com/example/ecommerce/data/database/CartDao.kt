@@ -16,12 +16,6 @@ interface CartDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCart(cart: Cart)
 
-    @Query("UPDATE cart set isCheck = :isNewCheck where productId = :productId ")
-    suspend fun updateIsCheck(isNewCheck : Boolean, productId : String)
-
-    @Query("UPDATE cart set quantity = :isNewQuantity where productId = :productId")
-    suspend fun updateQuantity(isNewQuantity: Int, productId: String)
-
     @Update
     suspend fun update(vararg cart: Cart)
 
