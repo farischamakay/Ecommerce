@@ -11,7 +11,7 @@ import androidx.room.Update
 @Dao
 interface CartDao {
     @Query("Select * from cart")
-    fun getAll() : LiveData<List<Cart>>
+    fun getAll(): LiveData<List<Cart>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCart(cart: Cart)

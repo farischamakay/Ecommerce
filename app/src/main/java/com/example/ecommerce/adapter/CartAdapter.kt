@@ -6,26 +6,31 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.ecommerce.R
 import com.example.ecommerce.data.database.Cart
 import com.example.ecommerce.databinding.ItemListCartBinding
 import com.google.android.material.snackbar.Snackbar
 
-class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallback()){
+class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallback()) {
 
-    private lateinit var onItemClickCallback : OnItemClickCallback
+    private lateinit var onItemClickCallback: OnItemClickCallback
 
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
 
-    inner class CartViewHolder(val binding : ItemListCartBinding) :
-        RecyclerView.ViewHolder(binding.root){
-        fun bind(data: Cart){
+    inner class CartViewHolder(val binding: ItemListCartBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: Cart) {
             Glide.with(binding.root).load(data.image).into(binding.imgThumbnail)
             binding.txtTitleProduct.text = data.productName
             binding.txtGigaByte.text = data.productVariant
-            binding.txtJumlahSisa.text = "Sisa ${data.stock.toString()}"
-            binding.txtHargaProduk.text = "Rp. ${data.productVariantPrice}"
+            binding.root.context.apply {
+                binding.txtJumlahSisa.text = getString(R.string.sisa, data.stock.toString())
+                binding.txtHargaProduk.text =
+                    getString(R.string.rp, data.productVariantPrice.toString())
+            }
+
             binding.txtQuantity.text = data.quantity.toString()
             binding.btnKurang.setOnClickListener {
                 var quantity = data.quantity
@@ -34,7 +39,7 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
                 onItemClickCallback.counterClicked(listOf(data to quantity))
             }
             binding.btnTambahQty.setOnClickListener {
-                if (data.quantity < (data.stock ?: 0)){
+                if (data.quantity < (data.stock ?: 0)) {
                     var quantity = data.quantity
                     quantity += 1
                     binding.txtQuantity.text = quantity.toString()
@@ -54,7 +59,8 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        val binding = ItemListCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemListCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CartViewHolder(binding)
     }
 
@@ -73,7 +79,7 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
     }
 }
 
-private class CartDiffCallback : DiffUtil.ItemCallback<Cart>(){
+private class CartDiffCallback : DiffUtil.ItemCallback<Cart>() {
     override fun areItemsTheSame(oldItem: Cart, newItem: Cart): Boolean {
         return oldItem == newItem
     }

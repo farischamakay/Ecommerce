@@ -40,15 +40,17 @@ class HomeFragment : Fragment() {
         binding.topAppBar.title = viewModel.getUserNameLogin()
 
         binding.topAppBar.setOnMenuItemClickListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.cart -> {
                     navController.navigate(R.id.action_mainFragment_to_cartFragment)
                     true
                 }
+
                 R.id.notification -> {
                     navController.navigate(R.id.main_to_prelogin)
                     true
                 }
+
                 else -> false
             }
         }

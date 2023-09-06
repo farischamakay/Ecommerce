@@ -6,20 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".main.store.DetailProductFragment">
 
-    <include layout="@layout/item_error_cart"
+    <include
         android:id="@+id/layout_error"
-        android:visibility="gone"/>
+        layout="@layout/item_error_cart"
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -324,12 +325,12 @@
 
         <Button
             android:id="@+id/btn_beli_langsung"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Beli Langsung"
-            style="@style/Widget.Material3.Button.OutlinedButton"
             android:backgroundTint="@color/white"
+            android:text="Beli Langsung"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_tambah_keranjang"
             app:layout_constraintStart_toStartOf="parent"

@@ -88,6 +88,7 @@
             android:layout_marginStart="10dp"
             android:text="@string/rating_float"
             android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/icon_star"
             app:layout_constraintTop_toBottomOf="@id/txt_pemilik_store" />
 
@@ -98,6 +99,7 @@
             android:layout_marginStart="10dp"
             android:text="@string/store_ket_terjual"
             android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/txt_rating_product"
             app:layout_constraintTop_toBottomOf="@id/txt_pemilik_store" />
 

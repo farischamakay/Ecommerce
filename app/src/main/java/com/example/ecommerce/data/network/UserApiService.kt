@@ -32,8 +32,8 @@ interface UserApiService {
     @Multipart
     @POST("/profile")
     suspend fun updateProfile(
-        @Part userName: MultipartBody.Part ?= null ,
-        @Part userImage: MultipartBody.Part ?= null
+        @Part userName: MultipartBody.Part? = null,
+        @Part userImage: MultipartBody.Part? = null
     ): Response<ProfileResponse?>
 
 }

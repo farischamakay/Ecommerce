@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private val navController by lazy {
         navHostFragment.navController
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)

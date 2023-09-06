@@ -29,12 +29,12 @@ interface ProductApiService {
 
     @GET("products/{id}")
     suspend fun details(
-        @Path("id") productId : String?
-    ) : Response<ProductDetailResponse>
+        @Path("id") productId: String?
+    ): Response<ProductDetailResponse>
 
     @GET("review/{id}")
     suspend fun review(
-        @Path("id") productId : String?
-    ) : Response<ReviewResponse>
+        @Path("id") productId: String?
+    ): Response<ReviewResponse>
 
 }

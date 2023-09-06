@@ -49,7 +49,8 @@
             android:layout_height="12dp"
             android:layout_marginStart="20dp"
             android:src="@drawable/ic_home_profile"
-            app:layout_constraintBottom_toTopOf="@+id/img_rating"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_product_brand"
+            app:layout_constraintEnd_toStartOf="@id/img_product_brand"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_harga_product" />
 
@@ -68,19 +69,21 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/ic_star_product"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_tambah_keranjang"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_product_brand" />
+            app:layout_constraintTop_toBottomOf="@id/img_product_brand" />
 
         <TextView
             android:id="@+id/txt_rating_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/rating_float"
             android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_tambah_keranjang"
             app:layout_constraintStart_toEndOf="@id/img_rating"
             app:layout_constraintTop_toBottomOf="@id/txt_product_brand" />
 
@@ -89,11 +92,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:layout_marginBottom="10dp"
             android:text="| Terjual 10"
             android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_tambah_keranjang"
             app:layout_constraintStart_toEndOf="@id/txt_rating_product"
             app:layout_constraintTop_toBottomOf="@id/txt_product_brand" />
+
+        <Button
+            android:id="@+id/btn_delete_item"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_delete_item"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_product_terjual" />
+
+        <Button
+            android:id="@+id/btn_tambah_keranjang"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text=" + Keranjang"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_delete_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

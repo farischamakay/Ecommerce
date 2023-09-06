@@ -3,8 +3,6 @@ package com.example.ecommerce.main.store
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
@@ -14,7 +12,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerce.R
@@ -61,15 +58,17 @@ class StoreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.topAppBar.setOnMenuItemClickListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.cart -> {
                     navController.navigate(R.id.action_mainFragment_to_cartFragment)
                     true
                 }
+
                 R.id.notification -> {
                     navController.navigate(R.id.main_to_prelogin)
                     true
                 }
+
                 else -> false
             }
         }
@@ -77,8 +76,8 @@ class StoreFragment : Fragment() {
         val gridManager = GridLayoutManager(requireContext(), 1)
         binding.rvProductList.layoutManager = gridManager
 
-        productAdapter = ProductListAdapter{ itemId ->
-            val bundle = bundleOf( "id" to itemId?.productId)
+        productAdapter = ProductListAdapter { itemId ->
+            val bundle = bundleOf("id" to itemId?.productId)
             Log.d("BundleId", itemId?.productId.toString())
             navController.navigate(R.id.action_mainFragment_to_detailProductFragment, bundle)
 
@@ -174,13 +173,9 @@ class StoreFragment : Fragment() {
                 dialogFragment.show(fragmentManager, BottomFilterFragment::class.java.simpleName)
             }
         }
-
-
         getData()
 
     }
-
-
 
 
     private fun getData() {
@@ -223,8 +218,8 @@ class StoreFragment : Fragment() {
                                 binding.layoutError.apply {
                                     imgErrorConnection
                                     txtErrorCode.text = "500"
-                                    txtMsgError.text = "Internal Server Error"
-                                    btnReset.text = "Refresh"
+                                    txtMsgError.text = getString(R.string.internal_server_error)
+                                    btnReset.text = getString(R.string.refresh)
                                 }
 
                                 binding.layoutError.btnReset.setOnClickListener {
@@ -236,9 +231,9 @@ class StoreFragment : Fragment() {
                         is IOException -> {
                             binding.layoutError.apply {
                                 imgErrorConnection
-                                txtErrorCode.text = "Connection"
+                                txtErrorCode.text = getString(R.string.connection)
                                 txtMsgError.text = "Your connection is unavailable"
-                                btnReset.text = "Refresh"
+                                btnReset.text = getString(R.string.refresh)
                             }
 
                             binding.layoutError.btnReset.setOnClickListener {

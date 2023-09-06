@@ -48,30 +48,30 @@ class ProductRepository @Inject constructor(
         }
     }
 
-    suspend fun detailProduct(productId : String) : ResourcesResult<ProductDetailResponse?> {
+    suspend fun detailProduct(productId: String): ResourcesResult<ProductDetailResponse?> {
         return try {
             val response = productApiService.details(productId)
-            if(response.isSuccessful){
+            if (response.isSuccessful) {
                 val data = response.body()
                 ResourcesResult.Success(data)
             } else {
                 ResourcesResult.Failure(response.message())
             }
-        } catch (exception : Exception) {
+        } catch (exception: Exception) {
             ResourcesResult.Failure(exception.message)
         }
     }
 
-    suspend fun reviewProduct(productId: String) : ResourcesResult<ReviewResponse?> {
+    suspend fun reviewProduct(productId: String): ResourcesResult<ReviewResponse?> {
         return try {
             val response = productApiService.review(productId)
-            if (response.isSuccessful){
+            if (response.isSuccessful) {
                 val data = response.body()
                 ResourcesResult.Success(data)
             } else {
                 ResourcesResult.Failure(response.message())
             }
-        } catch (exception : Exception){
+        } catch (exception: Exception) {
             ResourcesResult.Failure(exception.message)
         }
     }

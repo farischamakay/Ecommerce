@@ -150,9 +150,12 @@ class ProfileFragment : Fragment() {
 
 
             if (imageFile.exists()) {
-                viewModel.updateProfile(ProfileRequest(
-                    userImage = imagePart,
-                    userName = userNamePart))
+                viewModel.updateProfile(
+                    ProfileRequest(
+                        userImage = imagePart,
+                        userName = userNamePart
+                    )
+                )
             } else {
                 viewModel.updateProfile(ProfileRequest(userImage = null, userName = userNamePart))
             }

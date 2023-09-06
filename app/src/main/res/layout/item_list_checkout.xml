@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_thumbnail"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/nodesc"
+            android:src="@drawable/img_thumbnail_produk" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/txt_title_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="@string/title_product"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/cardView_thumbnail"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_giga_byte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="16GB, 1TB SSD"
+        android:textColor="?colorOnSurfaceVariant"
+        android:textSize="11sp"
+        app:layout_constraintStart_toEndOf="@id/cardView_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/txt_title_product" />
+
+    <TextView
+        android:id="@+id/txt_jumlah_sisa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="Sisa 5"
+        android:textSize="11sp"
+        app:layout_constraintStart_toEndOf="@id/cardView_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/txt_giga_byte" />
+
+    <TextView
+        android:id="@+id/txt_harga_produk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="@string/harga_product"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/cardView_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/txt_jumlah_sisa" />
+
+    <LinearLayout
+        android:id="@+id/layout_increment_decrement"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:background="@drawable/shape_increement_decrement"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_jumlah_sisa">
+
+        <Button
+            android:id="@+id/btn_kurang"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="-"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_tambah_qty"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="+"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

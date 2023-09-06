@@ -62,7 +62,7 @@ class UserRepository @Inject constructor(private val userApiService: UserApiServ
                     ResourcesResult.Failure("Response Body is null")
                 }
             } else {
-                ResourcesResult.Failure("Error response: ${response?.code()} -> ${response?.message()}")
+                ResourcesResult.Failure("Error response: ${response.code()} -> ${response.message()}")
             }
         } catch (e: Exception) {
             ResourcesResult.Failure("Exception : ${e.message}")

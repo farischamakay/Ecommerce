@@ -52,7 +52,24 @@
     <string name="example_search">Lenovo Legion 7</string>
     <string name="txt_error">500</string>
     <string name="label">label</string>
-
+    <string name="total_pembayaran">Total Pembayaran</string>
+    <string name="metode_pembayaran">Metode Pembayaran</string>
+    <string name="waktu">Waktu</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="status">Status</string>
+    <string name="id_transaksi">ID Transaksi</string>
+    <string name="detail_transaksi">Detail Transaksi</string>
+    <string name="pembayaran_berhasil">Pembayaran Berhasil</string>
+    <string name="beri_ulasan">Beri Ulasan</string>
+    <string name="sisa">Sisa %1$s</string>
+    <string name="rp">Rp. %1$s</string>
+    <string name="terjual">Terjual %1$s</string>
+    <string name="rp_0">Rp.0</string>
+    <string name="internal_server_error">Internal Server Error</string>
+    <string name="refresh">Refresh</string>
+    <string name="connection">Connection</string>
+    <string name="rating_ulasan">%1$s rating . %2$s Ulasan</string>
+    <string name="pembeli_merasa_puas">%1$s % pembeli merasa puas</string>
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
         <item>Galery</item>

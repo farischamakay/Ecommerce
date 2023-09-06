@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.example.ecommerce.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_detailProductFragment"
             app:destination="@id/detailProductFragment">
@@ -28,7 +28,7 @@
         android:id="@+id/detailProductFragment"
         android:name="com.example.ecommerce.main.store.DetailProductFragment"
         android:label="fragment_detail_product"
-        tools:layout="@layout/fragment_detail_product" >
+        tools:layout="@layout/fragment_detail_product">
         <action
             android:id="@+id/action_detailProductFragment_to_reviewFragment"
             app:destination="@id/reviewFragment" />
@@ -37,7 +37,7 @@
         android:id="@+id/reviewFragment"
         android:name="com.example.ecommerce.main.store.ReviewFragment"
         android:label="fragment_review"
-        tools:layout="@layout/fragment_review" >
+        tools:layout="@layout/fragment_review">
         <argument
             android:name="id"
             app:argType="string" />

@@ -36,10 +36,10 @@ class StoreViewModel @Inject constructor(
     val searchResult: LiveData<ResourcesResult<SearchResponse<List<String>>?>> = _searchResult
 
     private val _detailProduct = MutableLiveData<ResourcesResult<ProductDetailResponse?>>()
-    val detailProduct : LiveData<ResourcesResult<ProductDetailResponse?>> = _detailProduct
+    val detailProduct: LiveData<ResourcesResult<ProductDetailResponse?>> = _detailProduct
 
     private val _reviewProduct = MutableLiveData<ResourcesResult<ReviewResponse?>>()
-    val reviewProduct : LiveData<ResourcesResult<ReviewResponse?>> = _reviewProduct
+    val reviewProduct: LiveData<ResourcesResult<ReviewResponse?>> = _reviewProduct
 
     private var job: Job? = null
 
@@ -80,7 +80,7 @@ class StoreViewModel @Inject constructor(
         }
     }
 
-    fun detailItem(id: String){
+    fun detailItem(id: String) {
         viewModelScope.launch {
             _detailProduct.value = ResourcesResult.Loading
             val result = productRepository.detailProduct(id)
@@ -88,7 +88,7 @@ class StoreViewModel @Inject constructor(
         }
     }
 
-    fun reviewItem(id: String){
+    fun reviewItem(id: String) {
         viewModelScope.launch {
             _reviewProduct.value = ResourcesResult.Loading
             val result = productRepository.reviewProduct(id)
@@ -99,13 +99,13 @@ class StoreViewModel @Inject constructor(
     val getDataRoom =
         roomCartRepository.fetchCartData()
 
-    fun insertToRoom(cart: Cart){
+    fun insertToRoom(cart: Cart) {
         viewModelScope.launch {
             roomCartRepository.insertCartData(cart)
         }
     }
 
-    fun updateQuantity(cartList: List<Pair<Cart, Int>>){
+    fun updateQuantity(cartList: List<Pair<Cart, Int>>) {
         viewModelScope.launch {
             val updates = cartList.map { (cartList, quantity) ->
                 cartList.copy(quantity = quantity)

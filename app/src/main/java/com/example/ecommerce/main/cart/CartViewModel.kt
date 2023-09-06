@@ -1,7 +1,5 @@
 package com.example.ecommerce.main.cart
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ecommerce.data.database.Cart
@@ -14,22 +12,20 @@ import javax.inject.Inject
 class CartViewModel @Inject constructor(
     private val roomCartRepository: RoomCartRepository
 ) : ViewModel() {
-    private val _cartRoom = MutableLiveData<Cart>()
-    private val cartRoom : LiveData<Cart> = _cartRoom
 
     val getDataRoom =
-            roomCartRepository.fetchCartData()
+        roomCartRepository.fetchCartData()
 
-    fun updateCheckable(cartList: List<Pair<Cart, Boolean>>){
-    viewModelScope.launch {
-        val updates = cartList.map { (cartList, isChecked) ->
-            cartList.copy(isCheck = isChecked)
-        }
-        roomCartRepository.updateValues(updates)
+    fun updateCheckable(cartList: List<Pair<Cart, Boolean>>) {
+        viewModelScope.launch {
+            val updates = cartList.map { (cartList, isChecked) ->
+                cartList.copy(isCheck = isChecked)
+            }
+            roomCartRepository.updateValues(updates)
         }
     }
 
-    fun updateQuantity(cartList: List<Pair<Cart, Int>>){
+    fun updateQuantity(cartList: List<Pair<Cart, Int>>) {
         viewModelScope.launch {
             val updates = cartList.map { (cartList, quantity) ->
                 cartList.copy(quantity = quantity)
@@ -38,17 +34,17 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun deleteCheckedItems(){
+    fun deleteCheckedItems() {
         viewModelScope.launch {
             val checkedItems = getDataRoom.value?.filter { it.isCheck } ?: emptyList()
             roomCartRepository.deleteData(*checkedItems.toTypedArray())
         }
     }
 
-    fun selectedAllItems(isChecked : Boolean){
+    fun selectedAllItems(isChecked: Boolean) {
         viewModelScope.launch {
             val cartList = getDataRoom.value ?: emptyList()
-            val updateList = cartList.map {it.copy(isCheck = isChecked)}
+            val updateList = cartList.map { it.copy(isCheck = isChecked) }
             roomCartRepository.updateValues(updateList)
         }
     }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.ecommerce.R
 import com.example.ecommerce.adapter.ImageDetailAdapter
 import com.example.ecommerce.data.database.Cart
 import com.example.ecommerce.data.models.response.ProductDetailData
@@ -25,12 +26,11 @@ class DetailProductFragment : Fragment() {
     private val viewModel: StoreViewModel by activityViewModels()
 
     private var priceSum: Int = 0
-    private var productVarianName: String? = null
     private lateinit var data: ProductDetailData
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailProductBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -56,15 +56,19 @@ class DetailProductFragment : Fragment() {
                     data = result.data?.data!!
                     binding.apply {
                         progressBar.visibility = View.GONE
-                        txtDetailHargaProduk.text = "Rp. ${data?.productPrice.toString()}"
-                        txtTitleProduct.text = data?.productName.toString()
-                        txtProductTerjual.text = "Terjual ${data?.sale.toString()}"
-                        txtJumlahReview.text = "${data?.productRating} (${data?.totalReview})"
-                        txtDeskripsiProduk.text = "${data?.description}"
-                        txtTotalStar.text = "${data?.productRating}"
-                        txtSatisfication.text = "${data?.totalSatisfaction} % pembeli merasa puas"
+                        txtDetailHargaProduk.text = "Rp. ${data.productPrice.toString()}"
+                        txtTitleProduct.text = data.productName.toString()
+                        txtProductTerjual.text = "Terjual ${data.sale.toString()}"
+                        txtJumlahReview.text = "${data.productRating} (${data.totalReview})"
+                        txtDeskripsiProduk.text = data.description
+                        txtTotalStar.text = data.productRating.toString()
+                        txtSatisfication.text =
+                            getString(R.string.pembeli_merasa_puas, data.totalSatisfaction)
                         txtUlasanRate.text =
-                            "${data?.totalRating} rating . ${data?.totalReview} Ulasan"
+                            getString(
+                                R.string.rating_ulasan, data.totalRating.toString(),
+                                data.totalReview.toString()
+                            )
                     }
 
                     val adapter = data.image?.let { ImageDetailAdapter(it) }
@@ -78,7 +82,6 @@ class DetailProductFragment : Fragment() {
                     binding.chipVarianGroup.setOnCheckedStateChangeListener { _, checkedIds ->
                         binding.chipVarianGroup.checkedChipId
                         val a = binding.chipVarianGroup.checkedChipId
-                        val productName = data.productVariant[a].variantName
                         val price = data.productVariant[a].variantPrice
                         if (data.productPrice != null)
                             priceSum = data.productPrice!! + price
@@ -112,9 +115,9 @@ class DetailProductFragment : Fragment() {
 
             binding.btnTambahKeranjang.setOnClickListener {
 
-                var cartData = response.find { it.productId == productId }
+                val cartData = response.find { it.productId == productId }
 
-                if(cartData == null){
+                if (cartData == null) {
                     val dataNew = data.copy(productPrice = priceSum)
                     viewModel.insertToRoom(convertToCart(dataNew))
                     Snackbar.make(
@@ -125,20 +128,20 @@ class DetailProductFragment : Fragment() {
                 } else {
                     var qtyCart = cartData.quantity
 
-                        if (qtyCart < (data.stock ?: 0)) {
-                            qtyCart += 1
-                            viewModel.updateQuantity(listOf(convertToCart(data) to qtyCart))
+                    if (qtyCart < (data.stock ?: 0)) {
+                        qtyCart += 1
+                        viewModel.updateQuantity(listOf(convertToCart(data) to qtyCart))
 
-                            Snackbar.make(
-                                view, "Product berhasil ditambahkan pada keranjang!",
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        } else {
-                            Snackbar.make(
-                                view, "Stok tidak tersedia",
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
+                        Snackbar.make(
+                            view, "Product berhasil ditambahkan pada keranjang!",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Snackbar.make(
+                            view, "Stok tidak tersedia",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
         }

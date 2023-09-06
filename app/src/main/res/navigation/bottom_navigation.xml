@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_transaction" />
     <fragment
         android:id="@+id/wishlistFragment"
-        android:name="com.example.ecommerce.main.whistlist.WhistlistFragment"
+        android:name="com.example.ecommerce.main.wishlist.WishlistFragment"
         android:label="fragment_whistlist"
         tools:layout="@layout/fragment_whistlist" />
 </navigation>

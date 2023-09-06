@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.ecommerce.R
 import com.example.ecommerce.data.models.response.ItemsItem
 import com.example.ecommerce.databinding.ItemListGridLayoutBinding
 import com.example.ecommerce.databinding.ItemListProdukBinding
@@ -19,13 +20,9 @@ class ProductListAdapter(private val onProductClick: (ItemsItem?) -> Unit) :
         val data = getItem(position)
         if (data != null) {
             when (holder) {
-                is ListViewHolder -> {
-                    holder.bind(data)
-                }
+                is ListViewHolder -> holder.bind(data)
 
-                is GridViewHolder -> {
-                    holder.gridBind(data)
-                }
+                is GridViewHolder -> holder.gridBind(data)
             }
         }
     }
@@ -59,24 +56,12 @@ class ProductListAdapter(private val onProductClick: (ItemsItem?) -> Unit) :
             LIST_GRID -> {
                 val gridViewHolder =
                     GridViewHolder(binding as ItemListGridLayoutBinding, onProductClick)
-                gridViewHolder.itemView.setOnClickListener {
-                    val position = gridViewHolder.bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-//                        onProductClick(getItem(position))
-                    }
-                }
                 gridViewHolder
             }
 
             LIST_VIEW -> {
                 val listViewHolder =
                     ListViewHolder(binding as ItemListProdukBinding, onProductClick)
-                listViewHolder.itemView.setOnClickListener {
-                    val position = listViewHolder.bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-//                        onProductClick(getItem(position))
-                    }
-                }
                 listViewHolder
             }
 
@@ -92,10 +77,13 @@ class ProductListAdapter(private val onProductClick: (ItemsItem?) -> Unit) :
         fun bind(data: ItemsItem) {
             Glide.with(binding.root).load(data.image).into(binding.imgThumbnail)
             binding.txtTitleProduct.text = data.productName
-            binding.txtHargaProduk.text = "Rp. ${data.productPrice}"
+            binding.root.context.apply {
+                binding.txtHargaProduk.text = getString(R.string.rp, data.productPrice.toString())
+                binding.txtJumlahTerjual.text = getString(R.string.terjual, data.sale.toString())
+            }
             binding.txtPemilikStore.text = data.brand
             binding.txtRatingProduct.text = data.productRating.toString()
-            binding.txtJumlahTerjual.text = "Terjual ${data.sale}"
+
 
             itemView.setOnClickListener {
                 onProductClick(data)
@@ -111,11 +99,11 @@ class ProductListAdapter(private val onProductClick: (ItemsItem?) -> Unit) :
         fun gridBind(data: ItemsItem) {
             Glide.with(binding.root).load(data.image).into(binding.imgProduct)
             binding.txtTitleProduct.text = data.productName
-            binding.txtHargaProduct.text = "Rp. ${data.productPrice}"
             binding.txtProductBrand.text = data.brand
-            binding.txtRatingProduct.text = data.productRating.toString()
-            binding.txtProductTerjual.text = "Terjual ${data.sale}"
-
+            binding.root.context.apply {
+                binding.txtHargaProduct.text = getString(R.string.rp, data.productPrice.toString())
+                binding.txtProductTerjual.text = getString(R.string.terjual, data.sale.toString())
+            }
             itemView.setOnClickListener {
                 onProductClick(data)
             }
