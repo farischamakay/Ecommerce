@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.ecommerce.R
 import com.example.ecommerce.adapter.ImageDetailAdapter
 import com.example.ecommerce.data.database.Cart
 import com.example.ecommerce.data.models.response.ProductDetailData
