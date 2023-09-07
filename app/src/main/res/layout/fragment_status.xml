@@ -30,92 +30,112 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?colorOutlineVariant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/status_card"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="40dp"
-        app:cardBackgroundColor="?colorPrimaryContainer"
-        app:cardCornerRadius="360dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/outline_appbar">
-
-        <ImageView
-            android:id="@+id/img_profile"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="center"
-            android:src="@drawable/ic_check" />
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardview_status"
+    <FrameLayout
+        android:id="@+id/framelayout_pembayaran"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/status_card">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/outline_appbar"
+        >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/status_card"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:cardBackgroundColor="?colorPrimaryContainer"
+            app:cardCornerRadius="360dp"
+            android:layout_gravity="center|top"
+            android:translationY="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/outline_appbar">
+
+            <ImageView
+                android:id="@+id/img_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/ic_check" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/txt_status_pembayaran"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/pembayaran_berhasil"
-                android:textAlignment="center"
-                android:textColor="?colorPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <RatingBar
-                android:id="@+id/rating_pembayaran"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_status_pembayaran" />
-
-            <TextView
-                android:id="@+id/txt_beri_ulasan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="@string/beri_ulasan"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rating_pembayaran" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_review_layout"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_beri_ulasan">
+                app:layout_constraintTop_toBottomOf="@id/status_card">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_input_review"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginTop="50dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_status_pembayaran"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pembayaran_berhasil"
+                        android:textAlignment="center"
+                        android:textColor="?colorPrimary"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <RatingBar
+                        android:id="@+id/rating_pembayaran"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_status_pembayaran" />
+
+                    <TextView
+                        android:id="@+id/txt_beri_ulasan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/beri_ulasan"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rating_pembayaran" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txt_review_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_beri_ulasan">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_input_review"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </FrameLayout>
 
 
     <TextView
@@ -126,7 +146,7 @@
         android:text="@string/detail_transaksi"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardview_status" />
+        app:layout_constraintTop_toBottomOf="@id/framelayout_pembayaran" />
 
     <TextView
         android:id="@+id/txt_title_transaksi"

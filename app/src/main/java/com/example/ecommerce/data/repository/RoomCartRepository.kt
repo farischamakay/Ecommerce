@@ -14,5 +14,7 @@ class RoomCartRepository @Inject constructor(private val cartDao: CartDao) {
         cartDao.update(*cartList.toTypedArray())
     }
 
+    suspend fun deleteById(cart: String) = cartDao.deleteById(cart)
+
     suspend fun deleteData(vararg cart: Cart) = cartDao.delete(*cart)
 }

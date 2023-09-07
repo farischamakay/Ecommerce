@@ -33,11 +33,14 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
 
             binding.txtQuantity.text = data.quantity.toString()
             binding.btnKurang.setOnClickListener {
-                var quantity = data.quantity
-                quantity -= 1
-                binding.txtQuantity.text = data.quantity.toString()
-                onItemClickCallback.counterClicked(listOf(data to quantity))
+                if(data.quantity > 0){
+                    var quantity = data.quantity
+                    quantity -= 1
+                    binding.txtQuantity.text = data.quantity.toString()
+                    onItemClickCallback.counterClicked(listOf(data to quantity))
+                }
             }
+
             binding.btnTambahQty.setOnClickListener {
                 if (data.quantity < (data.stock ?: 0)) {
                     var quantity = data.quantity
@@ -50,6 +53,10 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
                         Snackbar.LENGTH_LONG
                     ).show()
                 }
+            }
+
+            binding.imageButton.setOnClickListener {
+                onItemClickCallback.onDeleteClicked(data.productId)
             }
             binding.btnCekbox.setOnClickListener {
                 val isChecked = !data.isCheck
@@ -76,6 +83,8 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
     interface OnItemClickCallback {
         fun onItemClicked(cart: List<Pair<Cart, Boolean>>)
         fun counterClicked(cart: List<Pair<Cart, Int>>)
+
+        fun onDeleteClicked(itemId  : String)
     }
 }
 

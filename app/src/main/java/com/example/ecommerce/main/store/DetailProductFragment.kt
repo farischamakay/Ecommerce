@@ -62,13 +62,8 @@ class DetailProductFragment : Fragment() {
                         txtJumlahReview.text = "${data.productRating} (${data.totalReview})"
                         txtDeskripsiProduk.text = data.description
                         txtTotalStar.text = data.productRating.toString()
-                        txtSatisfication.text =
-                            getString(R.string.pembeli_merasa_puas, data.totalSatisfaction)
-                        txtUlasanRate.text =
-                            getString(
-                                R.string.rating_ulasan, data.totalRating.toString(),
-                                data.totalReview.toString()
-                            )
+                        txtSatisfication.text = "${data.totalSatisfaction} % pembeli merasa puas."
+                        txtUlasanRate.text = "${data.totalRating} Rating . ${data.totalReview} Review"
                     }
 
                     val adapter = data.image?.let { ImageDetailAdapter(it) }

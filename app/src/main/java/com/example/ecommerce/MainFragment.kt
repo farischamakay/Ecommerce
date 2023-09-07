@@ -15,11 +15,9 @@ class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-
     private val navHostFragment: NavHostFragment by lazy {
         childFragmentManager.findFragmentById(R.id.nhf_botnav) as NavHostFragment
     }
-
     private val navController by lazy {
         navHostFragment.navController
     }

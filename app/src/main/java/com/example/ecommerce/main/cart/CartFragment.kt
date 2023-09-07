@@ -54,6 +54,10 @@ class CartFragment : Fragment() {
             override fun counterClicked(cart: List<Pair<Cart, Int>>) {
                 viewModel.updateQuantity(cart)
             }
+
+            override fun onDeleteClicked(itemId: String) {
+                viewModel.deleteItemById(itemId)
+            }
         })
 
 

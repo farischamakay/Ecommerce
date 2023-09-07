@@ -34,6 +34,13 @@ class CartViewModel @Inject constructor(
         }
     }
 
+
+    fun deleteItemById(itemId : String){
+        viewModelScope.launch {
+            roomCartRepository.deleteById(itemId)
+        }
+    }
+
     fun deleteCheckedItems() {
         viewModelScope.launch {
             val checkedItems = getDataRoom.value?.filter { it.isCheck } ?: emptyList()
