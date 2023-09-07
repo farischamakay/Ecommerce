@@ -80,8 +80,8 @@ class StoreFragment : Fragment() {
             val bundle = bundleOf("id" to itemId?.productId)
             Log.d("BundleId", itemId?.productId.toString())
             navController.navigate(R.id.action_mainFragment_to_detailProductFragment, bundle)
-
         }
+
         binding.rvProductList.adapter = productAdapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 productAdapter.retry()

@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.ecommerce.adapter.ImageDetailAdapter
-import com.example.ecommerce.data.database.Cart
+import com.example.ecommerce.data.database.cart.Cart
+import com.example.ecommerce.data.database.wishlist.Wishlist
 import com.example.ecommerce.data.models.response.ProductDetailData
 import com.example.ecommerce.databinding.FragmentDetailProductBinding
 import com.example.ecommerce.utils.ResourcesResult
@@ -103,6 +104,15 @@ class DetailProductFragment : Fragment() {
             }
         }
 
+        binding.btnFavorite.setOnClickListener {
+            val dataNew = data.copy(productPrice = priceSum)
+            viewModel.insertToWishlist(convertToWishlist(dataNew))
+            Snackbar.make(
+                view, "Product berhasil ditambahkan pada wishlist!",
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
+
 
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
 
@@ -152,6 +162,25 @@ class DetailProductFragment : Fragment() {
             detailData.stock,
             detailData.totalRating,
             detailData.totalReview,
+            detailData.totalSatisfaction,
+            detailData.productVariant[0].variantName,
+            detailData.productPrice ?: 0
+        )
+    }
+
+    private fun convertToWishlist(detailData: ProductDetailData): Wishlist {
+        return Wishlist(
+            detailData.productId ?: "",
+            detailData.productName,
+            detailData.image?.get(0),
+            detailData.brand,
+            detailData.description,
+            detailData.store,
+            detailData.sale.toString(),
+            detailData.stock,
+            detailData.totalRating,
+            detailData.totalReview,
+            detailData.productRating.toString(),
             detailData.totalSatisfaction,
             detailData.productVariant[0].variantName,
             detailData.productPrice ?: 0

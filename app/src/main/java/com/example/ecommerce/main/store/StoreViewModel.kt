@@ -7,7 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.example.ecommerce.data.database.Cart
+import com.example.ecommerce.data.database.cart.Cart
+import com.example.ecommerce.data.database.wishlist.Wishlist
 import com.example.ecommerce.data.models.request.ProductRequest
 import com.example.ecommerce.data.models.response.ProductDetailResponse
 import com.example.ecommerce.data.models.response.ReviewResponse
@@ -102,6 +103,12 @@ class StoreViewModel @Inject constructor(
     fun insertToRoom(cart: Cart) {
         viewModelScope.launch {
             roomCartRepository.insertCartData(cart)
+        }
+    }
+
+    fun insertToWishlist(wishlist: Wishlist){
+        viewModelScope.launch {
+            roomCartRepository.insertWishlistData(wishlist)
         }
     }
 

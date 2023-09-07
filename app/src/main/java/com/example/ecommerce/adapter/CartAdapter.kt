@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerce.R
-import com.example.ecommerce.data.database.Cart
+import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.databinding.ItemListCartBinding
 import com.google.android.material.snackbar.Snackbar
 

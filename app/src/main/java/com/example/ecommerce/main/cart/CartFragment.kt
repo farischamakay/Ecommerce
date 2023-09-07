@@ -6,23 +6,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.CartAdapter
-import com.example.ecommerce.data.database.Cart
+import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.databinding.FragmentCartBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class CartFragment : Fragment() {
-    private lateinit var cartAdapter: CartAdapter
 
+    private lateinit var cartAdapter: CartAdapter
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: CartViewModel by viewModels()
+
+    private val navHostFragment: NavHostFragment by lazy {
+        requireActivity().supportFragmentManager.findFragmentById(R.id.nhf_main) as NavHostFragment
+    }
+    private val navController by lazy {
+        navHostFragment.navController
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -90,6 +98,10 @@ class CartFragment : Fragment() {
 
                 cartAdapter.submitList(response)
 
+            }
+
+            binding.btnBayar.setOnClickListener {
+                navController.navigate(R.id.action_cartFragment_to_checkoutFragment)
             }
         }
     }

@@ -2,8 +2,9 @@ package com.example.ecommerce.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.ecommerce.data.database.CartDao
-import com.example.ecommerce.data.database.CartDatabase
+import com.example.ecommerce.data.database.cart.CartDao
+import com.example.ecommerce.data.database.cart.CartDatabase
+import com.example.ecommerce.data.database.wishlist.WishlistDao
 import com.example.ecommerce.data.network.ProductApiService
 import dagger.Module
 import dagger.Provides
@@ -37,6 +38,12 @@ object ProductModule {
     @Singleton
     fun provideCartDao(cartDatabase: CartDatabase): CartDao {
         return cartDatabase.cartDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWishlistDao(cartDatabase: CartDatabase): WishlistDao {
+        return cartDatabase.wishlistDao()
     }
 
 }

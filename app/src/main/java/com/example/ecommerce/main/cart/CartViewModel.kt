@@ -2,7 +2,7 @@ package com.example.ecommerce.main.cart
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ecommerce.data.database.Cart
+import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.data.repository.RoomCartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -34,20 +34,17 @@ class CartViewModel @Inject constructor(
         }
     }
 
-
     fun deleteItemById(itemId : String){
         viewModelScope.launch {
             roomCartRepository.deleteById(itemId)
         }
     }
-
     fun deleteCheckedItems() {
         viewModelScope.launch {
             val checkedItems = getDataRoom.value?.filter { it.isCheck } ?: emptyList()
             roomCartRepository.deleteData(*checkedItems.toTypedArray())
         }
     }
-
     fun selectedAllItems(isChecked: Boolean) {
         viewModelScope.launch {
             val cartList = getDataRoom.value ?: emptyList()
@@ -55,6 +52,4 @@ class CartViewModel @Inject constructor(
             roomCartRepository.updateValues(updateList)
         }
     }
-
-
 }

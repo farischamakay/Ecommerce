@@ -71,6 +71,8 @@
     <string name="rating_ulasan">%1$s rating . %2$s Ulasan</string>
     <string name="pembeli_merasa_puas">%1$s % pembeli merasa puas</string>
     <string name="total_review">4.5 (2)</string>
+    <string name="terjual_10">| Terjual 10</string>
+    <string name="keranjang">+ Keranjang</string>
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
         <item>Galery</item>
