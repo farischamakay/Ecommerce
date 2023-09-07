@@ -83,8 +83,7 @@ class DetailProductFragment : Fragment() {
 
                     }
 
-                    (binding.chipVarianGroup.getChildAt(0) as Chip).isSelected = true
-
+//                    (binding.chipVarianGroup.getChildAt(0) as Chip).isSelected = true
 
                     binding.btnAllReviews.setOnClickListener {
                         findNavController().navigate(
