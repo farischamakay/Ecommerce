@@ -68,7 +68,6 @@ class StoreFragment : Fragment() {
                     navController.navigate(R.id.main_to_prelogin)
                     true
                 }
-
                 else -> false
             }
         }

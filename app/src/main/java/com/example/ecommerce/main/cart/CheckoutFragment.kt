@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerce.adapter.CheckoutAdapter
 import com.example.ecommerce.databinding.FragmentCheckoutBinding
 
@@ -23,6 +25,15 @@ class CheckoutFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val args : CheckoutFragmentArgs by navArgs()
+
+        checkboxAdapter = CheckoutAdapter()
+        binding.rvCheckout.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvCheckout.adapter = checkboxAdapter
+
+        checkboxAdapter.submitList(args.listCheckout.listCheckout)
+
 
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().navigateUp()

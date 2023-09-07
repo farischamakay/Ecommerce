@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ecommerce.data.database.cart.Cart
+import com.example.ecommerce.data.models.request.CheckoutRequest
 import com.example.ecommerce.databinding.ItemListCheckoutBinding
 
-class CheckoutAdapter : ListAdapter<Cart, CheckoutAdapter.CheckoutViewHolder>(CheckoutDiffCallback()) {
+class CheckoutAdapter : ListAdapter<CheckoutRequest, CheckoutAdapter.CheckoutViewHolder>(CheckoutDiffCallback()) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -25,7 +25,7 @@ class CheckoutAdapter : ListAdapter<Cart, CheckoutAdapter.CheckoutViewHolder>(Ch
     }
     inner class CheckoutViewHolder(val binding : ItemListCheckoutBinding) :
             RecyclerView.ViewHolder(binding.root){
-                fun bind(data : Cart) {
+                fun bind(data : CheckoutRequest) {
                     Glide.with(binding.root).load(data.image).into(binding.imgThumbnail)
                     binding.txtTitleProduct.text = data.productName
                     binding.txtGigaByte.text = data.productVariant
@@ -36,11 +36,11 @@ class CheckoutAdapter : ListAdapter<Cart, CheckoutAdapter.CheckoutViewHolder>(Ch
             }
 
 }
-private class CheckoutDiffCallback : DiffUtil.ItemCallback<Cart>() {
-    override fun areItemsTheSame(oldItem: Cart, newItem: Cart): Boolean {
-        return oldItem == newItem
+private class CheckoutDiffCallback : DiffUtil.ItemCallback<CheckoutRequest>() {
+    override fun areItemsTheSame(oldItem: CheckoutRequest, newItem: CheckoutRequest): Boolean {
+        return oldItem.productId == newItem.productId
     }
-    override fun areContentsTheSame(oldItem: Cart, newItem: Cart): Boolean {
+    override fun areContentsTheSame(oldItem: CheckoutRequest, newItem: CheckoutRequest): Boolean {
         return oldItem == newItem
     }
 }

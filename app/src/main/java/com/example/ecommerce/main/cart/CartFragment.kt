@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.CartAdapter
 import com.example.ecommerce.data.database.cart.Cart
+import com.example.ecommerce.data.models.request.toListCheckout
 import com.example.ecommerce.databinding.FragmentCartBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -70,6 +71,9 @@ class CartFragment : Fragment() {
 
 
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
+
+
+
             if (response.isNullOrEmpty()) {
                 binding.checkboxParent.isChecked = false
                 binding.rvCart.visibility = View.GONE
@@ -77,8 +81,15 @@ class CartFragment : Fragment() {
                 binding.emptyState.root.visibility = View.VISIBLE
             } else {
                 binding.emptyState.root.visibility = View.GONE
+                val isSelected = response.filter { it.isCheck }
                 val checkListCheckBox = response.any { it.isCheck }
                 var totalPrice = 0
+
+                binding.btnBayar.setOnClickListener {
+                    navController.navigate(CartFragmentDirections.
+                    actionCartFragmentToCheckoutFragment(isSelected.toListCheckout()))
+                }
+
                 response.map {
                     if (it.isCheck) {
                         totalPrice += it.productVariantPrice * it.quantity
@@ -100,9 +111,6 @@ class CartFragment : Fragment() {
 
             }
 
-            binding.btnBayar.setOnClickListener {
-                navController.navigate(R.id.action_cartFragment_to_checkoutFragment)
-            }
         }
     }
 }

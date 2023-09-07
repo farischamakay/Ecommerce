@@ -104,14 +104,25 @@ class DetailProductFragment : Fragment() {
             }
         }
 
-        binding.btnFavorite.setOnClickListener {
-            val dataNew = data.copy(productPrice = priceSum)
-            viewModel.insertToWishlist(convertToWishlist(dataNew))
-            Snackbar.make(
-                view, "Product berhasil ditambahkan pada wishlist!",
-                Snackbar.LENGTH_LONG
-            ).show()
+        binding.btnFavorite.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                val dataNew = data.copy(productPrice = priceSum)
+                viewModel.insertToWishlist(convertToWishlist(dataNew))
+                Snackbar.make(
+                    view, "Product berhasil ditambahkan pada wishlist!",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
+
+//        binding.btnFavorite.setOnClickListener {
+//            val dataNew = data.copy(productPrice = priceSum)
+//            viewModel.insertToWishlist(convertToWishlist(dataNew))
+//            Snackbar.make(
+//                view, "Product berhasil ditambahkan pada wishlist!",
+//                Snackbar.LENGTH_LONG
+//            ).show()
+//        }
 
 
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->

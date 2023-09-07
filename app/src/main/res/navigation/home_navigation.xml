@@ -62,6 +62,9 @@
         <action
             android:id="@+id/action_checkoutFragment_to_statusFragment"
             app:destination="@id/statusFragment" />
+        <argument
+            android:name="listCheckout"
+            app:argType="com.example.ecommerce.data.models.request.ListCheckout" />
     </fragment>
     <fragment
         android:id="@+id/paymentFragment"

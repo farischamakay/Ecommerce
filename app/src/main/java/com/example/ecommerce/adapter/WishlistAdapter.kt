@@ -109,17 +109,17 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
 
     interface OnItemClickCallback {
         fun onAddCartClicked(wishlist: Wishlist)
-        fun onDeleteClicked(itemId  : String)
+        fun onDeleteClicked(itemId : String)
     }
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Wishlist>() {
             override fun areContentsTheSame(oldItem: Wishlist, newItem: Wishlist): Boolean {
-                return oldItem.productId == newItem.productId
+                return oldItem == newItem
             }
 
             override fun areItemsTheSame(oldItem: Wishlist, newItem: Wishlist): Boolean {
-                return oldItem == newItem
+                return oldItem.productId == newItem.productId
             }
         }
 

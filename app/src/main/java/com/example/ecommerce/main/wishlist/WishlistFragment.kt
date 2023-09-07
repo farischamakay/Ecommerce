@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,36 +34,6 @@ class WishlistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        viewModel.getDataWishlist.observe(viewLifecycleOwner) { response ->
-
-            if(response.isNullOrEmpty()){
-                binding.emptyState.root.visibility = View.VISIBLE
-            } else {
-                binding.emptyState.root.visibility = View.GONE
-                binding.txtJumlahWishlist.text = "${response.size} Barang"
-                wishlistAdapter.submitList(response)
-                wishlistAdapter.setOnItemClickCallback(object : WishlistAdapter.OnItemClickCallback{
-                    override fun onAddCartClicked(wishlist: Wishlist) {
-                        viewModel.insertToRoom(convertToCart(wishlist))
-                        Snackbar.make(
-                            view, "Ditambahkan ke Keranjang!",
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-
-                    override fun onDeleteClicked(itemId: String) {
-                        viewModel.deleteItemById(itemId)
-                        Snackbar.make(
-                            view, "Deleted item!",
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-
-                })
-            }
-        }
-
         wishlistAdapter = WishlistAdapter()
         val gridManager = GridLayoutManager(requireActivity(), 1)
         binding.rvProductList.layoutManager = gridManager
@@ -87,6 +58,39 @@ class WishlistFragment : Fragment() {
                 gridManager.spanCount = 1
             }
         }
+
+        viewModel.getDataWishlist.observe(viewLifecycleOwner) { response ->
+
+//            if(response.isNullOrEmpty()){
+//                binding.emptyState.root.visibility = View.VISIBLE
+//            } else {
+//                binding.emptyState.root.visibility = View.GONE
+//                binding.txtJumlahWishlist.text = "${response.size} Barang"
+                wishlistAdapter.submitList(response)
+            binding.emptyState.root.isVisible = response.isNullOrEmpty()
+//            }
+        }
+
+
+        wishlistAdapter.setOnItemClickCallback(object : WishlistAdapter.OnItemClickCallback{
+            override fun onAddCartClicked(wishlist: Wishlist) {
+                viewModel.insertToRoom(convertToCart(wishlist))
+                Snackbar.make(
+                    view, "Ditambahkan ke Keranjang!",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+
+            override fun onDeleteClicked(itemId: String) {
+                viewModel.deleteItemById(itemId)
+                Snackbar.make(
+                    view, "Deleted item!",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+
+        })
+
     }
 
     private fun convertToCart(detailData: Wishlist): Cart {
