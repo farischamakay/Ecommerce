@@ -1,17 +1,26 @@
 package com.example.ecommerce.main.cart
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ecommerce.data.database.cart.Cart
+import com.example.ecommerce.data.models.response.PaymentResponse
+import com.example.ecommerce.data.models.response.ProfileResponse
+import com.example.ecommerce.data.repository.ProductRepository
 import com.example.ecommerce.data.repository.RoomCartRepository
+import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
-    private val roomCartRepository: RoomCartRepository
+    private val roomCartRepository: RoomCartRepository,
+    private val productRepository: ProductRepository
 ) : ViewModel() {
+
+    private val _paymentResult = MutableLiveData<ResourcesResult<PaymentResponse>?>()
+    val paymentResult: MutableLiveData<ResourcesResult<PaymentResponse>?> = _paymentResult
 
     val getDataRoom =
         roomCartRepository.fetchCartData()

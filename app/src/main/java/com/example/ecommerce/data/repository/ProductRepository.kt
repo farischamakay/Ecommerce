@@ -6,6 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.example.ecommerce.data.models.response.ItemsItem
+import com.example.ecommerce.data.models.response.PaymentResponse
 import com.example.ecommerce.data.models.response.ProductDetailResponse
 import com.example.ecommerce.data.models.response.ReviewResponse
 import com.example.ecommerce.data.models.response.SearchResponse
@@ -65,6 +66,20 @@ class ProductRepository @Inject constructor(
     suspend fun reviewProduct(productId: String): ResourcesResult<ReviewResponse?> {
         return try {
             val response = productApiService.review(productId)
+            if (response.isSuccessful) {
+                val data = response.body()
+                ResourcesResult.Success(data)
+            } else {
+                ResourcesResult.Failure(response.message())
+            }
+        } catch (exception: Exception) {
+            ResourcesResult.Failure(exception.message)
+        }
+    }
+
+    suspend fun paymentProduct() : ResourcesResult<PaymentResponse?> {
+        return try {
+            val response = productApiService.payment()
             if (response.isSuccessful) {
                 val data = response.body()
                 ResourcesResult.Success(data)

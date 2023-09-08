@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.ecommerce.R
 import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.databinding.ItemListCartBinding
+import com.example.ecommerce.utils.convertToRupiah
 import com.google.android.material.snackbar.Snackbar
 
 class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallback()) {
@@ -27,8 +28,7 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
             binding.txtGigaByte.text = data.productVariant
             binding.root.context.apply {
                 binding.txtJumlahSisa.text = getString(R.string.sisa, data.stock.toString())
-                binding.txtHargaProduk.text =
-                    getString(R.string.rp, data.productVariantPrice.toString())
+                binding.txtHargaProduk.text = data.productVariantPrice.convertToRupiah()
             }
 
             binding.txtQuantity.text = data.quantity.toString()
@@ -90,7 +90,7 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
 
 private class CartDiffCallback : DiffUtil.ItemCallback<Cart>() {
     override fun areItemsTheSame(oldItem: Cart, newItem: Cart): Boolean {
-        return oldItem == newItem
+        return oldItem.productId == newItem.productId
     }
 
     override fun areContentsTheSame(oldItem: Cart, newItem: Cart): Boolean {

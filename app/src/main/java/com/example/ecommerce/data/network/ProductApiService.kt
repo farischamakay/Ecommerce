@@ -1,5 +1,6 @@
 package com.example.ecommerce.data.network
 
+import com.example.ecommerce.data.models.response.PaymentResponse
 import com.example.ecommerce.data.models.response.ProductDetailResponse
 import com.example.ecommerce.data.models.response.ProductResponse
 import com.example.ecommerce.data.models.response.ReviewResponse
@@ -36,5 +37,10 @@ interface ProductApiService {
     suspend fun review(
         @Path("id") productId: String?
     ): Response<ReviewResponse>
+
+    @GET("payment")
+    suspend fun payment(
+
+    ) : Response<PaymentResponse>
 
 }

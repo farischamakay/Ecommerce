@@ -10,6 +10,7 @@ import com.example.ecommerce.R
 import com.example.ecommerce.data.models.response.ItemsItem
 import com.example.ecommerce.databinding.ItemListGridLayoutBinding
 import com.example.ecommerce.databinding.ItemListProdukBinding
+import com.example.ecommerce.utils.convertToRupiah
 
 class ProductListAdapter(private val onProductClick: (ItemsItem?) -> Unit) :
     PagingDataAdapter<ItemsItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
@@ -78,7 +79,7 @@ class ProductListAdapter(private val onProductClick: (ItemsItem?) -> Unit) :
             Glide.with(binding.root).load(data.image).into(binding.imgThumbnail)
             binding.txtTitleProduct.text = data.productName
             binding.root.context.apply {
-                binding.txtHargaProduk.text = getString(R.string.rp, data.productPrice.toString())
+                binding.txtHargaProduk.text = data.productPrice?.convertToRupiah()
                 binding.txtJumlahTerjual.text = getString(R.string.terjual, data.sale.toString())
             }
             binding.txtPemilikStore.text = data.brand
@@ -101,7 +102,7 @@ class ProductListAdapter(private val onProductClick: (ItemsItem?) -> Unit) :
             binding.txtTitleProduct.text = data.productName
             binding.txtProductBrand.text = data.brand
             binding.root.context.apply {
-                binding.txtHargaProduct.text = getString(R.string.rp, data.productPrice.toString())
+                binding.txtHargaProduct.text = data.productPrice?.convertToRupiah()
                 binding.txtProductTerjual.text = getString(R.string.terjual, data.sale.toString())
             }
             itemView.setOnClickListener {

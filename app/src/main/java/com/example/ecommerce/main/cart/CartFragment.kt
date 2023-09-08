@@ -14,6 +14,7 @@ import com.example.ecommerce.adapter.CartAdapter
 import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.data.models.request.toListCheckout
 import com.example.ecommerce.databinding.FragmentCartBinding
+import com.example.ecommerce.utils.convertToRupiah
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -72,8 +73,6 @@ class CartFragment : Fragment() {
 
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
 
-
-
             if (response.isNullOrEmpty()) {
                 binding.checkboxParent.isChecked = false
                 binding.rvCart.visibility = View.GONE
@@ -98,7 +97,7 @@ class CartFragment : Fragment() {
 
                 if (checkListCheckBox) {
                     binding.btnDeleteList.visibility = View.VISIBLE
-                    binding.txtTotalBayar.text = "Rp. $totalPrice"
+                    binding.txtTotalBayar.text = "Rp. ${totalPrice.convertToRupiah()}"
                     binding.btnDeleteList.setOnClickListener {
                         viewModel.deleteCheckedItems()
                     }

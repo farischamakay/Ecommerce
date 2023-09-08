@@ -60,15 +60,9 @@ class WishlistFragment : Fragment() {
         }
 
         viewModel.getDataWishlist.observe(viewLifecycleOwner) { response ->
-
-//            if(response.isNullOrEmpty()){
-//                binding.emptyState.root.visibility = View.VISIBLE
-//            } else {
-//                binding.emptyState.root.visibility = View.GONE
-//                binding.txtJumlahWishlist.text = "${response.size} Barang"
                 wishlistAdapter.submitList(response)
-            binding.emptyState.root.isVisible = response.isNullOrEmpty()
-//            }
+                binding.txtJumlahWishlist.text = "${response.size} Barang"
+                binding.emptyState.root.isVisible = response.isNullOrEmpty()
         }
 
 

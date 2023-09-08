@@ -5,6 +5,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import java.text.NumberFormat
+import java.util.Locale
 
 object Helpers {
     fun showSoftKeyboard(context: Context, view: View) {
@@ -24,4 +26,9 @@ object Helpers {
         }
     }
 
+}
+
+fun Int.convertToRupiah() : String {
+    return NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(this).
+    replace(",", ".").removeSuffix(".00")
 }

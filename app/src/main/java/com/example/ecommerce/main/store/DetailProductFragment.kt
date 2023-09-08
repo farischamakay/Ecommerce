@@ -13,6 +13,7 @@ import com.example.ecommerce.data.database.wishlist.Wishlist
 import com.example.ecommerce.data.models.response.ProductDetailData
 import com.example.ecommerce.databinding.FragmentDetailProductBinding
 import com.example.ecommerce.utils.ResourcesResult
+import com.example.ecommerce.utils.convertToRupiah
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +57,7 @@ class DetailProductFragment : Fragment() {
                     data = result.data?.data!!
                     binding.apply {
                         progressBar.visibility = View.GONE
-                        txtDetailHargaProduk.text = "Rp. ${data.productPrice.toString()}"
+                        txtDetailHargaProduk.text = data.productPrice?.convertToRupiah()
                         txtTitleProduct.text = data.productName.toString()
                         txtProductTerjual.text = "Terjual ${data.sale.toString()}"
                         txtJumlahReview.text = "${data.productRating} (${data.totalReview})"
@@ -80,7 +81,7 @@ class DetailProductFragment : Fragment() {
                         val price = data.productVariant[a].variantPrice
                         if (data.productPrice != null)
                             priceSum = data.productPrice!! + price
-                        binding.txtDetailHargaProduk.text = "Rp. ${priceSum}"
+                        binding.txtDetailHargaProduk.text = priceSum.convertToRupiah()
 
                     }
 
