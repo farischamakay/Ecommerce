@@ -9,8 +9,16 @@ import com.bumptech.glide.Glide
 import com.example.ecommerce.data.models.response.PaymentItem
 import com.example.ecommerce.databinding.ItemListPaymentBinding
 
+
+
 class PaymentChildAdapter : ListAdapter<PaymentItem, PaymentChildAdapter.PaymentChildViewHolder>
     (ChildDiffUtil()) {
+
+    private var onItemClickListener: ((PaymentItem) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (PaymentItem) -> Unit) {
+        onItemClickListener = listener
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -23,8 +31,8 @@ class PaymentChildAdapter : ListAdapter<PaymentItem, PaymentChildAdapter.Payment
         holder: PaymentChildAdapter.PaymentChildViewHolder,
         position: Int
     ) {
-        val item = getItem(position)
-        holder.bind(item)
+        val items = getItem(position)
+        holder.bind(items)
     }
 
     inner class PaymentChildViewHolder (val binding: ItemListPaymentBinding) :
@@ -36,6 +44,10 @@ class PaymentChildAdapter : ListAdapter<PaymentItem, PaymentChildAdapter.Payment
                     if(data.status == false){
                         binding.root.elevation = 0.4f
                         binding.root.isEnabled = false
+                    } else {
+                        binding.root.setOnClickListener {
+                            onItemClickListener?.invoke(data)
+                        }
                     }
                 }
             }
@@ -43,7 +55,7 @@ class PaymentChildAdapter : ListAdapter<PaymentItem, PaymentChildAdapter.Payment
 
 private class ChildDiffUtil : DiffUtil.ItemCallback<PaymentItem>() {
     override fun areItemsTheSame(oldItem: PaymentItem, newItem: PaymentItem): Boolean {
-        return oldItem == newItem
+        return oldItem.label == newItem.label
     }
     override fun areContentsTheSame(oldItem: PaymentItem, newItem: PaymentItem): Boolean {
         return oldItem == newItem

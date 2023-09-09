@@ -42,5 +42,4 @@ interface ProductApiService {
     suspend fun payment(
 
     ) : Response<PaymentResponse>
-
 }

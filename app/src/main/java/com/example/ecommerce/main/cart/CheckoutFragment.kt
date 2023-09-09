@@ -9,12 +9,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.CheckoutAdapter
 import com.example.ecommerce.data.models.request.CheckoutRequest
 import com.example.ecommerce.databinding.FragmentCheckoutBinding
 import com.example.ecommerce.utils.convertToRupiah
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CheckoutFragment : Fragment() {
 
     private var _binding : FragmentCheckoutBinding ?=  null
@@ -40,6 +43,14 @@ class CheckoutFragment : Fragment() {
 
         val args : CheckoutFragmentArgs by navArgs()
 
+        val titlePembayaran = args.titlePayment
+        val imagePembayaran = args.imagePayment
+
+        if(!titlePembayaran.isNullOrEmpty()){
+            Glide.with(binding.root).load(imagePembayaran).into(binding.imgCardView)
+            binding.txtChosePayment.text = titlePembayaran
+        }
+
         checkboxAdapter = CheckoutAdapter()
         binding.rvCheckout.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCheckout.adapter = checkboxAdapter
@@ -64,7 +75,7 @@ class CheckoutFragment : Fragment() {
         }
 
         binding.btnNextPayment.setOnClickListener {
-            navController.navigate(R.id.action_checkoutFragment_to_paymentFragment)
+            navController.navigate(CheckoutFragmentDirections.actionCheckoutFragmentToPaymentFragment(args.listCheckout))
         }
     }
 }

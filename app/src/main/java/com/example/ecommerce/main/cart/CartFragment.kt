@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +24,7 @@ class CartFragment : Fragment() {
     private lateinit var cartAdapter: CartAdapter
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CartViewModel by viewModels()
+    private val viewModel: CartViewModel by activityViewModels()
 
     private val navHostFragment: NavHostFragment by lazy {
         requireActivity().supportFragmentManager.findFragmentById(R.id.nhf_main) as NavHostFragment
@@ -86,7 +86,7 @@ class CartFragment : Fragment() {
 
                 binding.btnBayar.setOnClickListener {
                     navController.navigate(CartFragmentDirections.
-                    actionCartFragmentToCheckoutFragment(isSelected.toListCheckout()))
+                    actionCartFragmentToCheckoutFragment(isSelected.toListCheckout(), "" , ""))
                 }
 
                 response.map {
@@ -97,7 +97,7 @@ class CartFragment : Fragment() {
 
                 if (checkListCheckBox) {
                     binding.btnDeleteList.visibility = View.VISIBLE
-                    binding.txtTotalBayar.text = "Rp. ${totalPrice.convertToRupiah()}"
+                    binding.txtTotalBayar.text = totalPrice.convertToRupiah()
                     binding.btnDeleteList.setOnClickListener {
                         viewModel.deleteCheckedItems()
                     }

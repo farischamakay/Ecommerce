@@ -1,47 +1,62 @@
-package com.example.ecommerce.adapter
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.example.ecommerce.data.models.response.PaymentItem
 import com.example.ecommerce.data.models.response.PaymentType
 import com.example.ecommerce.databinding.ItemListParentPaymentBinding
+import com.example.ecommerce.databinding.ItemListPaymentBinding
+import com.bumptech.glide.Glide
+import com.example.ecommerce.adapter.PaymentChildAdapter
 
-class ParentPaymentAdapter : ListAdapter<PaymentType, ParentPaymentAdapter.ParentPaymentViewHolder>
-    (ParentPaymentDiffUtil()) {
+class ParentPaymentAdapter(private val onChildItemClickListener: (PaymentItem) -> Unit) :
+    ListAdapter<PaymentType, ParentPaymentAdapter.ParentPaymentViewHolder>(ParentPaymentDiffUtil()) {
 
-    val adapter = PaymentChildAdapter()
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ParentPaymentAdapter.ParentPaymentViewHolder {
-        val binding = ItemListParentPaymentBinding.inflate(LayoutInflater.from(parent.context),
-            parent, false)
+    ): ParentPaymentViewHolder {
+        val binding = ItemListParentPaymentBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        )
         return ParentPaymentViewHolder(binding)
     }
 
-    override fun onBindViewHolder(
-        holder: ParentPaymentAdapter.ParentPaymentViewHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: ParentPaymentViewHolder, position: Int) {
         val item = getItem(position)
-        holder.binding.txtTitleType.text = item.title
-        holder.binding.rvPayment.layoutManager = LinearLayoutManager(holder.binding.root.context)
-        holder.binding.rvPayment.adapter = adapter
-        adapter.submitList(item.item)
-
-
+        holder.bind(item)
     }
-    inner class ParentPaymentViewHolder (val binding : ItemListParentPaymentBinding) :
-        RecyclerView.ViewHolder(binding.root)
+
+    inner class ParentPaymentViewHolder(val binding: ItemListParentPaymentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        private val childAdapter = PaymentChildAdapter()
+
+        init {
+            // Atur listener tindakan klik pada adapter anak
+            childAdapter.setOnItemClickListener { paymentItem ->
+                onChildItemClickListener(paymentItem)
+            }
+        }
+
+        fun bind(data: PaymentType) {
+            binding.txtTitleType.text = data.title
+            binding.rvPayment.layoutManager = LinearLayoutManager(binding.root.context)
+            binding.rvPayment.adapter = childAdapter
+            childAdapter.submitList(data.item)
+        }
+    }
 }
 
 private class ParentPaymentDiffUtil : DiffUtil.ItemCallback<PaymentType>() {
     override fun areItemsTheSame(oldItem: PaymentType, newItem: PaymentType): Boolean {
-        return oldItem == newItem
+        return oldItem.title == newItem.title
     }
+
     override fun areContentsTheSame(oldItem: PaymentType, newItem: PaymentType): Boolean {
         return oldItem == newItem
     }

@@ -19,8 +19,8 @@ class CartViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) : ViewModel() {
 
-    private val _paymentResult = MutableLiveData<ResourcesResult<PaymentResponse>?>()
-    val paymentResult: MutableLiveData<ResourcesResult<PaymentResponse>?> = _paymentResult
+    private val _paymentResult = MutableLiveData<ResourcesResult<PaymentResponse?>>()
+    val paymentResult: MutableLiveData<ResourcesResult<PaymentResponse?>> = _paymentResult
 
     val getDataRoom =
         roomCartRepository.fetchCartData()
@@ -59,6 +59,14 @@ class CartViewModel @Inject constructor(
             val cartList = getDataRoom.value ?: emptyList()
             val updateList = cartList.map { it.copy(isCheck = isChecked) }
             roomCartRepository.updateValues(updateList)
+        }
+    }
+
+    fun fetchPayment() {
+        viewModelScope.launch {
+            _paymentResult.value = ResourcesResult.Loading
+            val result = productRepository.paymentProduct()
+            _paymentResult.value = result
         }
     }
 }
