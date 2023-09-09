@@ -1,11 +1,17 @@
 package com.example.ecommerce.data.network
 
+import com.example.ecommerce.data.models.request.FullfilmentRequest
+import com.example.ecommerce.data.models.request.RatingRequest
+import com.example.ecommerce.data.models.response.FullfilmentResponse
 import com.example.ecommerce.data.models.response.PaymentResponse
 import com.example.ecommerce.data.models.response.ProductDetailResponse
 import com.example.ecommerce.data.models.response.ProductResponse
+import com.example.ecommerce.data.models.response.RatingResponse
 import com.example.ecommerce.data.models.response.ReviewResponse
 import com.example.ecommerce.data.models.response.SearchResponse
+import com.example.ecommerce.data.models.response.TransactionResponse
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -42,4 +48,20 @@ interface ProductApiService {
     suspend fun payment(
 
     ) : Response<PaymentResponse>
+
+    @GET("transaction")
+    suspend fun transaction(
+
+    ) : Response<TransactionResponse>
+
+    @POST("fulfillment")
+    suspend fun fullfilment(
+        @Body fullfilmentRequest: FullfilmentRequest
+    ) : Response<FullfilmentResponse>
+
+    @POST("rating")
+    suspend fun rating(
+        @Body ratingRequest : RatingRequest
+    ) : Response<RatingResponse>
+
 }

@@ -33,6 +33,8 @@ class StoreViewModel @Inject constructor(
     private val _param = MutableLiveData<ProductRequest>()
     val param: LiveData<ProductRequest> = _param
 
+
+
     private val _searchResult = MutableLiveData<ResourcesResult<SearchResponse<List<String>>?>>()
     val searchResult: LiveData<ResourcesResult<SearchResponse<List<String>>?>> = _searchResult
 
@@ -46,7 +48,6 @@ class StoreViewModel @Inject constructor(
 
     init {
         setQuery()
-
     }
 
     fun setQuery(

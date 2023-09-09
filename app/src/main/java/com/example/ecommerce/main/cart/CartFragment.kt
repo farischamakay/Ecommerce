@@ -88,13 +88,11 @@ class CartFragment : Fragment() {
                     navController.navigate(CartFragmentDirections.
                     actionCartFragmentToCheckoutFragment(isSelected.toListCheckout(), "" , ""))
                 }
-
                 response.map {
                     if (it.isCheck) {
                         totalPrice += it.productVariantPrice * it.quantity
                     }
                 }
-
                 if (checkListCheckBox) {
                     binding.btnDeleteList.visibility = View.VISIBLE
                     binding.txtTotalBayar.text = totalPrice.convertToRupiah()
@@ -105,11 +103,8 @@ class CartFragment : Fragment() {
                     binding.txtTotalBayar.text = getString(R.string.rp_0)
                     binding.btnDeleteList.visibility = View.GONE
                 }
-
                 cartAdapter.submitList(response)
-
             }
-
         }
     }
 }

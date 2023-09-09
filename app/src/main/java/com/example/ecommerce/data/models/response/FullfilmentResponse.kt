@@ -8,13 +8,13 @@ data class FullfilmentResponse(
 	val code: Int? = null,
 
 	@field:SerializedName("data")
-	val data: Data? = null,
+	val data: FulfillmentDetail? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null
 )
 
-data class Data(
+data class FulfillmentDetail(
 
 	@field:SerializedName("date")
 	val date: String? = null,

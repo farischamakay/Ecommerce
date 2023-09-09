@@ -73,6 +73,7 @@
     <string name="total_review">4.5 (2)</string>
     <string name="terjual_10">| Terjual 10</string>
     <string name="keranjang">+ Keranjang</string>
+    <string name="berhasil">Berhasil</string>
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
         <item>Galery</item>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,8 +14,13 @@ import com.bumptech.glide.Glide
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.CheckoutAdapter
 import com.example.ecommerce.data.models.request.CheckoutRequest
+import com.example.ecommerce.data.models.request.FullfilmentItem
+import com.example.ecommerce.data.models.request.FullfilmentRequest
+import com.example.ecommerce.data.models.response.toFulfillmentDataResponse
 import com.example.ecommerce.databinding.FragmentCheckoutBinding
+import com.example.ecommerce.utils.ResourcesResult
 import com.example.ecommerce.utils.convertToRupiah
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,9 +29,11 @@ class CheckoutFragment : Fragment() {
     private var _binding : FragmentCheckoutBinding ?=  null
     private lateinit var checkboxAdapter : CheckoutAdapter
     private val binding get() = _binding!!
+    private val viewModel : CartViewModel by activityViewModels()
     private val navHostFragment: NavHostFragment by lazy {
         requireActivity().supportFragmentManager.findFragmentById(R.id.nhf_main) as NavHostFragment
     }
+
     private val navController by lazy {
         navHostFragment.navController
     }
@@ -46,9 +54,39 @@ class CheckoutFragment : Fragment() {
         val titlePembayaran = args.titlePayment
         val imagePembayaran = args.imagePayment
 
-        if(!titlePembayaran.isNullOrEmpty()){
+        if(titlePembayaran.isNotEmpty()){
             Glide.with(binding.root).load(imagePembayaran).into(binding.imgCardView)
             binding.txtChosePayment.text = titlePembayaran
+            binding.btnBayar.isEnabled = true
+            binding.btnBayar.setOnClickListener {
+                val productItems = args.listCheckout.listCheckout.map {
+                    FullfilmentItem(
+                        quantity = it.quantity,
+                        productId = it.productId,
+                        variantName = it.productVariant
+                    )
+                }
+                val fulfillmentRequest = FullfilmentRequest(titlePembayaran, productItems.toList())
+
+                viewModel.fulfillment(fulfillmentRequest)
+
+                viewModel.fulfillmentResult.observe(viewLifecycleOwner){response ->
+                    when(response){
+                        is ResourcesResult.Loading -> {}
+                        is ResourcesResult.Success -> {
+                            val data = response.data?.data
+                            Snackbar.make(
+                                binding.root, "Pembayaran berhasil dilakukan!",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                            if (data != null) {
+                                navController.navigate(CheckoutFragmentDirections.actionCheckoutFragmentToStatusFragment(data.toFulfillmentDataResponse()))
+                            }
+                        }
+                        is ResourcesResult.Failure -> {}
+                    }
+                }
+            }
         }
 
         checkboxAdapter = CheckoutAdapter()
@@ -65,17 +103,19 @@ class CheckoutFragment : Fragment() {
                 binding.txtTotalBayar.text = totalPrice.convertToRupiah()
             }
         })
-
         checkboxAdapter.submitList(args.listCheckout.listCheckout)
 
         binding.txtTitleTotalBayar.text
-
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-
         binding.btnNextPayment.setOnClickListener {
             navController.navigate(CheckoutFragmentDirections.actionCheckoutFragmentToPaymentFragment(args.listCheckout))
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -5,9 +5,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import com.example.ecommerce.data.models.request.FullfilmentRequest
+import com.example.ecommerce.data.models.request.RatingRequest
+import com.example.ecommerce.data.models.response.FullfilmentResponse
 import com.example.ecommerce.data.models.response.ItemsItem
 import com.example.ecommerce.data.models.response.PaymentResponse
 import com.example.ecommerce.data.models.response.ProductDetailResponse
+import com.example.ecommerce.data.models.response.RatingResponse
 import com.example.ecommerce.data.models.response.ReviewResponse
 import com.example.ecommerce.data.models.response.SearchResponse
 import com.example.ecommerce.data.network.ProductApiService
@@ -17,7 +21,6 @@ import javax.inject.Inject
 class ProductRepository @Inject constructor(
     private val productApiService: ProductApiService
 ) {
-
     fun getProduct(
         search: String?,
         brand: String?,
@@ -90,4 +93,31 @@ class ProductRepository @Inject constructor(
             ResourcesResult.Failure(exception.message)
         }
     }
+    suspend fun fullfilmentPayment(fullfilmentRequest: FullfilmentRequest) : ResourcesResult<FullfilmentResponse?>{
+        return  try {
+            val response = productApiService.fullfilment(fullfilmentRequest)
+            if(response.isSuccessful){
+                val data = response.body()
+                ResourcesResult.Success(data)
+            } else {
+                ResourcesResult.Failure(response.message())
+            }
+        } catch (exception : Exception){
+            ResourcesResult.Failure(exception.message)
+        }
+    }
+    suspend fun ratingProduct(ratingRequest: RatingRequest) : ResourcesResult<RatingResponse?>{
+        return try {
+            val response = productApiService.rating(ratingRequest)
+            if (response.isSuccessful){
+                val data = response.body()
+                ResourcesResult.Success(data)
+            } else {
+                ResourcesResult.Failure(response.message())
+            }
+        } catch (exception : Exception){
+            ResourcesResult.Failure(exception.message)
+        }
+    }
+
 }
