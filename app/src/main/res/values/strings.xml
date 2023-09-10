@@ -63,7 +63,7 @@
     <string name="beri_ulasan">Beri Ulasan</string>
     <string name="sisa">Sisa %1$s</string>
     <string name="rp">Rp. %1$s</string>
-    <string name="terjual">Terjual %1$s</string>
+    <string name="terjual">| Terjual %1$s</string>
     <string name="rp_0">Rp.0</string>
     <string name="internal_server_error">Internal Server Error</string>
     <string name="refresh">Refresh</string>
@@ -76,6 +76,14 @@
     <string name="berhasil">Berhasil</string>
     <string name="jumlah_barang">0 Barang</string>
     <string name="ulas">Ulas</string>
+    <string name="barang">%1$s Barang</string>
+    <string name="date">4 Juni 2021</string>
+    <string name="belanja">Belanja</string>
+    <string name="review_star">4.5</string>
+    <string name="beli_langsung">Beli Langsung</string>
+    <string name="kepuasan">100 % pembeli merasa puas</string>
+    <string name="tingkat_kepuasan">2 rating . 2 ulasan</string>
+    <string name="lihat_semua">Lihat Semua</string>
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
         <item>Galery</item>

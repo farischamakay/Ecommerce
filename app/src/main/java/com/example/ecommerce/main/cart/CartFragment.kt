@@ -15,7 +15,6 @@ import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.data.models.request.toListCheckout
 import com.example.ecommerce.databinding.FragmentCartBinding
 import com.example.ecommerce.utils.convertToRupiah
-import com.google.android.material.badge.BadgeDrawable
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -57,6 +56,7 @@ class CartFragment : Fragment() {
         binding.rvCart.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCart.adapter = cartAdapter
         binding.rvCart.itemAnimator?.changeDuration = 0
+
         cartAdapter.setOnItemClickCallback(object : CartAdapter.OnItemClickCallback {
             override fun onItemClicked(cart: List<Pair<Cart, Boolean>>) {
                 viewModel.updateCheckable(cart)
@@ -92,6 +92,7 @@ class CartFragment : Fragment() {
                     navController.navigate(CartFragmentDirections.
                     actionCartFragmentToCheckoutFragment(isSelected.toListCheckout(), "" , ""))
                 }
+
                 response.map {
                     if (it.isCheck) {
                         totalPrice += it.productVariantPrice * it.quantity
@@ -107,6 +108,7 @@ class CartFragment : Fragment() {
                     binding.txtTotalBayar.text = getString(R.string.rp_0)
                     binding.btnDeleteList.visibility = View.GONE
                 }
+
                 cartAdapter.submitList(response)
             }
         }

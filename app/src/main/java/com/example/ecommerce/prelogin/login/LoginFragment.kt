@@ -64,24 +64,27 @@ class LoginFragment : Fragment() {
                     binding.btnToHome.visibility = View.INVISIBLE
                     binding.progressbar.visibility = View.VISIBLE
                 }
-
                 is ResourcesResult.Success -> {
                     binding.progressbar.visibility = View.GONE
                     binding.btnToHome.visibility = View.VISIBLE
 
+                    val username = result.data.data?.userName
                     val accessToken = result.data.data?.accessToken
                     val refreshToken = result.data.data?.refreshToken
+
                     if (accessToken != null && refreshToken != null) {
                         viewModel.saveToken(accessToken, refreshToken)
+                        viewModel.saveUserName(username.toString())
+                        Toast.makeText(requireContext(), "Login berhasil!", Toast.LENGTH_LONG)
+                            .show()
                     }
-                    Toast.makeText(requireContext(), "Login berhasil!", Toast.LENGTH_LONG)
-                        .show()
-                    if (viewModel.getUsername().isNullOrEmpty() ||
-                        viewModel.getUsername() != result.data.data?.userName
-                    )
+
+                    if (username.isNullOrEmpty()){
                         findNavController().navigate(R.id.action_loginFragment_to_profileFragment2)
-                    else
+                    } else {
                         findNavController().navigate(R.id.prelogin_to_main)
+                    }
+
                 }
 
                 is ResourcesResult.Failure -> {

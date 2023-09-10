@@ -52,9 +52,9 @@ class ReviewFragment : Fragment() {
 
                     val response = result.data?.data
                     if (response != null) {
-                        val nonNullItems = response.filterNotNull()
-                        val adapter = ReviewAdapter(nonNullItems)
+                        val adapter = ReviewAdapter()
                         binding.rvReview.adapter = adapter
+                        adapter.submitList(response)
                     }
                 }
 

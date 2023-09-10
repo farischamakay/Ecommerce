@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ecommerce.R
 import com.example.ecommerce.adapter.WishlistAdapter
 import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.data.database.wishlist.Wishlist
@@ -61,7 +62,7 @@ class WishlistFragment : Fragment() {
 
         viewModel.getDataWishlist.observe(viewLifecycleOwner) { response ->
                 wishlistAdapter.submitList(response)
-                binding.txtJumlahWishlist.text = "${response.size} Barang"
+                binding.txtJumlahWishlist.text = getString(R.string.barang, response.size.toString())
                 binding.emptyState.root.isVisible = response.isNullOrEmpty()
         }
 

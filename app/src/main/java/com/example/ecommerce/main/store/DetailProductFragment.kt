@@ -4,9 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
+import com.example.ecommerce.R
 import com.example.ecommerce.adapter.ImageDetailAdapter
 import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.data.database.wishlist.Wishlist
@@ -27,6 +32,7 @@ class DetailProductFragment : Fragment() {
     private val viewModel: StoreViewModel by activityViewModels()
 
     private var priceSum: Int = 0
+    private lateinit var indicatorContainer: LinearLayout
     private lateinit var data: ProductDetailData
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +61,10 @@ class DetailProductFragment : Fragment() {
 
                 is ResourcesResult.Success -> {
                     data = result.data?.data!!
+
+                    setupIndicators(result.data.data.image)
+                    setCurrentIndicator(0)
+
                     binding.apply {
                         progressBar.visibility = View.GONE
                         txtDetailHargaProduk.text = data.productPrice?.convertToRupiah()
@@ -69,6 +79,13 @@ class DetailProductFragment : Fragment() {
 
                     val adapter = data.image?.let { ImageDetailAdapter(it) }
                     binding.viewpagerImage.adapter = adapter
+                    binding.viewpagerImage.registerOnPageChangeCallback(object :
+                        ViewPager2.OnPageChangeCallback() {
+                        override fun onPageSelected(position: Int) {
+                            super.onPageSelected(position)
+                            setCurrentIndicator(position)
+                        }
+                    })
 
                     var counter = 0
                     data.productVariant.map {
@@ -76,16 +93,19 @@ class DetailProductFragment : Fragment() {
                     }
 
                     binding.chipVarianGroup.setOnCheckedStateChangeListener { _, checkedIds ->
-                        binding.chipVarianGroup.checkedChipId
-                        val a = binding.chipVarianGroup.checkedChipId
-                        val price = data.productVariant[a].variantPrice
-                        if (data.productPrice != null)
-                            priceSum = data.productPrice!! + price
-                        binding.txtDetailHargaProduk.text = priceSum.convertToRupiah()
+                        if(binding.chipVarianGroup.checkedChipId != View.NO_ID) {
+                            val a = binding.chipVarianGroup.checkedChipId
+                            val price = data.productVariant[a].variantPrice
+                            if (data.productPrice != null)
+                                priceSum = data.productPrice!! + price
+                            binding.txtDetailHargaProduk.text = priceSum.convertToRupiah()
+                        }
 
                     }
 
-//                    (binding.chipVarianGroup.getChildAt(0) as Chip).isSelected = true
+                    if (binding.chipVarianGroup.checkedChipId == View.NO_ID) {
+                        (binding.chipVarianGroup.getChildAt(0) as Chip).isChecked = true
+                    }
 
                     binding.btnAllReviews.setOnClickListener {
                         findNavController().navigate(
@@ -115,16 +135,6 @@ class DetailProductFragment : Fragment() {
                 ).show()
             }
         }
-
-//        binding.btnFavorite.setOnClickListener {
-//            val dataNew = data.copy(productPrice = priceSum)
-//            viewModel.insertToWishlist(convertToWishlist(dataNew))
-//            Snackbar.make(
-//                view, "Product berhasil ditambahkan pada wishlist!",
-//                Snackbar.LENGTH_LONG
-//            ).show()
-//        }
-
 
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
 
@@ -197,6 +207,57 @@ class DetailProductFragment : Fragment() {
             detailData.productVariant[0].variantName,
             detailData.productPrice ?: 0
         )
+    }
+
+    private fun setupIndicators(data: List<String?>?) {
+        if (data?.size ?: 0 > 1) {
+            indicatorContainer = binding.indicatorsContainer
+            val indicator = arrayOfNulls<ImageView>(data!!.size)
+            val layoutParams: LinearLayout.LayoutParams =
+                LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            layoutParams.setMargins(8, 0, 8, 0)
+            for (i in indicator.indices) {
+                indicator[i] = ImageView(requireContext())
+                indicator[i]?.let {
+                    it.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.shape_indicator_inactive
+                        )
+                    )
+                    it.layoutParams = layoutParams
+                    indicatorContainer.addView(it)
+                }
+            }
+        } else {
+            binding.indicatorsContainer.visibility = View.GONE
+        }
+    }
+
+
+    private fun setCurrentIndicator(position: Int) {
+        val childCount = indicatorContainer.childCount
+        for (i in 0 until childCount) {
+            val imageView = indicatorContainer.getChildAt(i) as ImageView
+            if (i == position) {
+                imageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.shape_indicator_active
+                    )
+                )
+            } else {
+                imageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.shape_indicator_inactive
+                    )
+                )
+            }
+        }
     }
 
     private fun createChips(name: String?, varianId: Int) {

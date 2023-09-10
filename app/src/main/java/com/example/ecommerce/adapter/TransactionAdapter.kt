@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerce.data.models.response.TransactionDataItem
 import com.example.ecommerce.databinding.ItemListTransactionBinding
+import com.example.ecommerce.utils.convertToRupiah
 
 class TransactionAdapter : ListAdapter<TransactionDataItem, 
         TransactionAdapter.TransactionViewHolder>(TransactionDiffCallback()) {
@@ -32,14 +33,18 @@ class TransactionAdapter : ListAdapter<TransactionDataItem,
                 Glide.with(binding.root).load(data.image).into(binding.imgProduct)
                 binding.txtTanggalPembelian.text = data.date
                 binding.txtNumberOfProduct.text = "${data.items?.map { it?.quantity }} Barang"
-                binding.txtTotalPrice.text = data.total.toString()
+                binding.txtTotalPrice.text = data.total?.convertToRupiah()
 
-                if (data.items!!.isNotEmpty()){
+                if (data.review == null ){
                     binding.btnUlas.visibility = View.VISIBLE
                 }
             }
 
         }
+
+    interface OnItemClickCallback{
+        fun onUlasClicked ()
+    }
 }
 
 private class TransactionDiffCallback : DiffUtil.ItemCallback<TransactionDataItem>() {

@@ -103,6 +103,7 @@ class CheckoutFragment : Fragment() {
                 binding.txtTotalBayar.text = totalPrice.convertToRupiah()
             }
         })
+
         checkboxAdapter.submitList(args.listCheckout.listCheckout)
 
         binding.txtTitleTotalBayar.text

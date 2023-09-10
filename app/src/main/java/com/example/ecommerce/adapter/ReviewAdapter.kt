@@ -2,13 +2,15 @@ package com.example.ecommerce.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerce.data.models.response.ReviewDataItem
 import com.example.ecommerce.databinding.ItemUlasanPembeliBinding
 
-class ReviewAdapter(private var reviews: List<ReviewDataItem>) :
-    RecyclerView.Adapter<ReviewAdapter.ReviewAdapterViewHolder>() {
+class ReviewAdapter :
+    ListAdapter<ReviewDataItem, ReviewAdapter.ReviewAdapterViewHolder>(ReviewDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewAdapterViewHolder {
         val binding = ItemUlasanPembeliBinding.inflate(
@@ -18,20 +20,33 @@ class ReviewAdapter(private var reviews: List<ReviewDataItem>) :
         return ReviewAdapterViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = reviews.size
-
     override fun onBindViewHolder(holder: ReviewAdapterViewHolder, position: Int) {
-        val items = reviews[position]
-        Glide.with(holder.itemView.context).load(items.userImage)
-            .into(holder.binding.imgProfileUser)
-        holder.binding.txtUsernameUser.text = items.userName
-        if (items.userRating != null) {
-            holder.binding.rBar.rating = items.userRating.toFloat()
-        }
-        holder.binding.txtReviewUser.text = items.userReview
+        val items = getItem(position)
+        holder.bind(items)
+
     }
 
     inner class ReviewAdapterViewHolder(var binding: ItemUlasanPembeliBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+            fun bind(data: ReviewDataItem){
+                Glide.with(binding.root).load(data.userImage)
+                    .into(binding.imgProfileUser)
+                binding.txtUsernameUser.text = data.userName
+                if (data.userRating != null) {
+                    binding.rBar.rating = data.userRating.toFloat()
+                }
+                binding.txtReviewUser.text = data.userReview
+            }
+        }
+}
+
+private class ReviewDiffCallback : DiffUtil.ItemCallback<ReviewDataItem>(){
+    override fun areItemsTheSame(oldItem: ReviewDataItem, newItem: ReviewDataItem): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: ReviewDataItem, newItem: ReviewDataItem): Boolean {
+        return oldItem == newItem
+    }
 
 }

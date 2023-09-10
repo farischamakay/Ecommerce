@@ -71,6 +71,7 @@ class OnboardingFragment : Fragment() {
                 }
             }
         })
+
         (binding.viewpagerOnboarding.getChildAt(0) as RecyclerView).overScrollMode =
             RecyclerView.OVER_SCROLL_NEVER
 

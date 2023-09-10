@@ -9,9 +9,6 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val sharedPreferenceManager: PreferenceProvider
 ) : ViewModel() {
-    fun getUserNameLogin(): String? {
-        return sharedPreferenceManager.getUsername()
-    }
 
     fun deleteToken() {
         return sharedPreferenceManager.deleteTokenAccess()

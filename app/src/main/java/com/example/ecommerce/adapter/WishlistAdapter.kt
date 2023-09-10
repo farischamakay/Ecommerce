@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.ecommerce.data.database.wishlist.Wishlist
 import com.example.ecommerce.databinding.ItemWishlistGridBinding
 import com.example.ecommerce.databinding.ItemWishlistLinearBinding
+import com.example.ecommerce.utils.convertToRupiah
 
 class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
@@ -79,7 +80,7 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
         fun bind(data: Wishlist) {
             Glide.with(binding.root).load(data.image).into(binding.imgProductView)
             binding.txtTitleProduct.text = data.productName
-            binding.txtHargaProduct.text = "Rp. ${data.productVariantPrice}"
+            binding.txtHargaProduct.text = "Rp. ${data.productVariantPrice.convertToRupiah()}"
             binding.txtStoreName.text = data.store
             binding.txtProductRating.text = data.productRating
             binding.txtProductTerjual.text = "| Terjual ${data.sale}"
@@ -97,7 +98,7 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
         fun bind(data: Wishlist) {
             Glide.with(binding.root).load(data.image).into(binding.imgProduct)
             binding.txtTitleProduct.text = data.productName
-            binding.txtHargaProduct.text = "Rp. ${data.productVariantPrice}"
+            binding.txtHargaProduct.text = "Rp. ${data.productVariantPrice.convertToRupiah()}"
             binding.txtProductBrand.text = data.brand
             binding.txtRatingProduct.text = data.totalRating.toString()
             binding.txtProductTerjual.text = "| Terjual ${data.sale}"

@@ -35,6 +35,10 @@ class LoginViewModel @Inject constructor(
         return sharedUserPreferenceManager.saveAccess(accessKey, refreshKey)
     }
 
+    fun saveUserName(username: String) {
+        return sharedUserPreferenceManager.saveUsername(username)
+    }
+
     fun getUsername(): String? {
         return sharedUserPreferenceManager.getUsername()
     }
