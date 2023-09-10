@@ -20,7 +20,6 @@ class WishlistViewModel @Inject constructor(private val roomCartRepository: Room
             roomCartRepository.deleteWishlistById(itemId)
         }
     }
-
     fun insertToRoom(cart: Cart) {
         viewModelScope.launch {
             roomCartRepository.insertCartData(cart)

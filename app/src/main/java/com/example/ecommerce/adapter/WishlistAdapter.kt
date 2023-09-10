@@ -88,7 +88,7 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
                 onItemClickCallback.onDeleteClicked(data.productId)
             }
             binding.btnTambahKeranjang.setOnClickListener {
-                onItemClickCallback.onAddCartClicked(data)
+                onItemClickCallback.onAddCartClicked(data, data.productId)
             }
         }
     }
@@ -109,7 +109,7 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
     }
 
     interface OnItemClickCallback {
-        fun onAddCartClicked(wishlist: Wishlist)
+        fun onAddCartClicked(wishlist: Wishlist, itemId: String)
         fun onDeleteClicked(itemId : String)
     }
 

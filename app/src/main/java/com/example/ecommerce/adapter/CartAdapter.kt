@@ -14,6 +14,12 @@ import com.google.android.material.snackbar.Snackbar
 
 class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallback()) {
 
+    interface OnItemClickCallback {
+        fun onItemClicked(cart: List<Pair<Cart, Boolean>>)
+        fun counterClicked(cart: List<Pair<Cart, Int>>)
+        fun onDeleteClicked(itemId  : String)
+    }
+
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -80,12 +86,6 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
 
     }
 
-    interface OnItemClickCallback {
-        fun onItemClicked(cart: List<Pair<Cart, Boolean>>)
-        fun counterClicked(cart: List<Pair<Cart, Int>>)
-
-        fun onDeleteClicked(itemId  : String)
-    }
 }
 
 private class CartDiffCallback : DiffUtil.ItemCallback<Cart>() {

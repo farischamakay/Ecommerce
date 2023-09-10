@@ -19,6 +19,7 @@ class PaymentChildAdapter : ListAdapter<PaymentItem, PaymentChildAdapter.Payment
     fun setOnItemClickListener(listener: (PaymentItem) -> Unit) {
         onItemClickListener = listener
     }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

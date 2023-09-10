@@ -14,9 +14,7 @@ class LoadingStateAdapter(private val retry: () -> Unit) :
     class LoadStateViewHolder(private val binding: ItemLoadingFooterBinding, retry: () -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(loadState: LoadState) {
-
             binding.progressBar.isVisible = loadState is LoadState.Loading
-
         }
     }
 

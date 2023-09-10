@@ -14,7 +14,6 @@ import com.example.ecommerce.adapter.PaymentChildAdapter
 
 class ParentPaymentAdapter(private val onChildItemClickListener: (PaymentItem) -> Unit) :
     ListAdapter<PaymentType, ParentPaymentAdapter.ParentPaymentViewHolder>(ParentPaymentDiffUtil()) {
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -25,7 +24,6 @@ class ParentPaymentAdapter(private val onChildItemClickListener: (PaymentItem) -
         )
         return ParentPaymentViewHolder(binding)
     }
-
     override fun onBindViewHolder(holder: ParentPaymentViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
@@ -35,14 +33,11 @@ class ParentPaymentAdapter(private val onChildItemClickListener: (PaymentItem) -
         RecyclerView.ViewHolder(binding.root) {
 
         private val childAdapter = PaymentChildAdapter()
-
         init {
-            // Atur listener tindakan klik pada adapter anak
             childAdapter.setOnItemClickListener { paymentItem ->
                 onChildItemClickListener(paymentItem)
             }
         }
-
         fun bind(data: PaymentType) {
             binding.txtTitleType.text = data.title
             binding.rvPayment.layoutManager = LinearLayoutManager(binding.root.context)

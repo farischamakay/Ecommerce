@@ -15,7 +15,6 @@ import com.example.ecommerce.data.models.response.ReviewResponse
 import com.example.ecommerce.data.models.response.SearchResponse
 import com.example.ecommerce.data.repository.ProductRepository
 import com.example.ecommerce.data.repository.RoomCartRepository
-import com.example.ecommerce.preferences.PreferenceProvider
 import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -26,35 +25,28 @@ import javax.inject.Inject
 @HiltViewModel
 class StoreViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-    private val roomCartRepository: RoomCartRepository,
+    private val roomCartRepository: RoomCartRepository
 ) : ViewModel() {
 
+    private var job: Job? = null
     private val _param = MutableLiveData<ProductRequest>()
-    val param: LiveData<ProductRequest> = _param
-
-
-
     private val _searchResult = MutableLiveData<ResourcesResult<SearchResponse<List<String>>?>>()
-    val searchResult: LiveData<ResourcesResult<SearchResponse<List<String>>?>> = _searchResult
-
+    private val _reviewProduct = MutableLiveData<ResourcesResult<ReviewResponse?>>()
     private val _detailProduct = MutableLiveData<ResourcesResult<ProductDetailResponse?>>()
     val detailProduct: LiveData<ResourcesResult<ProductDetailResponse?>> = _detailProduct
-
-    private val _reviewProduct = MutableLiveData<ResourcesResult<ReviewResponse?>>()
+    val searchResult: LiveData<ResourcesResult<SearchResponse<List<String>>?>> = _searchResult
     val reviewProduct: LiveData<ResourcesResult<ReviewResponse?>> = _reviewProduct
-
-    private var job: Job? = null
+    val param: LiveData<ProductRequest> = _param
 
     init {
         setQuery()
     }
 
-    fun setQuery(
-        search: String? = null, brand: String? = null, lowest: Int? = null,
-        highest: Int? = null, sort: String? = null
-    ) {
-        _param.postValue(ProductRequest(search, brand, lowest, highest, sort))
-    }
+    val getDataRoom =
+        roomCartRepository.fetchCartData()
+
+    val getDataWishlist =
+        roomCartRepository.fetchWishlistData()
 
     val product =
         param.switchMap {
@@ -65,8 +57,14 @@ class StoreViewModel @Inject constructor(
                 it.highest,
                 it.sort
             ).cachedIn(viewModelScope)
-        }
+    }
 
+    fun setQuery(
+        search: String? = null, brand: String? = null, lowest: Int? = null,
+        highest: Int? = null, sort: String? = null
+    ) {
+        _param.postValue(ProductRequest(search, brand, lowest, highest, sort))
+    }
 
     fun searchItem(query: String) {
         job?.cancel()
@@ -94,9 +92,6 @@ class StoreViewModel @Inject constructor(
         }
     }
 
-    val getDataRoom =
-        roomCartRepository.fetchCartData()
-
     fun insertToRoom(cart: Cart) {
         viewModelScope.launch {
             roomCartRepository.insertCartData(cart)
@@ -115,6 +110,11 @@ class StoreViewModel @Inject constructor(
                 cartList.copy(quantity = quantity)
             }
             roomCartRepository.updateValues(updates)
+        }
+    }
+    fun deleteItemById(itemId : String){
+        viewModelScope.launch {
+            roomCartRepository.deleteWishlistById(itemId)
         }
     }
 }

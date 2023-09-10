@@ -13,6 +13,10 @@ import com.google.android.material.snackbar.Snackbar
 
 class CheckoutAdapter : ListAdapter<CheckoutRequest, CheckoutAdapter.CheckoutViewHolder>(CheckoutDiffCallback()) {
 
+    interface OnItemClickCallback {
+        fun counterClicked(checkout: CheckoutRequest)
+    }
+
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -62,9 +66,6 @@ class CheckoutAdapter : ListAdapter<CheckoutRequest, CheckoutAdapter.CheckoutVie
                     }
                 }
             }
-    interface OnItemClickCallback {
-        fun counterClicked(checkout: CheckoutRequest)
-    }
 }
 private class CheckoutDiffCallback : DiffUtil.ItemCallback<CheckoutRequest>() {
     override fun areItemsTheSame(oldItem: CheckoutRequest, newItem: CheckoutRequest): Boolean {

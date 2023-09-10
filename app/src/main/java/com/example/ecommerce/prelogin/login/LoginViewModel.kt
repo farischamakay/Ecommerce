@@ -19,7 +19,6 @@ class LoginViewModel @Inject constructor(
     private val sharedUserPreferenceManager: PreferenceProvider
 ) : ViewModel() {
 
-
     private val _loginResult = MutableLiveData<ResourcesResult<LoginResponse>>()
     val loginResult: LiveData<ResourcesResult<LoginResponse>> = _loginResult
 

@@ -43,18 +43,25 @@ class MainFragment : Fragment() {
         binding.bottomNavigation.setOnItemReselectedListener {
         }
 
-        viewModel.getDataRoom.observe(viewLifecycleOwner){response ->
-
-                val cartBadges = BadgeDrawable.create(requireContext())
+        viewModel.getDataRoom.observe(viewLifecycleOwner){ response ->
+            val cartBadges = BadgeDrawable.create(requireContext())
+            if(response.isNotEmpty()){
                 cartBadges.number = response.size
-
                 attachBadgeDrawable(cartBadges,binding.topAppBar, R.id.cart)
-
+            } else {
+                cartBadges.clearNumber()
+            }
         }
 
+        viewModel.getDataWishlist.observe(viewLifecycleOwner){ response ->
+            val wishListBadges = binding.bottomNavigation.getOrCreateBadge(R.id.wishlistFragment)
+            if(response.isNotEmpty()){
+                wishListBadges.number = response.size
+            } else {
+                wishListBadges.clearNumber()
+            }
+        }
 
-        val wishListBadges = binding.bottomNavigation.getOrCreateBadge(R.id.wishlistFragment)
-        wishListBadges.number = viewModel.getDataWishlist.value?.size ?: 0
 
         binding.topAppBar.title = viewModel.getUsername()
         binding.topAppBar.setOnMenuItemClickListener {

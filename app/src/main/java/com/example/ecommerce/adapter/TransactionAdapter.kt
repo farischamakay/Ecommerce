@@ -37,6 +37,7 @@ class TransactionAdapter : ListAdapter<TransactionDataItem,
         RecyclerView.ViewHolder(binding.root){
             fun bind(data : TransactionDataItem) {
                 Glide.with(binding.root).load(data.image).into(binding.imgProduct)
+                binding.txtTitleProduct.text = data.name
                 binding.txtTanggalPembelian.text = data.date
                 binding.txtNumberOfProduct.text = "${data.items?.map { it?.quantity }} Barang"
                 binding.txtTotalPrice.text = data.total?.convertToRupiah()

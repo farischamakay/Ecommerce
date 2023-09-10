@@ -26,14 +26,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailProductFragment : Fragment() {
 
+    private var priceSum: Int = 0
+    private lateinit var data: ProductDetailData
     private var _binding: FragmentDetailProductBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: StoreViewModel by activityViewModels()
-
-    private var priceSum: Int = 0
     private lateinit var indicatorContainer: LinearLayout
-    private lateinit var data: ProductDetailData
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,6 +45,7 @@ class DetailProductFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val productId = arguments?.getString("id").toString()
+        var isSettingChecked = false
 
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().navigateUp()
@@ -75,6 +75,27 @@ class DetailProductFragment : Fragment() {
                         txtTotalStar.text = data.productRating.toString()
                         txtSatisfication.text = "${data.totalSatisfaction} % pembeli merasa puas."
                         txtUlasanRate.text = "${data.totalRating} Rating . ${data.totalReview} Review"
+                    }
+
+                    binding.btnFavorite.setOnCheckedChangeListener { _, isChecked ->
+                        if (!isSettingChecked) {
+                            isSettingChecked = true
+                            if (isChecked) {
+                                val dataNew = data.copy(productPrice = priceSum)
+                                viewModel.insertToWishlist(convertToWishlist(dataNew))
+                                Snackbar.make(
+                                    view, "Product berhasil ditambahkan pada wishlist!",
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            } else {
+                                viewModel.deleteItemById(productId)
+                                Snackbar.make(
+                                    view, "Product dihapus dari wishlist!",
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                            isSettingChecked = false
+                        }
                     }
 
                     val adapter = data.image?.let { ImageDetailAdapter(it) }
@@ -125,23 +146,16 @@ class DetailProductFragment : Fragment() {
             }
         }
 
-        binding.btnFavorite.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
-                val dataNew = data.copy(productPrice = priceSum)
-                viewModel.insertToWishlist(convertToWishlist(dataNew))
-                Snackbar.make(
-                    view, "Product berhasil ditambahkan pada wishlist!",
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
+        viewModel.getDataWishlist.observe(viewLifecycleOwner) { response ->
+            val isProductInWishlist = response.any { it.productId == productId }
+            binding.btnFavorite.isChecked = isProductInWishlist
         }
+
 
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
 
             binding.btnTambahKeranjang.setOnClickListener {
-
                 val cartData = response.find { it.productId == productId }
-
                 if (cartData == null) {
                     val dataNew = data.copy(productPrice = priceSum)
                     viewModel.insertToRoom(convertToCart(dataNew))
@@ -149,14 +163,11 @@ class DetailProductFragment : Fragment() {
                         view, "Product berhasil ditambahkan pada keranjang!",
                         Snackbar.LENGTH_LONG
                     ).show()
-
                 } else {
                     var qtyCart = cartData.quantity
-
                     if (qtyCart < (data.stock ?: 0)) {
                         qtyCart += 1
                         viewModel.updateQuantity(listOf(convertToCart(data) to qtyCart))
-
                         Snackbar.make(
                             view, "Product berhasil ditambahkan pada keranjang!",
                             Snackbar.LENGTH_LONG
@@ -210,7 +221,7 @@ class DetailProductFragment : Fragment() {
     }
 
     private fun setupIndicators(data: List<String?>?) {
-        if (data?.size ?: 0 > 1) {
+        if ((data?.size ?: 0) > 1) {
             indicatorContainer = binding.indicatorsContainer
             val indicator = arrayOfNulls<ImageView>(data!!.size)
             val layoutParams: LinearLayout.LayoutParams =

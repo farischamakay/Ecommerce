@@ -51,7 +51,6 @@ class WishlistFragment : Fragment() {
             }
         }
 
-
         binding.btnChangeGrid.setOnCheckedChangeListener { _, isChecked ->
             wishlistAdapter.isGrid = isChecked
             if (isChecked) {
@@ -69,8 +68,10 @@ class WishlistFragment : Fragment() {
 
 
         wishlistAdapter.setOnItemClickCallback(object : WishlistAdapter.OnItemClickCallback{
-            override fun onAddCartClicked(wishlist: Wishlist) {
+
+            override fun onAddCartClicked(wishlist: Wishlist, itemId: String) {
                 viewModel.insertToRoom(convertToCart(wishlist))
+                viewModel.deleteItemById(itemId)
                 Snackbar.make(
                     view, "Ditambahkan ke Keranjang!",
                     Snackbar.LENGTH_LONG

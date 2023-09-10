@@ -24,12 +24,11 @@ class CartViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _paymentResult = MutableLiveData<ResourcesResult<PaymentResponse?>>()
-    val paymentResult: MutableLiveData<ResourcesResult<PaymentResponse?>> = _paymentResult
-
     private val _fulfillmentResult = MutableLiveData<ResourcesResult<FullfilmentResponse?>>()
-    val fulfillmentResult : MutableLiveData<ResourcesResult<FullfilmentResponse?>> = _fulfillmentResult
-
     private val _rating = MutableLiveData<ResourcesResult<RatingResponse?>>()
+
+    val paymentResult: MutableLiveData<ResourcesResult<PaymentResponse?>> = _paymentResult
+    val fulfillmentResult : MutableLiveData<ResourcesResult<FullfilmentResponse?>> = _fulfillmentResult
     val ratingResult : MutableLiveData<ResourcesResult<RatingResponse?>> = _rating
 
     val getDataRoom =
