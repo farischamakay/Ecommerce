@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.WishlistAdapter
@@ -82,6 +83,7 @@ class WishlistFragment : Fragment() {
                     view, "Deleted item!",
                     Snackbar.LENGTH_LONG
                 ).show()
+
             }
 
         })

@@ -16,7 +16,7 @@ import com.example.ecommerce.adapter.CheckoutAdapter
 import com.example.ecommerce.data.models.request.CheckoutRequest
 import com.example.ecommerce.data.models.request.FullfilmentItem
 import com.example.ecommerce.data.models.request.FullfilmentRequest
-import com.example.ecommerce.data.models.response.toFulfillmentDataResponse
+import com.example.ecommerce.data.models.response.fulfillmentToReview
 import com.example.ecommerce.databinding.FragmentCheckoutBinding
 import com.example.ecommerce.utils.ResourcesResult
 import com.example.ecommerce.utils.convertToRupiah
@@ -80,7 +80,7 @@ class CheckoutFragment : Fragment() {
                                 Snackbar.LENGTH_LONG
                             ).show()
                             if (data != null) {
-                                navController.navigate(CheckoutFragmentDirections.actionCheckoutFragmentToStatusFragment(data.toFulfillmentDataResponse()))
+                                navController.navigate(CheckoutFragmentDirections.actionCheckoutFragmentToStatusFragment(data.fulfillmentToReview()))
                             }
                         }
                         is ResourcesResult.Failure -> {}

@@ -13,6 +13,12 @@ import com.example.ecommerce.utils.convertToRupiah
 
 class TransactionAdapter : ListAdapter<TransactionDataItem, 
         TransactionAdapter.TransactionViewHolder>(TransactionDiffCallback()) {
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnUlasClickListener(onItemClickCallback: OnItemClickCallback){
+        this.onItemClickCallback = onItemClickCallback
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -37,13 +43,16 @@ class TransactionAdapter : ListAdapter<TransactionDataItem,
 
                 if (data.review == null ){
                     binding.btnUlas.visibility = View.VISIBLE
+                    binding.btnUlas.setOnClickListener {
+                        onItemClickCallback.onUlasClicked(data)
+                    }
                 }
             }
 
         }
 
     interface OnItemClickCallback{
-        fun onUlasClicked ()
+        fun onUlasClicked (transactionDataItem: TransactionDataItem)
     }
 }
 

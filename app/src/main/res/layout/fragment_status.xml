@@ -130,7 +130,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_input_review"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="100dp"
                             android:maxLines="4"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -164,7 +164,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="@string/id_transaksi"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_title_detail_transaksi" />

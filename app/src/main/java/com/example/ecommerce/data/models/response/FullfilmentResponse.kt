@@ -34,3 +34,4 @@ data class FulfillmentDetail(
 	@field:SerializedName("status")
 	val status: Boolean? = null
 )
+

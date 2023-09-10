@@ -14,7 +14,7 @@ data class FulfillmentDataResponse (
     val total : Int
 ) : Parcelable
 
-fun FulfillmentDetail.toFulfillmentDataResponse() : FulfillmentDataResponse {
+fun FulfillmentDetail.fulfillmentToReview() : FulfillmentDataResponse {
     return FulfillmentDataResponse(
         payment = this.payment ?: "",
         invoiceId = this.invoiceId ?: "",
@@ -24,6 +24,17 @@ fun FulfillmentDetail.toFulfillmentDataResponse() : FulfillmentDataResponse {
         total = this.total ?: 0
     )
 }
+fun TransactionDataItem.transactionToReview() : FulfillmentDataResponse {
+    return FulfillmentDataResponse(
+        payment = this.payment ?: "",
+        invoiceId = this.invoiceId ?: "",
+        status = this.status ?: false,
+        date = this.date ?: "",
+        time = this.time ?: "",
+        total = this.total ?: 0
+    )
+}
+
 
 
 

@@ -57,6 +57,7 @@ class StoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val gridManager = GridLayoutManager(requireContext(), 1)
         binding.rvProductList.layoutManager = gridManager
 
@@ -157,9 +158,7 @@ class StoreFragment : Fragment() {
             }
         }
         getData()
-
     }
-
 
     private fun getData() {
         viewLifecycleOwner.lifecycleScope.launch {

@@ -31,7 +31,7 @@ class ProductRepository @Inject constructor(
     ): LiveData<PagingData<ItemsItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 10
+                pageSize = 10, initialLoadSize = 10, prefetchDistance = 1
             ),
             pagingSourceFactory = {
                 ProductPagingSource(productApiService, search, brand, lowest, highest, sort)

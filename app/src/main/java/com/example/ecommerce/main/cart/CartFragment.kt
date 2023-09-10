@@ -73,7 +73,7 @@ class CartFragment : Fragment() {
 
 
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
-
+            cartAdapter.submitList(response)
             if (response.isNullOrEmpty()) {
                 binding.checkboxParent.isChecked = false
                 binding.rvCart.visibility = View.GONE
@@ -109,7 +109,6 @@ class CartFragment : Fragment() {
                     binding.btnDeleteList.visibility = View.GONE
                 }
 
-                cartAdapter.submitList(response)
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.example.ecommerce.main.cart
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -84,6 +85,7 @@ class CartViewModel @Inject constructor(
 
     fun rating(ratingRequest: RatingRequest) {
         viewModelScope.launch {
+            Log.d("invoiceID", ratingRequest.invoiceId.toString())
             _rating.value = ResourcesResult.Loading
             val result = productRepository.ratingProduct(ratingRequest)
             _rating.value = result

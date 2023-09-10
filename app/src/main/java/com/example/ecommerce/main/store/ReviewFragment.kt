@@ -33,7 +33,7 @@ class ReviewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val id: ReviewFragmentArgs by navArgs()
-        viewModel.reviewItem(id.toString())
+        viewModel.reviewItem(id.id)
 
         binding.rvReview.layoutManager = LinearLayoutManager(requireContext())
 

@@ -1,6 +1,7 @@
 package com.example.ecommerce.main.cart
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,9 +44,11 @@ class StatusFragment : Fragment() {
         val args : StatusFragmentArgs by navArgs()
         binding.btnDonePayment.setOnClickListener {
             val userReview = binding.txtInputReview.text
-            val userAllReview = RatingRequest(userReview.toString(),ratingUser,args.fulfillmentDetail.invoiceId)
+            val userAllReview = RatingRequest(userReview.toString(),ratingUser,
+                args.fulfillmentDetail.invoiceId)
 
             viewModel.rating(userAllReview)
+
         }
 
 
@@ -54,12 +57,10 @@ class StatusFragment : Fragment() {
                 is ResourcesResult.Loading -> {}
                 is ResourcesResult.Failure -> {}
                 is ResourcesResult.Success -> {
-                    binding.btnDonePayment.setOnClickListener {
-                        Snackbar.make(
-                            binding.root, "Terima kasih!",
-                            Snackbar.LENGTH_LONG).show()
-                        findNavController().navigateUp()
-                    }
+                    Snackbar.make(
+                        binding.root, "Terima kasih!",
+                        Snackbar.LENGTH_LONG).show()
+                    findNavController().navigateUp()
                 }
             }
         }

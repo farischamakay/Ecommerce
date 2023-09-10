@@ -21,6 +21,10 @@
         <action
             android:id="@+id/action_mainFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_statusFragment"
+            app:destination="@id/statusFragment">
+        </action>
 
     </fragment>
 
@@ -91,19 +95,16 @@
             app:argType="com.example.ecommerce.data.models.request.ListCheckout" />
 
     </fragment>
+
     <fragment
         android:id="@+id/statusFragment"
         android:name="com.example.ecommerce.main.cart.StatusFragment"
         android:label="fragment_status"
         tools:layout="@layout/fragment_status" >
+
         <argument
             android:name="fulfillmentDetail"
             app:argType="com.example.ecommerce.data.models.response.FulfillmentDataResponse" />
-        <action
-            android:id="@+id/action_statusFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:popUpTo="@id/home_navigation"
-            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

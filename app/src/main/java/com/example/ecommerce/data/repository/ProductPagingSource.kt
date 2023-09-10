@@ -24,7 +24,7 @@ class ProductPagingSource(
     override fun getRefreshKey(state: PagingState<Int, ItemsItem>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
-            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(-1)
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
@@ -37,13 +37,13 @@ class ProductPagingSource(
                 lowest,
                 highest,
                 sort,
-                params.loadSize,
+                null,
                 position
             )
 
             LoadResult.Page(
                 data = responseData.data.items,
-                prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
+                prevKey = null,
                 nextKey = if (responseData.data.totalPages == position) null else position + 1
             )
 
