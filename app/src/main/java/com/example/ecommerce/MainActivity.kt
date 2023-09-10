@@ -22,6 +22,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
+    fun goToCart(){
+        navController.navigate(R.id.action_mainFragment_to_cartFragment)
+    }
+
 
     fun logOut() {
         navController.navigate(R.id.main_to_prelogin)

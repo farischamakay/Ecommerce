@@ -42,8 +42,8 @@ class CheckoutAdapter : ListAdapter<CheckoutRequest, CheckoutAdapter.CheckoutVie
                     binding.txtJumlahSisa.text = "Sisa ${data.stock}"
                     binding.txtHargaProduk.text = data.productVariantPrice.convertToRupiah()
                     binding.btnKurang.setOnClickListener {
+                        data.quantity -= 1
                         if(data.quantity > 0){
-                            data.quantity -= 1
                             binding.txtQuantity.text = data.quantity.toString()
                             onItemClickCallback.counterClicked(data)
                         }

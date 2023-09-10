@@ -87,6 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:padding="10dp"
                 android:text="@string/harga_product"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -148,7 +149,7 @@
                 android:textSize="12sp"
                 app:chipIcon="@drawable/ic_star_product"
                 app:chipMinTouchTargetSize="0dp"
-                app:layout_constraintBottom_toTopOf="@id/backline_top"
+
                 app:layout_constraintStart_toEndOf="@id/txt_product_terjual"
                 app:layout_constraintTop_toBottomOf="@id/txt_title_product" />
 
@@ -255,6 +256,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_ulasan_pembeli">
 

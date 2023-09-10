@@ -57,21 +57,6 @@ class StoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.topAppBar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.cart -> {
-                    navController.navigate(R.id.action_mainFragment_to_cartFragment)
-                    true
-                }
-
-                R.id.notification -> {
-                    navController.navigate(R.id.main_to_prelogin)
-                    true
-                }
-                else -> false
-            }
-        }
-
         val gridManager = GridLayoutManager(requireContext(), 1)
         binding.rvProductList.layoutManager = gridManager
 
@@ -163,7 +148,6 @@ class StoreFragment : Fragment() {
             )
         }
 
-        binding.topAppBar.title = viewModel.getUsername()
         binding.chipFilter.setOnClickListener {
             val fragmentManager: FragmentManager? = activity?.supportFragmentManager
             val dialogFragment = BottomFilterFragment()

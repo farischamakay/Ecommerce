@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/layout_date_of_cart"
@@ -56,6 +56,8 @@
             android:backgroundTint="#EADDFF"
             android:fontFamily="@font/poppins"
             android:text="Selesai"
+            app:textStartPadding="0dp"
+            app:textEndPadding="0dp"
             android:textColor="?colorPrimary"
             android:textSize="11sp"
             android:textStyle="bold"
@@ -131,10 +133,12 @@
             app:layout_constraintTop_toBottomOf="@id/txt_title_total_product" />
 
         <Button
+            android:id="@+id/btn_ulas"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_margin="10dp"
-            android:text="Ulas"
+            android:text="@string/ulas"
+            android:visibility="gone"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

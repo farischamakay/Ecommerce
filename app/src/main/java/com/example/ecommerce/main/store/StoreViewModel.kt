@@ -27,7 +27,6 @@ import javax.inject.Inject
 class StoreViewModel @Inject constructor(
     private val productRepository: ProductRepository,
     private val roomCartRepository: RoomCartRepository,
-    private val sharedPreferencesManager: PreferenceProvider,
 ) : ViewModel() {
 
     private val _param = MutableLiveData<ProductRequest>()
@@ -68,9 +67,6 @@ class StoreViewModel @Inject constructor(
             ).cachedIn(viewModelScope)
         }
 
-    fun getUsername(): String? {
-        return sharedPreferencesManager.getUsername()
-    }
 
     fun searchItem(query: String) {
         job?.cancel()

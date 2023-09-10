@@ -15,6 +15,7 @@ import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.data.models.request.toListCheckout
 import com.example.ecommerce.databinding.FragmentCartBinding
 import com.example.ecommerce.utils.convertToRupiah
+import com.google.android.material.badge.BadgeDrawable
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -83,6 +84,9 @@ class CartFragment : Fragment() {
                 val isSelected = response.filter { it.isCheck }
                 val checkListCheckBox = response.any { it.isCheck }
                 var totalPrice = 0
+                val allChecked = response.all { it.isCheck }
+
+                binding.checkboxParent.isChecked = allChecked
 
                 binding.btnBayar.setOnClickListener {
                     navController.navigate(CartFragmentDirections.

@@ -41,10 +41,13 @@ class StatusFragment : Fragment() {
         }
 
         val args : StatusFragmentArgs by navArgs()
-        val userReview = binding.txtInputReview.text
-        val userAllReview = RatingRequest(userReview.toString(),ratingUser,args.fulfillmentDetail.invoiceId)
+        binding.btnDonePayment.setOnClickListener {
+            val userReview = binding.txtInputReview.text
+            val userAllReview = RatingRequest(userReview.toString(),ratingUser,args.fulfillmentDetail.invoiceId)
 
-        viewModel.rating(userAllReview)
+            viewModel.rating(userAllReview)
+        }
+
 
         viewModel.ratingResult.observe(viewLifecycleOwner){response ->
             when(response){
@@ -61,7 +64,6 @@ class StatusFragment : Fragment() {
             }
         }
 
-
         binding.apply {
             txtIdTransaksi.text = args.fulfillmentDetail.invoiceId
             txtTanggalTransaksi.text = args.fulfillmentDetail.date
@@ -71,7 +73,6 @@ class StatusFragment : Fragment() {
             if(args.fulfillmentDetail.status) {
                 txtStatusTransaksi.text = getString(R.string.berhasil)
             }
-
         }
     }
 }

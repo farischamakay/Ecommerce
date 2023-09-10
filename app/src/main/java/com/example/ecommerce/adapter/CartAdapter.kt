@@ -33,9 +33,9 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
 
             binding.txtQuantity.text = data.quantity.toString()
             binding.btnKurang.setOnClickListener {
-                if(data.quantity > 0){
-                    var quantity = data.quantity
-                    quantity -= 1
+                var quantity = data.quantity
+                quantity -= 1
+                if(quantity > 0){
                     binding.txtQuantity.text = data.quantity.toString()
                     onItemClickCallback.counterClicked(listOf(data to quantity))
                 }
