@@ -149,6 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/total_review"
+                android:clickable="false"
                 android:textColor="?colorSecondary"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@id/txt_product_terjual"

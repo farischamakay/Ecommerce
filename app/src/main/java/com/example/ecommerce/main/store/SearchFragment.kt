@@ -79,6 +79,7 @@ class SearchFragment : DialogFragment() {
             when (results) {
                 is ResourcesResult.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
+
                 }
 
                 is ResourcesResult.Failure -> {

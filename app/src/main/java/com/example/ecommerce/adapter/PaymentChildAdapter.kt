@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.ecommerce.R
 import com.example.ecommerce.data.models.response.PaymentItem
 import com.example.ecommerce.databinding.ItemListPaymentBinding
 
@@ -43,8 +44,7 @@ class PaymentChildAdapter : ListAdapter<PaymentItem, PaymentChildAdapter.Payment
                     binding.txtChosePayment.text = data.label
 
                     if(data.status == false){
-                        binding.root.elevation = 0.4f
-                        binding.root.isEnabled = false
+                        binding.root.alpha = 0.5f
                     } else {
                         binding.root.setOnClickListener {
                             onItemClickListener?.invoke(data)

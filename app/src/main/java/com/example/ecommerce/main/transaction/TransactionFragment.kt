@@ -59,6 +59,11 @@ class TransactionFragment : Fragment() {
                 is ResourcesResult.Failure -> {
                     binding.progressBar.visibility = View.GONE
                     binding.layoutTransactionError.root.isVisible = true
+                    binding.layoutTransactionError.txtErrorCode.text = getString(R.string.empty_code)
+                    binding.layoutTransactionError.txtMsgError.text = getString(R.string.empty_error)
+                    binding.layoutTransactionError.btnReset.setOnClickListener {
+                        viewModel.fetchTransaction()
+                    }
                 }
                 is ResourcesResult.Success -> {
                     binding.progressBar.visibility = View.GONE

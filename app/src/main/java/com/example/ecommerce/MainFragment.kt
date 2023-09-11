@@ -43,23 +43,17 @@ class MainFragment : Fragment() {
         binding.bottomNavigation.setOnItemReselectedListener {
         }
 
+        val cartBadges = BadgeDrawable.create(requireContext())
         viewModel.getDataRoom.observe(viewLifecycleOwner){ response ->
-            val cartBadges = BadgeDrawable.create(requireContext())
-            if(response.isNotEmpty()){
-                cartBadges.number = response.size
-                attachBadgeDrawable(cartBadges,binding.topAppBar, R.id.cart)
-            } else {
-                cartBadges.clearNumber()
-            }
+            cartBadges.isVisible = response.isNotEmpty()
+            cartBadges.number = response.size
         }
+        attachBadgeDrawable(cartBadges,binding.topAppBar, R.id.cart)
 
         viewModel.getDataWishlist.observe(viewLifecycleOwner){ response ->
             val wishListBadges = binding.bottomNavigation.getOrCreateBadge(R.id.wishlistFragment)
-            if(response.isNotEmpty()){
-                wishListBadges.number = response.size
-            } else {
-                wishListBadges.clearNumber()
-            }
+            wishListBadges.isVisible = response.isNotEmpty()
+            wishListBadges.number = response.size
         }
 
 
@@ -78,7 +72,6 @@ class MainFragment : Fragment() {
                 else -> false
             }
         }
-
     }
 
     override fun onDestroyView() {

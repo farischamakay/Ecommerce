@@ -111,7 +111,9 @@ class StoreFragment : Fragment() {
         ) { _, bundle ->
             val data = bundle.getString("query")
             binding.fieldSearchProduct.hint = data
-            viewModel.setQuery(search = data)
+            viewModel.setQuery(search = data,
+                viewModel.param.value?.brand, viewModel.param.value?.lowest,
+                viewModel.param.value?.highest, viewModel.param.value?.sort)
         }
 
         requireActivity().supportFragmentManager.setFragmentResultListener(
@@ -144,6 +146,7 @@ class StoreFragment : Fragment() {
             }
 
             viewModel.setQuery(
+                search = viewModel.param.value?.search,
                 sort = sort, brand = category, lowest = lowest?.toIntOrNull(),
                 highest = highest?.toIntOrNull()
             )
@@ -181,7 +184,7 @@ class StoreFragment : Fragment() {
                             if (error.code() == 404) {
                                 binding.layoutError.apply {
                                     imgErrorConnection
-                                    txtErrorCode.text = "Empty"
+                                    txtErrorCode.text = getString(R.string.empty_code)
                                     txtMsgError
                                     btnReset
                                 }
@@ -214,7 +217,7 @@ class StoreFragment : Fragment() {
                             binding.layoutError.apply {
                                 imgErrorConnection
                                 txtErrorCode.text = getString(R.string.connection)
-                                txtMsgError.text = "Your connection is unavailable"
+                                txtMsgError.text = getString(R.string.connection_error)
                                 btnReset.text = getString(R.string.refresh)
                             }
 

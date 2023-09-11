@@ -1,5 +1,6 @@
 package com.example.ecommerce.main.store
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -98,6 +99,19 @@ class DetailProductFragment : Fragment() {
                         }
                     }
 
+                    binding.btnShare.setOnClickListener {
+                        val share : Intent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, "${result.data.data.productName}\n" +
+                            "${result.data.data.productPrice}\n" +
+                            "http://ecommerce.farischa.com/product/${result.data.data.productId}")
+                            type = "text/plain"
+                        }
+
+                        val shareIntent = Intent.createChooser(share, null)
+                        startActivity(shareIntent)
+                    }
+
                     val adapter = data.image?.let { ImageDetailAdapter(it) }
                     binding.viewpagerImage.adapter = adapter
                     binding.viewpagerImage.registerOnPageChangeCallback(object :
@@ -153,6 +167,10 @@ class DetailProductFragment : Fragment() {
 
 
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
+
+            binding.btnBeliLangsung.setOnClickListener {
+
+            }
 
             binding.btnTambahKeranjang.setOnClickListener {
                 val cartData = response.find { it.productId == productId }

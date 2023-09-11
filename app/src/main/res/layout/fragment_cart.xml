@@ -36,7 +36,7 @@
         android:layout_margin="10dp"
         android:text="Pilih Semua"
         android:textStyle="bold"
-        app:checkedState="unchecked"
+        android:checked="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Hapus semua"
+        android:text="@string/hapus_semua"
         android:textAllCaps="false"
         android:textStyle="bold"
         android:visibility="gone"
@@ -129,7 +129,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="Beli"
+            android:text="@string/beli"
+            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/backline_bayar" />

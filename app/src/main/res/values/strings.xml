@@ -18,7 +18,7 @@
     <string name="name">Name</string>
     <string name="home">Home</string>
     <string name="store">Store</string>
-    <string name="whistlist">Whistlist</string>
+    <string name="whistlist">Wishlist</string>
     <string name="transaction">Transaction</string>
     <string name="gabung_sekarang">Gabung Sekarang</string>
     <string name="lewati">Lewati</string>
@@ -51,6 +51,7 @@
     <string name="harga_product">Rp. %s</string>
     <string name="example_search">Lenovo Legion 7</string>
     <string name="txt_error">500</string>
+    <string name="empty_code">Empty</string>
     <string name="label">label</string>
     <string name="total_pembayaran">Total Pembayaran</string>
     <string name="metode_pembayaran">Metode Pembayaran</string>
@@ -65,6 +66,7 @@
     <string name="rp">Rp. %1$s</string>
     <string name="terjual">| Terjual %1$s</string>
     <string name="rp_0">Rp.0</string>
+    <string name="empty_error">Your requested data is unavailable</string>
     <string name="internal_server_error">Internal Server Error</string>
     <string name="refresh">Refresh</string>
     <string name="connection">Connection</string>
@@ -84,6 +86,9 @@
     <string name="kepuasan">100 % pembeli merasa puas</string>
     <string name="tingkat_kepuasan">2 rating . 2 ulasan</string>
     <string name="lihat_semua">Lihat Semua</string>
+    <string name="hapus_semua">Hapus semua</string>
+    <string name="connection_error">Your connection is unavailable</string>
+    <string name="beli">Beli</string>
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
         <item>Galery</item>

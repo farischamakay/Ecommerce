@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.ecommerce.R
 import com.example.ecommerce.data.models.response.ReviewDataItem
 import com.example.ecommerce.databinding.ItemUlasanPembeliBinding
 
@@ -29,7 +30,7 @@ class ReviewAdapter :
     inner class ReviewAdapterViewHolder(var binding: ItemUlasanPembeliBinding) :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(data: ReviewDataItem){
-                Glide.with(binding.root).load(data.userImage)
+                Glide.with(binding.root).load(data.userImage).error(R.drawable.img_thumbnail_produk)
                     .into(binding.imgProfileUser)
                 binding.txtUsernameUser.text = data.userName
                 if (data.userRating != null) {

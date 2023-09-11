@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -74,42 +75,40 @@ class CartFragment : Fragment() {
 
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
             cartAdapter.submitList(response)
-            if (response.isNullOrEmpty()) {
-                binding.checkboxParent.isChecked = false
-                binding.rvCart.visibility = View.GONE
-                binding.bottomCart.visibility = View.GONE
-                binding.emptyState.root.visibility = View.VISIBLE
-            } else {
-                binding.emptyState.root.visibility = View.GONE
-                val isSelected = response.filter { it.isCheck }
-                val checkListCheckBox = response.any { it.isCheck }
-                var totalPrice = 0
-                val allChecked = response.all { it.isCheck }
 
-                binding.checkboxParent.isChecked = allChecked
+            binding.emptyState.root.isVisible = response.isNullOrEmpty()
 
+            val isSelected = response.filter { it.isCheck }
+            val checkListCheckBox = response.any { it.isCheck }
+            var totalPrice = 0
+            val allChecked = response.all { it.isCheck }
+
+            binding.checkboxParent.isChecked = allChecked
+
+
+            response.map {
+                if (it.isCheck) {
+                    totalPrice += it.productVariantPrice * it.quantity
+                }
+            }
+
+            if (checkListCheckBox) {
+                binding.btnBayar.isEnabled = true
+                binding.btnDeleteList.visibility = View.VISIBLE
+                binding.txtTotalBayar.text = totalPrice.convertToRupiah()
+                binding.btnDeleteList.setOnClickListener {
+                    viewModel.deleteCheckedItems()
+                }
                 binding.btnBayar.setOnClickListener {
                     navController.navigate(CartFragmentDirections.
                     actionCartFragmentToCheckoutFragment(isSelected.toListCheckout(), "" , ""))
                 }
-
-                response.map {
-                    if (it.isCheck) {
-                        totalPrice += it.productVariantPrice * it.quantity
-                    }
-                }
-                if (checkListCheckBox) {
-                    binding.btnDeleteList.visibility = View.VISIBLE
-                    binding.txtTotalBayar.text = totalPrice.convertToRupiah()
-                    binding.btnDeleteList.setOnClickListener {
-                        viewModel.deleteCheckedItems()
-                    }
-                } else {
-                    binding.txtTotalBayar.text = getString(R.string.rp_0)
-                    binding.btnDeleteList.visibility = View.GONE
-                }
-
+            } else {
+                binding.btnBayar.isEnabled = false
+                binding.txtTotalBayar.text = getString(R.string.rp_0)
+                binding.btnDeleteList.visibility = View.GONE
             }
+
         }
     }
 }

@@ -70,29 +70,23 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
             }
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val binding =
             ItemListCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CartViewHolder(binding)
     }
-
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val cartItem = getItem(position)
         holder.bind(cartItem)
-
         holder.binding.txtQuantity.text = cartItem.quantity.toString()
         holder.binding.btnCekbox.isChecked = cartItem.isCheck
-
     }
-
 }
 
 private class CartDiffCallback : DiffUtil.ItemCallback<Cart>() {
     override fun areItemsTheSame(oldItem: Cart, newItem: Cart): Boolean {
         return oldItem.productId == newItem.productId
     }
-
     override fun areContentsTheSame(oldItem: Cart, newItem: Cart): Boolean {
         return oldItem == newItem
     }
