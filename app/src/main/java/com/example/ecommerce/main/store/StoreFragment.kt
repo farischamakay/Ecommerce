@@ -249,6 +249,4 @@ class StoreFragment : Fragment() {
             }
         }
     }
-
-
 }
