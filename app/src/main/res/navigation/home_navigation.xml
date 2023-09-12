@@ -86,6 +86,7 @@
         <argument
             android:name="titlePayment"
             app:argType="string" />
+
     </fragment>
 
     <fragment

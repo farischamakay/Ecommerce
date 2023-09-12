@@ -22,9 +22,7 @@ class SearchFragment : DialogFragment() {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: StoreViewModel by activityViewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,7 +82,6 @@ class SearchFragment : DialogFragment() {
 
                 is ResourcesResult.Failure -> {
                     binding.progressBar.visibility = View.GONE
-
                 }
 
                 is ResourcesResult.Success -> {

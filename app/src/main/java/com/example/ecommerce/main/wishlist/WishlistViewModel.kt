@@ -15,6 +15,9 @@ class WishlistViewModel @Inject constructor(private val roomCartRepository: Room
     val getDataWishlist =
         roomCartRepository.fetchWishlistData()
 
+    val getDataRoom =
+        roomCartRepository.fetchCartData()
+
     fun deleteItemById(itemId : String){
         viewModelScope.launch {
             roomCartRepository.deleteWishlistById(itemId)
@@ -23,6 +26,15 @@ class WishlistViewModel @Inject constructor(private val roomCartRepository: Room
     fun insertToRoom(cart: Cart) {
         viewModelScope.launch {
             roomCartRepository.insertCartData(cart)
+        }
+    }
+
+    fun updateQuantity(cartList: List<Pair<Cart, Int>>) {
+        viewModelScope.launch {
+            val updates = cartList.map { (cartList, quantity) ->
+                cartList.copy(quantity = quantity)
+            }
+            roomCartRepository.updateValues(updates)
         }
     }
 }

@@ -16,6 +16,7 @@ import com.example.ecommerce.adapter.CheckoutAdapter
 import com.example.ecommerce.data.models.request.CheckoutRequest
 import com.example.ecommerce.data.models.request.FullfilmentItem
 import com.example.ecommerce.data.models.request.FullfilmentRequest
+import com.example.ecommerce.data.models.request.ListCheckout
 import com.example.ecommerce.data.models.response.fulfillmentToReview
 import com.example.ecommerce.databinding.FragmentCheckoutBinding
 import com.example.ecommerce.utils.ResourcesResult
@@ -111,7 +112,7 @@ class CheckoutFragment : Fragment() {
             findNavController().navigateUp()
         }
         binding.btnNextPayment.setOnClickListener {
-            navController.navigate(CheckoutFragmentDirections.actionCheckoutFragmentToPaymentFragment(args.listCheckout))
+                navController.navigate(CheckoutFragmentDirections.actionCheckoutFragmentToPaymentFragment(args.listCheckout))
         }
     }
 

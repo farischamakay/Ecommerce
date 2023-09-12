@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.WishlistAdapter
@@ -66,28 +65,50 @@ class WishlistFragment : Fragment() {
                 binding.emptyState.root.isVisible = response.isNullOrEmpty()
         }
 
+        viewModel.getDataRoom.observe(viewLifecycleOwner){ response ->
 
-        wishlistAdapter.setOnItemClickCallback(object : WishlistAdapter.OnItemClickCallback{
+            wishlistAdapter.setOnItemClickCallback(object : WishlistAdapter.OnItemClickCallback{
 
-            override fun onAddCartClicked(wishlist: Wishlist, itemId: String) {
-                viewModel.insertToRoom(convertToCart(wishlist))
-                viewModel.deleteItemById(itemId)
-                Snackbar.make(
-                    view, "Ditambahkan ke Keranjang!",
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
+                override fun onAddCartClicked(wishlist: Wishlist, itemId: String) {
+                    val cartData = response.find { it.productId == itemId }
+                    if (cartData == null) {
+                        viewModel.insertToRoom(convertToCart(wishlist))
+                        viewModel.deleteItemById(itemId)
+                        Snackbar.make(
+                            view, "Ditambahkan ke Keranjang!",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    } else {
+                        var qtyCart = cartData.quantity
+                        if (qtyCart < (wishlist.stock ?: 0)) {
+                            qtyCart += 1
+                            viewModel.updateQuantity(listOf(convertToCart(wishlist) to qtyCart))
+                            viewModel.deleteItemById(itemId)
+                            Snackbar.make(
+                                view, "Product berhasil ditambahkan pada keranjang!",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        } else {
+                            Snackbar.make(
+                                view, "Barang sudah ada di Keranjang!",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
 
-            override fun onDeleteClicked(itemId: String) {
-                viewModel.deleteItemById(itemId)
-                Snackbar.make(
-                    view, "Deleted item!",
-                    Snackbar.LENGTH_LONG
-                ).show()
+                override fun onDeleteClicked(itemId: String) {
+                    viewModel.deleteItemById(itemId)
+                    Snackbar.make(
+                        view, "Deleted item!",
+                        Snackbar.LENGTH_LONG
+                    ).show()
 
-            }
+                }
 
-        })
+            })
+        }
+
 
     }
 

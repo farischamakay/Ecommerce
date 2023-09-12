@@ -28,6 +28,9 @@ data class ListCheckout (
     val listCheckout: List<CheckoutRequest>
 ) : Parcelable
 
+
+
+
 fun List<Cart>.toListCheckout() : ListCheckout {
     val data = mutableListOf<CheckoutRequest>()
     this.map {

@@ -76,14 +76,13 @@ class CartFragment : Fragment() {
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
             cartAdapter.submitList(response)
 
-            binding.emptyState.root.isVisible = response.isNullOrEmpty()
-
             val isSelected = response.filter { it.isCheck }
             val checkListCheckBox = response.any { it.isCheck }
             var totalPrice = 0
             val allChecked = response.all { it.isCheck }
 
-            binding.checkboxParent.isChecked = allChecked
+            binding.emptyState.root.isVisible = response.isNullOrEmpty()
+            binding.bottomCart.isVisible = response.isNotEmpty()
 
 
             response.map {
@@ -107,6 +106,12 @@ class CartFragment : Fragment() {
                 binding.btnBayar.isEnabled = false
                 binding.txtTotalBayar.text = getString(R.string.rp_0)
                 binding.btnDeleteList.visibility = View.GONE
+            }
+
+            binding.checkboxParent.isChecked = allChecked
+
+            if(response.isNullOrEmpty()){
+                binding.checkboxParent.isChecked = false
             }
 
         }

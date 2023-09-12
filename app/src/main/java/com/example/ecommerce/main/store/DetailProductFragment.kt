@@ -16,6 +16,9 @@ import com.example.ecommerce.R
 import com.example.ecommerce.adapter.ImageDetailAdapter
 import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.data.database.wishlist.Wishlist
+import com.example.ecommerce.data.models.request.CheckoutRequest
+import com.example.ecommerce.data.models.request.ListCheckout
+import com.example.ecommerce.data.models.request.toListCheckout
 import com.example.ecommerce.data.models.response.ProductDetailData
 import com.example.ecommerce.databinding.FragmentDetailProductBinding
 import com.example.ecommerce.utils.ResourcesResult
@@ -76,6 +79,12 @@ class DetailProductFragment : Fragment() {
                         txtTotalStar.text = data.productRating.toString()
                         txtSatisfication.text = "${data.totalSatisfaction} % pembeli merasa puas."
                         txtUlasanRate.text = "${data.totalRating} Rating . ${data.totalReview} Review"
+                    }
+
+
+                    binding.btnBeliLangsung.setOnClickListener {
+                        findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentToCheckoutFragment(
+                            ListCheckout(listCheckout = mutableListOf(convertToCheckout(result.data.data))),"", ""))
                     }
 
                     binding.btnFavorite.setOnCheckedChangeListener { _, isChecked ->
@@ -168,10 +177,6 @@ class DetailProductFragment : Fragment() {
 
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
 
-            binding.btnBeliLangsung.setOnClickListener {
-
-            }
-
             binding.btnTambahKeranjang.setOnClickListener {
                 val cartData = response.find { it.productId == productId }
                 if (cartData == null) {
@@ -216,6 +221,26 @@ class DetailProductFragment : Fragment() {
             detailData.totalSatisfaction,
             detailData.productVariant[0].variantName,
             detailData.productPrice ?: 0
+        )
+    }
+
+    private fun convertToCheckout(detailData : ProductDetailData) : CheckoutRequest {
+        return CheckoutRequest(
+            detailData.productId,
+            detailData.productName,
+            detailData.image?.get(0),
+            detailData.brand,
+            detailData.description,
+            detailData.store,
+            detailData.sale.toString(),
+            detailData.stock,
+            detailData.totalRating,
+            detailData.totalReview,
+            detailData.totalSatisfaction,
+            detailData.productVariant[0].variantName,
+            detailData.productPrice ?: 0,
+            false,
+            1
         )
     }
 
