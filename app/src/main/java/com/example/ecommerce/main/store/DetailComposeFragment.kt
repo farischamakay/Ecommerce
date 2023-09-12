@@ -144,7 +144,6 @@ fun ScaffoldWithTopBar() {
                     HorizontalPager(
                         state = pagerState,
                         pageCount = 5
-
                     ) { page ->
                         Image(
                             painter = painterResource(id = R.drawable.img_thumbnail_produk),
@@ -165,11 +164,10 @@ fun ScaffoldWithTopBar() {
                             val color = if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
                             Box(
                                 modifier = Modifier
-                                    .padding(1.dp)
+                                    .padding(5.dp)
                                     .clip(CircleShape)
                                     .background(color)
-                                    .size(20.dp)
-
+                                    .size(10.dp)
                             )
                         }
                     }
@@ -321,6 +319,13 @@ fun ScaffoldWithTopBar() {
                             .size(15.dp)
                     )
                     Text(text = "4.5", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                    Text(text="/5.0", fontWeight = FontWeight.Bold, fontSize = 10.sp)
+                    Column(
+
+                    ){
+
+                    }
+
                 }
             }
         },

@@ -34,9 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Pilih Semua"
+        android:text="@string/pilih_semua"
         android:textStyle="bold"
-        android:checked="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 

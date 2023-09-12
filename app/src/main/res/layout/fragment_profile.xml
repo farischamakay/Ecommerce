@@ -32,26 +32,32 @@
         android:background="?colorOutlineVariant"
         app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_profile"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="40dp"
-        app:cardBackgroundColor="?colorPrimary"
-        app:cardCornerRadius="360dp"
-        app:layout_constraintBottom_toTopOf="@+id/layout_username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/outline_appbar">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/card_profile"-->
+<!--        android:layout_width="128dp"-->
+<!--        android:layout_height="128dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        app:cardBackgroundColor="?colorPrimary"-->
+<!--        app:cardCornerRadius="360dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/layout_username"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/outline_appbar">-->
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_profile"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="center"
-            android:src="@drawable/ic_person_outline" />
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/ic_person_outline"
+            android:background="?colorPrimary"
+            app:civ_border_width="2dp"
+            app:civ_fill_color="?colorPrimary "
+            app:layout_constraintBottom_toTopOf="@+id/layout_username"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/outline_appbar" />
 
-    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_username"
@@ -60,7 +66,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
-        app:layout_constraintTop_toBottomOf="@id/card_profile">
+        app:layout_constraintTop_toBottomOf="@id/img_profile">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txt_username"

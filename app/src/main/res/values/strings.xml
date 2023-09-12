@@ -89,6 +89,7 @@
     <string name="hapus_semua">Hapus semua</string>
     <string name="connection_error">Your connection is unavailable</string>
     <string name="beli">Beli</string>
+    <string name="pilih_semua">Pilih Semua</string>
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
         <item>Galery</item>

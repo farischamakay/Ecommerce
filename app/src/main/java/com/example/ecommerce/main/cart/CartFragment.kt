@@ -34,6 +34,8 @@ class CartFragment : Fragment() {
         navHostFragment.navController
     }
 
+    private var isSelectAllChecked = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,10 +49,6 @@ class CartFragment : Fragment() {
 
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().navigateUp()
-        }
-
-        binding.checkboxParent.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.selectedAllItems(isChecked)
         }
 
         cartAdapter = CartAdapter()
@@ -72,24 +70,18 @@ class CartFragment : Fragment() {
             }
         })
 
-
         viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
             cartAdapter.submitList(response)
 
             val isSelected = response.filter { it.isCheck }
             val checkListCheckBox = response.any { it.isCheck }
             var totalPrice = 0
-            val allChecked = response.all { it.isCheck }
 
             binding.emptyState.root.isVisible = response.isNullOrEmpty()
             binding.bottomCart.isVisible = response.isNotEmpty()
 
-
-            response.map {
-                if (it.isCheck) {
-                    totalPrice += it.productVariantPrice * it.quantity
-                }
-            }
+            // Update isSelectAllChecked berdasarkan status ceklist item
+            isSelectAllChecked = response.isNotEmpty() && response.all { it.isCheck }
 
             if (checkListCheckBox) {
                 binding.btnBayar.isEnabled = true
@@ -100,7 +92,7 @@ class CartFragment : Fragment() {
                 }
                 binding.btnBayar.setOnClickListener {
                     navController.navigate(CartFragmentDirections.
-                    actionCartFragmentToCheckoutFragment(isSelected.toListCheckout(), "" , ""))
+                    actionCartFragmentToCheckoutFragment(isSelected.toListCheckout(), "", ""))
                 }
             } else {
                 binding.btnBayar.isEnabled = false
@@ -108,12 +100,17 @@ class CartFragment : Fragment() {
                 binding.btnDeleteList.visibility = View.GONE
             }
 
-            binding.checkboxParent.isChecked = allChecked
 
-            if(response.isNullOrEmpty()){
-                binding.checkboxParent.isChecked = false
+            binding.checkboxParent.isChecked = isSelectAllChecked
+            binding.checkboxParent.setOnCheckedChangeListener { _, isChecked ->
+                isSelectAllChecked = isChecked
+                viewModel.selectedAllItems(isChecked)
             }
-
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

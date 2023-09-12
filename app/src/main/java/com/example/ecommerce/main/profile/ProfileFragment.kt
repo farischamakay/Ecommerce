@@ -102,7 +102,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProfileBinding.inflate(layoutInflater)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
 
