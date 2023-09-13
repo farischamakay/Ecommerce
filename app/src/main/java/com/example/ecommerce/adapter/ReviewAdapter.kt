@@ -30,7 +30,7 @@ class ReviewAdapter :
     inner class ReviewAdapterViewHolder(var binding: ItemUlasanPembeliBinding) :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(data: ReviewDataItem){
-                Glide.with(binding.root).load(data.userImage).error(R.drawable.img_thumbnail_produk)
+                Glide.with(binding.root).load(data.userImage).circleCrop().error(R.drawable.img_thumbnail_produk)
                     .into(binding.imgProfileUser)
                 binding.txtUsernameUser.text = data.userName
                 if (data.userRating != null) {
