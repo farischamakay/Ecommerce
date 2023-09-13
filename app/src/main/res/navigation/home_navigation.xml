@@ -27,11 +27,27 @@
 
     </fragment>
 
+<!--    <fragment-->
+<!--        android:id="@+id/detailProductFragment"-->
+<!--        android:name="com.example.ecommerce.main.store.DetailProductFragment"-->
+<!--        android:label="fragment_detail_product"-->
+<!--        tools:layout="@layout/fragment_detail_product">-->
+<!--        <action-->
+<!--            android:id="@+id/action_detailProductFragment_to_reviewFragment"-->
+<!--            app:destination="@id/reviewFragment" />-->
+<!--        <deepLink-->
+<!--            android:id="@+id/deepLink"-->
+<!--            android:autoVerify="true"-->
+<!--            app:uri="http://ecommerce.farischa.com/product/{id}" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_detailProductFragment_to_checkoutFragment"-->
+<!--            app:destination="@id/checkoutFragment" />-->
+<!--    </fragment>-->
+
     <fragment
         android:id="@+id/detailProductFragment"
-        android:name="com.example.ecommerce.main.store.DetailProductFragment"
-        android:label="fragment_detail_product"
-        tools:layout="@layout/fragment_detail_product">
+        android:name="com.example.ecommerce.main.store.DetailComposeFragment"
+        android:label="fragment_detail_product">
         <action
             android:id="@+id/action_detailProductFragment_to_reviewFragment"
             app:destination="@id/reviewFragment" />

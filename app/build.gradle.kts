@@ -79,6 +79,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.4.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
 
     //splashscreen API
     implementation("androidx.core:core-splashscreen:1.0.1")

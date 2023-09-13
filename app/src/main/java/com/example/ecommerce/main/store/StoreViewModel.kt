@@ -37,6 +37,9 @@ class StoreViewModel @Inject constructor(
     val searchResult: LiveData<ResourcesResult<SearchResponse<List<String>>?>> = _searchResult
     val reviewProduct: LiveData<ResourcesResult<ReviewResponse?>> = _reviewProduct
     val param: LiveData<ProductRequest> = _param
+    private val _detail = MutableLiveData<String>()
+    val detail : LiveData<String> = _detail
+
 
     init {
         setQuery()
@@ -58,6 +61,8 @@ class StoreViewModel @Inject constructor(
                 it.sort
             ).cachedIn(viewModelScope)
     }
+
+
 
     fun setQuery(
         search: String? = null, brand: String? = null, lowest: Int? = null,
@@ -83,6 +88,7 @@ class StoreViewModel @Inject constructor(
             _detailProduct.value = result
         }
     }
+
 
     fun reviewItem(id: String) {
         viewModelScope.launch {
