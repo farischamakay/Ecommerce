@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@drawable/shape_card_stroke"
-    android:elevation="4dp"
-    app:cardElevation="6dp">
+    android:elevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

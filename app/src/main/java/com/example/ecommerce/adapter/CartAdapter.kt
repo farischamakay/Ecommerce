@@ -10,6 +10,7 @@ import com.example.ecommerce.R
 import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.databinding.ItemListCartBinding
 import com.example.ecommerce.utils.convertToRupiah
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 
 class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallback()) {
@@ -33,10 +34,17 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
             binding.txtTitleProduct.text = data.productName
             binding.txtGigaByte.text = data.productVariant
             binding.root.context.apply {
-                binding.txtJumlahSisa.text = getString(R.string.sisa, data.stock.toString())
+                if((data.stock ?:0) < 10){
+                    val red = MaterialColors.getColor(
+                        binding.root.rootView, com.google.android.material.R.attr.colorError
+                    )
+                    binding.txtJumlahSisa.setTextColor(red)
+                    binding.txtJumlahSisa.text = getString(R.string.sisa, data.stock.toString())
+                } else {
+                    binding.txtJumlahSisa.text = getString(R.string.sisa, data.stock.toString())
+                }
                 binding.txtHargaProduk.text = data.productVariantPrice.convertToRupiah()
             }
-
             binding.txtQuantity.text = data.quantity.toString()
             binding.btnKurang.setOnClickListener {
                 var quantity = data.quantity
@@ -46,7 +54,6 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
                     onItemClickCallback.counterClicked(listOf(data to quantity))
                 }
             }
-
             binding.btnTambahQty.setOnClickListener {
                 if (data.quantity < (data.stock ?: 0)) {
                     var quantity = data.quantity
@@ -60,12 +67,11 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
                     ).show()
                 }
             }
-
             binding.imageButton.setOnClickListener {
                 onItemClickCallback.onDeleteClicked(data.productId)
             }
             binding.btnCekbox.setOnClickListener {
-                val isChecked = !data.isCheck
+                val isChecked = binding.btnCekbox.isChecked
                 onItemClickCallback.onItemClicked(listOf(data to isChecked))
             }
         }

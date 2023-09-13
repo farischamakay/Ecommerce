@@ -78,7 +78,8 @@ class ProfileFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 this.mediaUri = photoUriManager.getLatestUri()
-                Glide.with(this).load(mediaUri).into(binding.imgProfile)
+                Glide.with(this).load(mediaUri).circleCrop()
+                    .into(binding.imgProfile)
 
                 Log.d("URI_CAM", "Uri : $mediaUri")
             } else {

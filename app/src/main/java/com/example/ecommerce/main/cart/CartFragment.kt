@@ -75,13 +75,14 @@ class CartFragment : Fragment() {
 
             val isSelected = response.filter { it.isCheck }
             val checkListCheckBox = response.any { it.isCheck }
-            var totalPrice = 0
+
 
             binding.emptyState.root.isVisible = response.isNullOrEmpty()
             binding.bottomCart.isVisible = response.isNotEmpty()
 
-            // Update isSelectAllChecked berdasarkan status ceklist item
             isSelectAllChecked = response.isNotEmpty() && response.all { it.isCheck }
+
+            val totalPrice = isSelected.sumOf { it.productVariantPrice * it.quantity }
 
             if (checkListCheckBox) {
                 binding.btnBayar.isEnabled = true
@@ -100,9 +101,9 @@ class CartFragment : Fragment() {
                 binding.btnDeleteList.visibility = View.GONE
             }
 
-
             binding.checkboxParent.isChecked = isSelectAllChecked
-            binding.checkboxParent.setOnCheckedChangeListener { _, isChecked ->
+            binding.checkboxParent.setOnClickListener {
+                val isChecked = binding.checkboxParent.isChecked
                 isSelectAllChecked = isChecked
                 viewModel.selectedAllItems(isChecked)
             }

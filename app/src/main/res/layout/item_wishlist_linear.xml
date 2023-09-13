@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:style="http://schemas.android.com/tools"
     android:layout_margin="10dp"
     app:cardCornerRadius="10dp">
 
@@ -101,12 +102,13 @@
             app:layout_constraintStart_toEndOf="@id/txt_product_rating"
             app:layout_constraintTop_toBottomOf="@id/txt_store_name" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_delete_item"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_margin="10dp"
-            android:background="@drawable/ic_delete_item"
+            android:src="@drawable/ic_delete_item"
+            android:background="@drawable/shape_trash_button"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -32,31 +32,19 @@
         android:background="?colorOutlineVariant"
         app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/card_profile"-->
-<!--        android:layout_width="128dp"-->
-<!--        android:layout_height="128dp"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        app:cardBackgroundColor="?colorPrimary"-->
-<!--        app:cardCornerRadius="360dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/layout_username"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/outline_appbar">-->
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_profile"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_marginTop="40dp"
-            android:src="@drawable/ic_person_outline"
-            android:background="?colorPrimary"
-            app:civ_border_width="2dp"
-            app:civ_fill_color="?colorPrimary "
-            app:layout_constraintBottom_toTopOf="@+id/layout_username"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/outline_appbar" />
+    <ImageView
+        android:id="@+id/img_profile"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_person_outline"
+        android:background="@drawable/shape_background_profile"
+        app:layout_constraintBottom_toTopOf="@+id/layout_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/outline_appbar"
+        android:scaleType="center"
+    />
 
 
     <com.google.android.material.textfield.TextInputLayout

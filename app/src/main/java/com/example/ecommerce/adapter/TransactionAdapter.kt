@@ -39,7 +39,7 @@ class TransactionAdapter : ListAdapter<TransactionDataItem,
                 Glide.with(binding.root).load(data.image).into(binding.imgProduct)
                 binding.txtTitleProduct.text = data.name
                 binding.txtTanggalPembelian.text = data.date
-                binding.txtNumberOfProduct.text = "${data.items?.map { it?.quantity }} Barang"
+                binding.txtNumberOfProduct.text = "${data.items.size} Barang"
                 binding.txtTotalPrice.text = data.total?.convertToRupiah()
 
                 if (data.review == null ){

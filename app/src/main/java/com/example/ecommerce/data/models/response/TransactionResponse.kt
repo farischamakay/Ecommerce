@@ -56,7 +56,7 @@ data class TransactionDataItem(
 	val time: String? = null,
 
 	@field:SerializedName("items")
-	val items: List<TranscationsItem?>? = null,
+	val items: List<TranscationsItem> ,
 
 	@field:SerializedName("status")
 	val status: Boolean? = null
