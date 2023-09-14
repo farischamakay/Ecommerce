@@ -111,9 +111,11 @@ class StoreFragment : Fragment() {
         ) { _, bundle ->
             val data = bundle.getString("query")
             binding.fieldSearchProduct.hint = data
-            viewModel.setQuery(search = data,
+            viewModel.setQuery(
+                search = data,
                 viewModel.param.value?.brand, viewModel.param.value?.lowest,
-                viewModel.param.value?.highest, viewModel.param.value?.sort)
+                viewModel.param.value?.highest, viewModel.param.value?.sort
+            )
         }
 
         requireActivity().supportFragmentManager.setFragmentResultListener(

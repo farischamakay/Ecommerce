@@ -211,62 +211,64 @@ import com.example.ecommerce.data.models.response.ProductDetailData
 //        }
 //    }
 //
-    fun convertToCart(detailData: ProductDetailData): Cart {
-        return Cart(
-            detailData.productId ?: "",
-            detailData.productName,
-            detailData.image?.get(0),
-            detailData.brand,
-            detailData.description,
-            detailData.store,
-            detailData.sale.toString(),
-            detailData.stock,
-            detailData.totalRating,
-            detailData.totalReview,
-            detailData.totalSatisfaction,
-            detailData.productVariant[0].variantName,
-            detailData.productPrice ?: 0
-        )
-    }
+fun convertToCart(detailData: ProductDetailData, index : Int): Cart {
+    return Cart(
+        detailData.productId ?: "",
+        detailData.productName,
+        detailData.image?.get(0),
+        detailData.brand,
+        detailData.description,
+        detailData.store,
+        detailData.sale.toString(),
+        detailData.stock,
+        detailData.totalRating,
+        detailData.totalReview,
+        detailData.totalSatisfaction,
+        detailData.productVariant[index].variantName,
+        detailData.productPrice ?: 0
+    )
+}
+
 //
-    fun convertToCheckout(detailData : ProductDetailData) : CheckoutRequest {
-        return CheckoutRequest(
-            detailData.productId,
-            detailData.productName,
-            detailData.image?.get(0),
-            detailData.brand,
-            detailData.description,
-            detailData.store,
-            detailData.sale.toString(),
-            detailData.stock,
-            detailData.totalRating,
-            detailData.totalReview,
-            detailData.totalSatisfaction,
-            detailData.productVariant[0].variantName,
-            detailData.productPrice ?: 0,
-            false,
-            1
-        )
-    }
+fun convertToCheckout(detailData: ProductDetailData, index: Int): CheckoutRequest {
+    return CheckoutRequest(
+        detailData.productId,
+        detailData.productName,
+        detailData.image?.get(0),
+        detailData.brand,
+        detailData.description,
+        detailData.store,
+        detailData.sale.toString(),
+        detailData.stock,
+        detailData.totalRating,
+        detailData.totalReview,
+        detailData.totalSatisfaction,
+        detailData.productVariant[index].variantName,
+        detailData.productPrice ?: 0,
+        false,
+        1
+    )
+}
+
 //
-    fun convertToWishlist(detailData: ProductDetailData): Wishlist {
-        return Wishlist(
-            detailData.productId ?: "",
-            detailData.productName,
-            detailData.image?.get(0),
-            detailData.brand,
-            detailData.description,
-            detailData.store,
-            detailData.sale.toString(),
-            detailData.stock,
-            detailData.totalRating,
-            detailData.totalReview,
-            detailData.productRating.toString(),
-            detailData.totalSatisfaction,
-            detailData.productVariant[0].variantName,
-            detailData.productPrice ?: 0
-        )
-    }
+fun convertToWishlist(detailData: ProductDetailData): Wishlist {
+    return Wishlist(
+        detailData.productId ?: "",
+        detailData.productName,
+        detailData.image?.get(0),
+        detailData.brand,
+        detailData.description,
+        detailData.store,
+        detailData.sale.toString(),
+        detailData.stock,
+        detailData.totalRating,
+        detailData.totalReview,
+        detailData.productRating.toString(),
+        detailData.totalSatisfaction,
+        detailData.productVariant[0].variantName,
+        detailData.productPrice ?: 0
+    )
+}
 //
 //    private fun setupIndicators(data: List<String?>?) {
 //        if ((data?.size ?: 0) > 1) {

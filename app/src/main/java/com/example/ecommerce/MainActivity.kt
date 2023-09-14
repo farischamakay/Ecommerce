@@ -26,6 +26,10 @@ class MainActivity : AppCompatActivity() {
         navController.navigate(R.id.action_mainFragment_to_cartFragment)
     }
 
+    fun goToNotification(){
+        navController.navigate(R.id.action_mainFragment_to_notificationFragment)
+    }
+
 
     fun logOut() {
         navController.navigate(R.id.main_to_prelogin)

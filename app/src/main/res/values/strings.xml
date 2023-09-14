@@ -90,6 +90,9 @@
     <string name="connection_error">Your connection is unavailable</string>
     <string name="beli">Beli</string>
     <string name="pilih_semua">Pilih Semua</string>
+    <string name="info">Info</string>
+    <string name="transaksi_berhasil">Transaksi Berhasil</string>
+    <string name="text_description_notif">Transaksi anda sedang di proses oleh penjual, mohon ditunggu untuk update selanjutnya di aplikasi. Sambil menunggu, anda bisa cari barang lain terlebih dahulu</string>
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
         <item>Galery</item>

@@ -66,7 +66,7 @@ class MainFragment : Fragment() {
                 }
 
                 R.id.notification -> {
-                    navController.navigate(R.id.main_to_prelogin)
+                    (requireActivity() as MainActivity).goToNotification()
                     true
                 }
                 else -> false

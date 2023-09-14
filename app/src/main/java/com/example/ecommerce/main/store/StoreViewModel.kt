@@ -38,7 +38,7 @@ class StoreViewModel @Inject constructor(
     val reviewProduct: LiveData<ResourcesResult<ReviewResponse?>> = _reviewProduct
     val param: LiveData<ProductRequest> = _param
     private val _detail = MutableLiveData<String>()
-    val detail : LiveData<String> = _detail
+    val detail: LiveData<String> = _detail
 
 
     init {
@@ -60,8 +60,7 @@ class StoreViewModel @Inject constructor(
                 it.highest,
                 it.sort
             ).cachedIn(viewModelScope)
-    }
-
+        }
 
 
     fun setQuery(
@@ -104,7 +103,7 @@ class StoreViewModel @Inject constructor(
         }
     }
 
-    fun insertToWishlist(wishlist: Wishlist){
+    fun insertToWishlist(wishlist: Wishlist) {
         viewModelScope.launch {
             roomCartRepository.insertWishlistData(wishlist)
         }
@@ -118,7 +117,8 @@ class StoreViewModel @Inject constructor(
             roomCartRepository.updateValues(updates)
         }
     }
-    fun deleteItemById(itemId : String){
+
+    fun deleteItemById(itemId: String) {
         viewModelScope.launch {
             roomCartRepository.deleteWishlistById(itemId)
         }

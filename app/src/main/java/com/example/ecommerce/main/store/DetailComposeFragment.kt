@@ -53,7 +53,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -73,10 +73,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.compose.AsyncImage
 import com.example.ecommerce.R
+import com.example.ecommerce.data.models.request.ListCheckout
+import com.example.ecommerce.data.models.response.ProductDetailData
 import com.example.ecommerce.data.models.response.ProductDetailResponse
 import com.example.ecommerce.utils.ResourcesResult
 import com.example.ecommerce.utils.convertToRupiah
 import com.google.android.material.snackbar.Snackbar
+import convertToCart
+import convertToCheckout
 import convertToWishlist
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -84,6 +88,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailComposeFragment : Fragment() {
 
     private val viewModel: StoreViewModel by viewModels()
+    private lateinit var dataObserve: ProductDetailData
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -112,6 +117,8 @@ class DetailComposeFragment : Fragment() {
         val getDataRoom by viewModel.getDataRoom.observeAsState()
         val getWishlist by viewModel.getDataWishlist.observeAsState()
         val productId = arguments?.getString("id").toString()
+        var currentIndex by rememberSaveable { mutableStateOf(0) }
+        var priceSum: Int? = null
         viewModel.detailItem(productId)
         Scaffold(
             topBar = {
@@ -138,15 +145,16 @@ class DetailComposeFragment : Fragment() {
                 )
             },
             content = { innerPadding ->
-                when(getProduct){
+                when (getProduct) {
 
                     is ResourcesResult.Loading -> {
                         Loading()
                     }
 
                     is ResourcesResult.Success -> {
-                        val data = (getProduct as ResourcesResult.Success<ProductDetailResponse?>)
-                            .data?.data
+                        dataObserve =
+                            (getProduct as ResourcesResult.Success<ProductDetailResponse?>)
+                                .data?.data!!
                         val isProductInWishList = getWishlist?.any { it.productId == productId }
 
 
@@ -164,13 +172,13 @@ class DetailComposeFragment : Fragment() {
                                     .height(300.dp)
                             ) {
                                 val pagerState = rememberPagerState()
-                                data?.image?.size?.let {
+                                dataObserve.image?.size?.let {
                                     HorizontalPager(
                                         state = pagerState,
                                         pageCount = it
                                     ) { page ->
                                         AsyncImage(
-                                            model = data.image[page],
+                                            model = dataObserve.image!![page],
                                             contentDescription = null,
                                             modifier = Modifier
                                                 .fillMaxWidth()
@@ -185,7 +193,7 @@ class DetailComposeFragment : Fragment() {
                                         .align(Alignment.BottomCenter),
                                     horizontalArrangement = Arrangement.Center
                                 ) {
-                                    data?.image?.size?.let {
+                                    dataObserve.image?.size?.let {
                                         repeat(it) { iteration ->
                                             val color =
                                                 if (pagerState.currentPage == iteration) Color
@@ -206,12 +214,16 @@ class DetailComposeFragment : Fragment() {
                                     .padding(10.dp)
                                     .fillMaxWidth(),
                             ) {
-                                Text(
-                                    text = "${data?.productPrice?.convertToRupiah()}",
-                                    fontSize = 22.sp,
-                                    fontWeight = FontWeight.Bold,
-                                )
-
+                                if (dataObserve.productPrice != null) {
+                                    val price =
+                                        dataObserve.productVariant[currentIndex].variantPrice
+                                    priceSum = dataObserve.productPrice?.plus(price)
+                                    Text(
+                                        text = priceSum!!.convertToRupiah(),
+                                        fontSize = 22.sp,
+                                        fontWeight = FontWeight.Bold,
+                                    )
+                                }
                                 Row(
                                     modifier = Modifier
                                         .fillMaxWidth(),
@@ -224,25 +236,28 @@ class DetailComposeFragment : Fragment() {
                                         modifier = Modifier
                                             .size(24.dp)
                                             .clickable(onClick = {
-                                                val share : Intent = Intent().apply {
-                                                action = Intent.ACTION_SEND
-                                                putExtra(Intent.EXTRA_TEXT, "${data?.productName}\n" +
-                                                "${data?.productPrice}\n" +
-                                                "http://ecommerce.farischa.com/product/${data?.productId}")
-                                                type = "text/plain"
-                                            }
+                                                val share: Intent = Intent().apply {
+                                                    action = Intent.ACTION_SEND
+                                                    putExtra(
+                                                        Intent.EXTRA_TEXT,
+                                                        "${dataObserve.productName}\n" +
+                                                                "${dataObserve.productPrice}\n" +
+                                                                "http://ecommerce.farischa.com/product/${dataObserve.productId}"
+                                                    )
+                                                    type = "text/plain"
+                                                }
 
-                                            val shareIntent = Intent.createChooser(share, null)
-                                            startActivity(shareIntent)
+                                                val shareIntent = Intent.createChooser(share, null)
+                                                startActivity(shareIntent)
                                             })
                                     )
                                     Spacer(modifier = Modifier.width(5.dp))
                                     Icon(
-                                        imageVector = if(isProductInWishList == true){
-                                            Icons.Default.Favorite }
-                                        else {
+                                        imageVector = if (isProductInWishList == true) {
+                                            Icons.Default.Favorite
+                                        } else {
                                             Icons.Default.FavoriteBorder
-                                                                          },
+                                        },
                                         contentDescription = "Favorite",
                                         modifier = Modifier
                                             .size(24.dp)
@@ -250,27 +265,34 @@ class DetailComposeFragment : Fragment() {
                                                 if (isProductInWishList == true) {
                                                     viewModel.deleteItemById(productId)
                                                     view?.let {
-                                                        Snackbar.make(
-                                                            it, "Product sudah ada di Wishlist!",
-                                                            Snackbar.LENGTH_LONG).show()
+                                                        Snackbar
+                                                            .make(
+                                                                it,
+                                                                "Product sudah ada di Wishlist!",
+                                                                Snackbar.LENGTH_LONG
+                                                            )
+                                                            .show()
                                                     }
                                                 } else {
-                                                    data?.let {
-                                                        convertToWishlist(
-                                                            it
-                                                        )
-                                                    }?.let { viewModel.insertToWishlist(it) }
+                                                    convertToWishlist(
+                                                        dataObserve
+                                                    )
+                                                        .let { viewModel.insertToWishlist(it) }
                                                     view?.let {
-                                                        Snackbar.make(
-                                                            it, "Product ditambahkan pada Wishlist!",
-                                                            Snackbar.LENGTH_LONG).show()
+                                                        Snackbar
+                                                            .make(
+                                                                it,
+                                                                "Product ditambahkan pada Wishlist!",
+                                                                Snackbar.LENGTH_LONG
+                                                            )
+                                                            .show()
                                                     }
                                                 }
                                             })
                                     )
                                 }
                             }
-                            data?.productName?.let {
+                            dataObserve.productName?.let {
                                 Text(
                                     text = it,
                                     fontSize = 14.sp,
@@ -286,10 +308,10 @@ class DetailComposeFragment : Fragment() {
 
                             ) {
                                 Text(
-                                    text = "Terjual ${data?.sale}",
+                                    text = "Terjual ${dataObserve.sale}",
                                     fontSize = 12.sp,
-                                    
-                                )
+
+                                    )
                                 Spacer(
                                     modifier = Modifier
                                         .width(5.dp)
@@ -312,7 +334,7 @@ class DetailComposeFragment : Fragment() {
                                     Text(
                                         modifier = Modifier
                                             .padding(5.dp),
-                                        text = "${data?.productRating} (2)"
+                                        text = "${dataObserve.productRating} (2)"
                                     )
                                 }
                             }
@@ -322,8 +344,8 @@ class DetailComposeFragment : Fragment() {
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold,
-                                    
-                                ),
+
+                                    ),
                                 modifier = Modifier
                                     .padding(10.dp)
                             )
@@ -335,8 +357,7 @@ class DetailComposeFragment : Fragment() {
                                 horizontalArrangement = Arrangement.Start
                             )
                             {
-                                var currentIndex by remember{ mutableStateOf(0) }
-                                data?.productVariant?.forEachIndexed { index, productVariantItem ->
+                                dataObserve.productVariant.forEachIndexed { index, productVariantItem ->
                                     val isSelected = index == currentIndex
                                     InputChip(
                                         modifier = Modifier
@@ -355,12 +376,12 @@ class DetailComposeFragment : Fragment() {
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold,
-                                    
-                                ),
+
+                                    ),
                                 modifier = Modifier
                                     .padding(top = 10.dp, start = 10.dp, end = 10.dp)
                             )
-                            data?.description?.let {
+                            dataObserve.description?.let {
                                 Text(
                                     modifier = Modifier
                                         .padding(10.dp),
@@ -383,7 +404,12 @@ class DetailComposeFragment : Fragment() {
                                         .weight(1f)
                                 )
 
-                                TextButton(onClick = {})
+                                TextButton(onClick = {
+                                    findNavController().navigate(
+                                        DetailComposeFragmentDirections
+                                            .actionDetailProductFragmentToReviewFragment(productId)
+                                    )
+                                })
                                 {
 
                                     Text(
@@ -412,17 +438,17 @@ class DetailComposeFragment : Fragment() {
                                             .size(15.dp)
                                     )
                                     Text(
-                                        text = data?.productRating.toString(),
+                                        text = dataObserve.productRating.toString(),
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 20.sp,
-                                        
-                                    )
+
+                                        )
                                     Text(
                                         text = "/5.0",
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 10.sp,
-                                        
-                                    )
+
+                                        )
                                 }
                                 Spacer(
                                     modifier = Modifier
@@ -432,19 +458,20 @@ class DetailComposeFragment : Fragment() {
                                     modifier = Modifier
                                 ) {
                                     Text(
-                                        text = "${data?.totalSatisfaction}% pembeli merasa puas",
+                                        text = "${dataObserve.totalSatisfaction}% pembeli merasa puas",
                                         fontWeight = FontWeight.Bold,
                                     )
                                     Text(
-                                        text = "${data?.totalRating} Rating . ${data?.totalReview} Ulasan",
-                                        
-                                    )
+                                        text = "${dataObserve.totalRating} Rating . " +
+                                                "${dataObserve.totalReview} Ulasan",
+
+                                        )
 
                                 }
                             }
                         }
                     }
-                    
+
                     is ResourcesResult.Failure -> {
 
                     }
@@ -452,14 +479,22 @@ class DetailComposeFragment : Fragment() {
 
             },
             bottomBar = {
-                Divider()
+                Divider(
+                    modifier = Modifier
+                        .padding(top = 10.dp, bottom = 10.dp)
+                )
                 Row(
                     modifier = Modifier
                         .padding(10.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     OutlinedButton(
-                        onClick = {},
+                        onClick = {
+                              findNavController().navigate(DetailComposeFragmentDirections
+                                  .actionDetailProductFragmentToCheckoutFragment(ListCheckout(
+                                      listCheckout = mutableListOf(convertToCheckout(dataObserve, currentIndex))
+                                  ), "", ""))
+                        },
                         modifier = Modifier
                             .weight(1f)
                             .padding(end = 4.dp)
@@ -468,7 +503,42 @@ class DetailComposeFragment : Fragment() {
                     }
 
                     Button(
-                        onClick = {},
+                        onClick = {
+                            val cartData = getDataRoom?.find { it.productId == productId }
+                            if (cartData == null) {
+                                val dataNew = dataObserve.copy(productPrice = priceSum)
+                                viewModel.insertToRoom(convertToCart(dataNew, currentIndex))
+                                view?.let {
+                                    Snackbar
+                                        .make(
+                                            it,
+                                            "Product ditambahkan pada Keranjang!",
+                                            Snackbar.LENGTH_LONG
+                                        )
+                                        .show()
+                                }
+                            } else {
+                                var qtyCart = cartData.quantity
+                                if (qtyCart < (dataObserve.stock ?: 0)) {
+                                    qtyCart += 1
+                                    viewModel.updateQuantity(listOf(
+                                        convertToCart(dataObserve, currentIndex) to qtyCart))
+                                    view?.let {
+                                        Snackbar.make(
+                                            it, "Product berhasil ditambahkan pada keranjang!",
+                                            Snackbar.LENGTH_LONG
+                                        ).show()
+                                    }
+                                } else {
+                                    view?.let {
+                                        Snackbar.make(
+                                            it, "Stok tidak tersedia",
+                                            Snackbar.LENGTH_LONG
+                                        ).show()
+                                    }
+                                }
+                            }
+                        },
                         modifier = Modifier
                             .weight(1f)
                             .padding(start = 4.dp)
@@ -481,10 +551,12 @@ class DetailComposeFragment : Fragment() {
     }
 
     @Composable
-    fun Loading(){
-        Box(modifier = Modifier
-            .fillMaxSize(),
-            contentAlignment = Alignment.Center){
+    fun Loading() {
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
             CircularProgressIndicator(
                 color = Color.Magenta
             )

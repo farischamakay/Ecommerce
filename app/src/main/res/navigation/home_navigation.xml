@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_mainFragment_to_statusFragment"
             app:destination="@id/statusFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
 
     </fragment>
 
@@ -62,9 +65,8 @@
 
     <fragment
         android:id="@+id/reviewFragment"
-        android:name="com.example.ecommerce.main.store.ReviewFragment"
-        android:label="fragment_review"
-        tools:layout="@layout/fragment_review">
+        android:name="com.example.ecommerce.main.store.ReviewComposeFragment"
+        android:label="fragment_review">
         <argument
             android:name="id"
             app:argType="string" />
@@ -132,5 +134,10 @@
             android:name="fulfillmentDetail"
             app:argType="com.example.ecommerce.data.models.response.FulfillmentDataResponse" />
     </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.ecommerce.main.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
 
 </navigation>
