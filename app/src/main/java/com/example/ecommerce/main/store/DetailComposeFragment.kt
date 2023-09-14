@@ -78,6 +78,7 @@ import com.example.ecommerce.R
 import com.example.ecommerce.data.models.request.ListCheckout
 import com.example.ecommerce.data.models.response.ProductDetailData
 import com.example.ecommerce.data.models.response.ProductDetailResponse
+import com.example.ecommerce.utils.ErrorStateCompose
 import com.example.ecommerce.utils.ResourcesResult
 import com.example.ecommerce.utils.convertToRupiah
 import com.google.android.material.snackbar.Snackbar
@@ -214,7 +215,7 @@ class DetailComposeFragment : Fragment() {
                             }
                             Row(
                                 modifier = Modifier
-                                    .padding(10.dp)
+                                    .padding(start = 16.dp, top = 16.dp, end = 16.dp)
                                     .fillMaxWidth(),
                             ) {
                                 if (dataObserve.productPrice != null) {
@@ -302,13 +303,13 @@ class DetailComposeFragment : Fragment() {
                                     fontSize = 14.sp,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(start = 10.dp, end = 10.dp),
+                                        .padding(start = 16.dp, end = 16.dp),
                                     fontFamily = FontFamily(Font(R.font.poppins_regular))
                                 )
                             }
                             Row(
                                 modifier = Modifier
-                                    .padding(10.dp),
+                                    .padding(start = 16.dp, bottom = 16.dp),
                                 verticalAlignment = Alignment.CenterVertically
 
                             ) {
@@ -351,17 +352,16 @@ class DetailComposeFragment : Fragment() {
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold,
-
                                     ),
                                 fontFamily = FontFamily(Font(R.font.poppins_regular)),
                                 modifier = Modifier
-                                    .padding(10.dp)
+                                    .padding(start = 16.dp, top = 16.dp)
                             )
                             FlowRow(
                                 Modifier
                                     .fillMaxWidth(1f)
                                     .wrapContentHeight(align = Alignment.Top)
-                                    .padding(horizontal = 15.dp),
+                                    .padding(start = 16.dp),
                                 horizontalArrangement = Arrangement.Start
                             )
                             {
@@ -388,12 +388,12 @@ class DetailComposeFragment : Fragment() {
                                     ),
                                 fontFamily = FontFamily(Font(R.font.poppins_regular)),
                                 modifier = Modifier
-                                    .padding(top = 10.dp, start = 10.dp, end = 10.dp)
+                                    .padding(top = 10.dp, start = 16.dp, end = 10.dp)
                             )
                             dataObserve.description?.let {
                                 Text(
                                     modifier = Modifier
-                                        .padding(10.dp),
+                                        .padding(start = 16.dp, bottom = 16.dp),
                                     text = it,
                                     fontSize = 12.sp,
                                     fontFamily = FontFamily(Font(R.font.poppins_regular))
@@ -402,7 +402,7 @@ class DetailComposeFragment : Fragment() {
                             Divider()
                             Row(
                                 modifier = Modifier
-                                    .padding(start = 10.dp, end = 10.dp)
+                                    .padding(start = 16.dp, end = 16.dp)
                                     .fillMaxWidth(),
                                 verticalAlignment = Alignment.CenterVertically
                             )
@@ -435,7 +435,9 @@ class DetailComposeFragment : Fragment() {
                             }
                             Row(
                                 modifier = Modifier
+                                    .padding(start = 16.dp, bottom = 20.dp)
                                     .fillMaxWidth()
+
                             ) {
                                 Row(
                                     modifier = Modifier,
@@ -448,7 +450,7 @@ class DetailComposeFragment : Fragment() {
                                         ),
                                         modifier = Modifier
                                             .padding(start = 5.dp)
-                                            .size(15.dp)
+                                            .size(24.dp)
                                     )
                                     Text(
                                         text = dataObserve.productRating.toString(),
@@ -473,13 +475,14 @@ class DetailComposeFragment : Fragment() {
                                     Text(
                                         text = "${dataObserve.totalSatisfaction}% pembeli merasa puas",
                                         fontWeight = FontWeight.Bold,
+                                        fontSize = 12.sp,
                                         fontFamily = FontFamily(Font(R.font.poppins_regular))
                                     )
                                     Text(
                                         text = "${dataObserve.totalRating} Rating . " +
                                                 "${dataObserve.totalReview} Ulasan",
+                                        fontSize = 12.sp,
                                         fontFamily = FontFamily(Font(R.font.poppins_regular))
-
                                         )
 
                                 }
@@ -488,19 +491,19 @@ class DetailComposeFragment : Fragment() {
                     }
 
                     is ResourcesResult.Failure -> {
-
+                        ErrorStateCompose(errorCode = "Empty", errorInfo = "Your requested data is unavailable") {
+                            viewModel.detailItem(productId)
+                        }
                     }
                 }
 
             },
             bottomBar = {
                 Divider(
-                    modifier = Modifier
-                        .padding(top = 10.dp, bottom = 10.dp)
                 )
                 Row(
                     modifier = Modifier
-                        .padding(10.dp),
+                        .padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     OutlinedButton(

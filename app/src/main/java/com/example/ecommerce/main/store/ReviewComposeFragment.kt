@@ -40,6 +40,9 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,6 +54,7 @@ import androidx.navigation.fragment.navArgs
 import coil.compose.AsyncImage
 import com.example.ecommerce.R
 import com.example.ecommerce.data.models.response.ReviewResponse
+import com.example.ecommerce.utils.ErrorStateCompose
 import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -77,8 +81,6 @@ class ReviewComposeFragment : Fragment() {
     @Preview(showBackground = true, device = Devices.PIXEL_4)
     @OptIn(
         ExperimentalMaterial3Api::class,
-        ExperimentalLayoutApi::class,
-        ExperimentalFoundationApi::class
     )
     @Composable
     fun ScaffoldWithTopBar() {
@@ -151,7 +153,11 @@ class ReviewComposeFragment : Fragment() {
                                                     .width(10.dp)
                                             )
                                             Column {
-                                                Text(text = "$name")
+                                                Text(
+                                                    text = "$name",
+                                                    fontWeight = FontWeight.Bold,
+                                                    fontFamily = FontFamily(Font(R.font.poppins_regular))
+                                                )
                                                 Row {
                                                     if (ratingUser != null) {
                                                         RatingBar(rating = ratingUser)
@@ -162,7 +168,10 @@ class ReviewComposeFragment : Fragment() {
                                         Text(
                                             modifier = Modifier
                                                 .padding(16.dp)
-                                                .fillMaxWidth(), text = "$reviewUser"
+                                                .fillMaxWidth(),
+                                            text = "$reviewUser",
+                                            fontSize = 12.sp,
+                                            fontFamily = FontFamily(Font(R.font.poppins_regular))
                                         )
                                     }
                                 }
@@ -171,7 +180,9 @@ class ReviewComposeFragment : Fragment() {
                     }
 
                     is ResourcesResult.Failure -> {
-
+                        ErrorStateCompose(errorCode = "Empty", errorInfo = "Your requested data is unavailable"){
+                            viewModel.reviewItem(id.id)
+                        }
                     }
 
                     else -> {}
