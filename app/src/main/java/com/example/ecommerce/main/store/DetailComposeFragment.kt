@@ -63,6 +63,8 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -129,6 +131,7 @@ class DetailComposeFragment : Fragment() {
                             style = TextStyle(
                                 fontSize = 22.sp
                             ),
+                            fontFamily = FontFamily(Font(R.font.poppins_regular))
                         )
                     },
                     navigationIcon = {
@@ -222,6 +225,7 @@ class DetailComposeFragment : Fragment() {
                                         text = priceSum!!.convertToRupiah(),
                                         fontSize = 22.sp,
                                         fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily(Font(R.font.poppins_regular))
                                     )
                                 }
                                 Row(
@@ -298,7 +302,8 @@ class DetailComposeFragment : Fragment() {
                                     fontSize = 14.sp,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(start = 10.dp, end = 10.dp)
+                                        .padding(start = 10.dp, end = 10.dp),
+                                    fontFamily = FontFamily(Font(R.font.poppins_regular))
                                 )
                             }
                             Row(
@@ -310,7 +315,7 @@ class DetailComposeFragment : Fragment() {
                                 Text(
                                     text = "Terjual ${dataObserve.sale}",
                                     fontSize = 12.sp,
-
+                                    fontFamily = FontFamily(Font(R.font.poppins_regular))
                                     )
                                 Spacer(
                                     modifier = Modifier
@@ -334,7 +339,9 @@ class DetailComposeFragment : Fragment() {
                                     Text(
                                         modifier = Modifier
                                             .padding(5.dp),
-                                        text = "${dataObserve.productRating} (2)"
+                                        text = "${dataObserve.productRating} (2)",
+                                        fontSize = 12.sp,
+                                        fontFamily = FontFamily(Font(R.font.poppins_regular))
                                     )
                                 }
                             }
@@ -346,6 +353,7 @@ class DetailComposeFragment : Fragment() {
                                     fontWeight = FontWeight.Bold,
 
                                     ),
+                                fontFamily = FontFamily(Font(R.font.poppins_regular)),
                                 modifier = Modifier
                                     .padding(10.dp)
                             )
@@ -378,6 +386,7 @@ class DetailComposeFragment : Fragment() {
                                     fontWeight = FontWeight.Bold,
 
                                     ),
+                                fontFamily = FontFamily(Font(R.font.poppins_regular)),
                                 modifier = Modifier
                                     .padding(top = 10.dp, start = 10.dp, end = 10.dp)
                             )
@@ -385,7 +394,9 @@ class DetailComposeFragment : Fragment() {
                                 Text(
                                     modifier = Modifier
                                         .padding(10.dp),
-                                    text = it
+                                    text = it,
+                                    fontSize = 12.sp,
+                                    fontFamily = FontFamily(Font(R.font.poppins_regular))
                                 )
                             }
                             Divider()
@@ -400,6 +411,7 @@ class DetailComposeFragment : Fragment() {
                                     text = "Ulasan Pembeli",
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 16.sp,
+                                    fontFamily = FontFamily(Font(R.font.poppins_regular)),
                                     modifier = Modifier
                                         .weight(1f)
                                 )
@@ -415,7 +427,8 @@ class DetailComposeFragment : Fragment() {
                                     Text(
                                         text = "Lihat Semua",
                                         fontWeight = FontWeight.Bold,
-                                        fontSize = 16.sp
+                                        fontSize = 16.sp,
+                                        fontFamily = FontFamily(Font(R.font.poppins_regular))
                                     )
 
                                 }
@@ -441,13 +454,13 @@ class DetailComposeFragment : Fragment() {
                                         text = dataObserve.productRating.toString(),
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 20.sp,
-
+                                        fontFamily = FontFamily(Font(R.font.poppins_regular))
                                         )
                                     Text(
                                         text = "/5.0",
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 10.sp,
-
+                                        fontFamily = FontFamily(Font(R.font.poppins_regular))
                                         )
                                 }
                                 Spacer(
@@ -460,10 +473,12 @@ class DetailComposeFragment : Fragment() {
                                     Text(
                                         text = "${dataObserve.totalSatisfaction}% pembeli merasa puas",
                                         fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily(Font(R.font.poppins_regular))
                                     )
                                     Text(
                                         text = "${dataObserve.totalRating} Rating . " +
                                                 "${dataObserve.totalReview} Ulasan",
+                                        fontFamily = FontFamily(Font(R.font.poppins_regular))
 
                                         )
 
@@ -499,7 +514,7 @@ class DetailComposeFragment : Fragment() {
                             .weight(1f)
                             .padding(end = 4.dp)
                     ) {
-                        Text("Beli Langsung")
+                        Text(text = "Beli Langsung",fontFamily = FontFamily(Font(R.font.poppins_regular)))
                     }
 
                     Button(
@@ -543,7 +558,7 @@ class DetailComposeFragment : Fragment() {
                             .weight(1f)
                             .padding(start = 4.dp)
                     ) {
-                        Text(text = "+ Keranjang")
+                        Text(text = "+ Keranjang", fontFamily = FontFamily(Font(R.font.poppins_regular)))
                     }
                 }
             }
