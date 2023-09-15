@@ -26,7 +26,7 @@ import com.example.ecommerce.R
 fun ErrorStateCompose(
     errorCode : String,
     errorInfo : String,
-    resetClick : () -> Unit
+    resetClick : () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -60,5 +60,7 @@ fun ErrorStateCompose(
 @Preview(showBackground = true)
 @Composable
 fun ErrorStatePreview(){
-    ErrorStateCompose(errorCode = "Empty", errorInfo = "Your requested data is unavailable", {})
+    ErrorStateCompose(errorCode = "Empty", errorInfo = "Your requested data is unavailable") {
+
+    }
 }

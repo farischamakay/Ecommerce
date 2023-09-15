@@ -78,6 +78,7 @@ import com.example.ecommerce.R
 import com.example.ecommerce.data.models.request.ListCheckout
 import com.example.ecommerce.data.models.response.ProductDetailData
 import com.example.ecommerce.data.models.response.ProductDetailResponse
+import com.example.ecommerce.utils.ComposeTheme
 import com.example.ecommerce.utils.ErrorStateCompose
 import com.example.ecommerce.utils.ResourcesResult
 import com.example.ecommerce.utils.convertToRupiah
@@ -101,7 +102,7 @@ class DetailComposeFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                MaterialTheme {
+                ComposeTheme {
                     ScaffoldWithTopBar()
                 }
             }
@@ -142,10 +143,6 @@ class DetailComposeFragment : Fragment() {
                             Icon(Icons.Filled.ArrowBack, "backIcon")
                         }
                     },
-                    colors = TopAppBarDefaults.smallTopAppBarColors(
-                        containerColor = Color.White,
-                        titleContentColor = Color.Black,
-                    ),
                 )
             },
             content = { innerPadding ->
@@ -166,7 +163,6 @@ class DetailComposeFragment : Fragment() {
                             modifier = Modifier
                                 .padding(innerPadding)
                                 .fillMaxSize()
-                                .background(Color.White)
 //                                .padding(horizontal = 16.dp)
                                 .verticalScroll(rememberScrollState()),
                         ) {
@@ -517,7 +513,7 @@ class DetailComposeFragment : Fragment() {
                             .weight(1f)
                             .padding(end = 4.dp)
                     ) {
-                        Text(text = "Beli Langsung",fontFamily = FontFamily(Font(R.font.poppins_regular)))
+                        Text(text = getString(R.string.beli_langsung),fontFamily = FontFamily(Font(R.font.poppins_regular)))
                     }
 
                     Button(
@@ -561,7 +557,7 @@ class DetailComposeFragment : Fragment() {
                             .weight(1f)
                             .padding(start = 4.dp)
                     ) {
-                        Text(text = "+ Keranjang", fontFamily = FontFamily(Font(R.font.poppins_regular)))
+                        Text(text = getString(R.string.keranjang), fontFamily = FontFamily(Font(R.font.poppins_regular)))
                     }
                 }
             }

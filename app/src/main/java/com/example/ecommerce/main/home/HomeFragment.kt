@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -41,6 +43,36 @@ class HomeFragment : Fragment() {
         binding.btnLogout.setOnClickListener {
             viewModel.deleteToken()
             (requireActivity() as MainActivity).logOut()
+        }
+
+        val currentLangage = AppCompatDelegate.getApplicationLocales()
+        binding.switchLanguage.isChecked = currentLangage == LocaleListCompat.forLanguageTags("ID")
+        binding.switchLanguage.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked){
+                val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("ID")
+                AppCompatDelegate.setApplicationLocales(appLocale)
+            } else {
+                val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("EN")
+                AppCompatDelegate.setApplicationLocales(appLocale)
+            }
+
+        }
+
+
+        binding.switchTheme.isChecked = viewModel.isDarkThemeMode()
+        if(viewModel.isDarkThemeMode()){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
+        binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.saveTheme(isChecked)
+            if(isChecked){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
         }
     }
 

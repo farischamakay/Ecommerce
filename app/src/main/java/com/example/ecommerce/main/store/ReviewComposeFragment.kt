@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -54,6 +52,7 @@ import androidx.navigation.fragment.navArgs
 import coil.compose.AsyncImage
 import com.example.ecommerce.R
 import com.example.ecommerce.data.models.response.ReviewResponse
+import com.example.ecommerce.utils.ComposeTheme
 import com.example.ecommerce.utils.ErrorStateCompose
 import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,7 +70,7 @@ class ReviewComposeFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                MaterialTheme {
+                ComposeTheme {
                     ScaffoldWithTopBar()
                 }
             }
@@ -105,91 +104,86 @@ class ReviewComposeFragment : Fragment() {
                             Icon(Icons.Filled.ArrowBack, "backIcon")
                         }
                     },
-                    colors = TopAppBarDefaults.smallTopAppBarColors(
-                        containerColor = Color.White,
-                        titleContentColor = Color.Black,
-                    ),
                 )
-            },
-            content = {
-                when (getReview) {
-                    is ResourcesResult.Loading -> {
-                        Loading()
-                    }
+            }
+        ) {
+            when (getReview) {
+                is ResourcesResult.Loading -> {
+                    Loading()
+                }
 
-                    is ResourcesResult.Success -> {
-                        val data =
-                            (getReview as ResourcesResult.Success<ReviewResponse?>).data?.data
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(it)
-                        ) {
-                            LazyColumn {
-                                items(data?.size ?: 0) { person ->
-                                    val name = data?.get(person)?.userName
-                                    val image = data?.get(person)?.userImage
-                                    val ratingUser = data?.get(person)?.userRating
-                                    val reviewUser = data?.get(person)?.userReview
-//                                    Text(text = "Name: ${data?.get(person)?.userName}, Age: ${person.age}")
-                                    Divider()
-                                    Column(
+                is ResourcesResult.Success -> {
+                    val data =
+                        (getReview as ResourcesResult.Success<ReviewResponse?>).data?.data
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(it)
+                    ) {
+                        LazyColumn {
+                            items(data?.size ?: 0) { person ->
+                                val name = data?.get(person)?.userName
+                                val image = data?.get(person)?.userImage
+                                val ratingUser = data?.get(person)?.userRating
+                                val reviewUser = data?.get(person)?.userReview
+                                Divider()
+                                Column(
+                                    modifier = Modifier
+                                        .padding(top = 10.dp)
+                                ) {
+                                    Row(
                                         modifier = Modifier
-                                            .padding(top = 10.dp)
+                                            .fillMaxWidth()
                                     ) {
-                                        Row(
+                                        AsyncImage(
+                                            model = image,
+                                            contentDescription = null,
                                             modifier = Modifier
-                                                .fillMaxWidth()
-                                        ) {
-                                            AsyncImage(
-                                                model = image,
-                                                contentDescription = null,
-                                                modifier = Modifier
-                                                    .padding(start = 15.dp)
-                                                    .size(36.dp)
+                                                .padding(start = 15.dp)
+                                                .size(36.dp)
+                                        )
+                                        Spacer(
+                                            modifier = Modifier
+                                                .width(10.dp)
+                                        )
+                                        Column {
+                                            Text(
+                                                text = "$name",
+                                                fontWeight = FontWeight.Bold,
+                                                fontFamily = FontFamily(Font(R.font.poppins_regular))
                                             )
-                                            Spacer(
-                                                modifier = Modifier
-                                                    .width(10.dp)
-                                            )
-                                            Column {
-                                                Text(
-                                                    text = "$name",
-                                                    fontWeight = FontWeight.Bold,
-                                                    fontFamily = FontFamily(Font(R.font.poppins_regular))
-                                                )
-                                                Row {
-                                                    if (ratingUser != null) {
-                                                        RatingBar(rating = ratingUser)
-                                                    }
+                                            Row {
+                                                if (ratingUser != null) {
+                                                    RatingBar(rating = ratingUser)
                                                 }
                                             }
                                         }
-                                        Text(
-                                            modifier = Modifier
-                                                .padding(16.dp)
-                                                .fillMaxWidth(),
-                                            text = "$reviewUser",
-                                            fontSize = 12.sp,
-                                            fontFamily = FontFamily(Font(R.font.poppins_regular))
-                                        )
                                     }
+                                    Text(
+                                        modifier = Modifier
+                                            .padding(16.dp)
+                                            .fillMaxWidth(),
+                                        text = "$reviewUser",
+                                        fontSize = 12.sp,
+                                        fontFamily = FontFamily(Font(R.font.poppins_regular))
+                                    )
                                 }
                             }
                         }
                     }
-
-                    is ResourcesResult.Failure -> {
-                        ErrorStateCompose(errorCode = "Empty", errorInfo = "Your requested data is unavailable"){
-                            viewModel.reviewItem(id.id)
-                        }
-                    }
-
-                    else -> {}
                 }
 
+                is ResourcesResult.Failure -> {
+                    ErrorStateCompose(errorCode = "Empty",
+                        errorInfo = "Your requested data is unavailable",
+                        resetClick = {viewModel.reviewItem(id.id)}
+                    )
+                }
+
+                else -> {}
             }
-        )
+
+        }
     }
 
     @Composable

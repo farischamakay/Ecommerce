@@ -20,4 +20,8 @@ class MainViewModel @Inject constructor(
     fun getUsername(): String? {
         return sharedPreferencesManager.getUsername()
     }
+
+    fun isDarkModeTheme() : Boolean{
+        return sharedPreferencesManager.isDarkTheme()
+    }
 }

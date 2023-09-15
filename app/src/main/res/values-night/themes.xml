@@ -3,5 +3,12 @@
     <style name="Base.Theme.Ecommerce" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:statusBarColor">?attr/colorSurfaceContainerLowest</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">?attr/colorSurfaceContainerLowest</item>
+    </style>
+
+    <style name="MyToolbar" parent="Widget.Material3.Toolbar">
+        <item name="navigationIconTint">@color/white</item>
     </style>
 </resources>
