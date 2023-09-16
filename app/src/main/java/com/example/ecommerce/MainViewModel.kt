@@ -9,7 +9,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val roomCartRepository: RoomCartRepository,
-    private val sharedPreferencesManager: PreferenceProvider) : ViewModel(){
+    private val sharedPreferencesManager: PreferenceProvider
+) : ViewModel() {
 
     val getDataWishlist =
         roomCartRepository.fetchWishlistData()
@@ -21,7 +22,7 @@ class MainViewModel @Inject constructor(
         return sharedPreferencesManager.getUsername()
     }
 
-    fun isDarkModeTheme() : Boolean{
+    fun isDarkModeTheme(): Boolean {
         return sharedPreferencesManager.isDarkTheme()
     }
 }

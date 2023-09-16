@@ -23,7 +23,7 @@
     <string name="gabung_sekarang">Gabung Sekarang</string>
     <string name="lewati">Lewati</string>
     <string name="log_out">Keluar</string>
-    <string name="search">Cari</string>
+    <string name="search">Pencarian</string>
     <string name="filter">Filter</string>
     <string name="store_urutkan">Urutkan</string>
     <string name="store_reset">Reset</string>
@@ -95,6 +95,23 @@
     <string name="text_description_notif">Transaksi Anda sedang diproses oleh penjual, harap tunggu pembaruan selanjutnya di aplikasi. Sambil menunggu, Anda dapat mencari barang lain.</string>
     <string name="light">Terang</string>
     <string name="dark">Gelap</string>
+    <string name="keranjang_title">Keranjang</string>
+    <string name="total_bayar">Total Cost</string>
+    <string name="items_buyed">Barang yang dibeli</string>
+    <string name="pembayaran">Pembayaran</string>
+    <string name="pilih_pembayaran">Pilih Metode Pembayaran</string>
+    <string name="bayar">Bayar</string>
+    <string name="stok_tidak_mencukupi">Stock barang tidak mencukupi!</string>
+    <string name="detail_product">Produk Detail</string>
+    <string name="product_sudah_ada_di_wishlist">Produk sudah ada di wishlist anda!</string>
+    <string name="product_ditambahkan_pada_wishlist">Produk ditambahkan ke wishlish!</string>
+    <string name="pilih_varian">Pilih Varian</string>
+    <string name="deskripsi_produk">Deskripsi Product</string>
+    <string name="ulasan_pembeli">Review User</string>
+    <string name="terima_kasih">Terima kasih!</string>
+    <string name="product_ditambahkan_pada_keranjang">Produk ditambahkan ke keranjang!</string>
+    <string name="product_berhasil_ditambahkan_pada_keranjang">Produk berhasil ditambahkan pada keranjang!</string>
+    <string name="barang_transaction">%1$s Barang</string>
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
         <item>Galeri</item>

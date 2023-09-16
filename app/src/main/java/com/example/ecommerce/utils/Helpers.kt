@@ -27,7 +27,8 @@ object Helpers {
     }
 
 }
-fun Int.convertToRupiah() : String {
-    return NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(this).
-    replace(",", ".").removeSuffix(".00")
+
+fun Int.convertToRupiah(): String {
+    return NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(this).replace(",", ".")
+        .removeSuffix(".00")
 }

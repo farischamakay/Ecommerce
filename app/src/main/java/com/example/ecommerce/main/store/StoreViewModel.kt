@@ -82,7 +82,7 @@ class StoreViewModel @Inject constructor(
 
     fun detailItem(id: String) {
         viewModelScope.launch {
-            _detailProduct.value = ResourcesResult.Loading
+            //        _detailProduct.value = ResourcesResult.Loading
             val result = productRepository.detailProduct(id)
             _detailProduct.value = result
         }

@@ -31,16 +31,16 @@
         android:layout_height="30dp"
         android:layout_margin="10dp"
         android:background="?colorOutlineVariant"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_change_grid"/>
+        app:layout_constraintEnd_toStartOf="@id/btn_change_grid"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ToggleButton
         android:id="@+id/btn_change_grid"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="10dp"
-        android:padding="5dp"
         android:background="@drawable/selector_grid_view"
+        android:padding="5dp"
         android:textOff=""
         android:textOn=""
         android:visibility="visible"

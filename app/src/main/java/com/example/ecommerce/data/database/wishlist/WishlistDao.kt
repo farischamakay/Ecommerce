@@ -17,7 +17,7 @@ interface WishlistDao {
     suspend fun insertWishlist(wishlist: Wishlist)
 
     @Query("DELETE FROM wishlist where productId = :itemId")
-    suspend fun deleteWishlistById(itemId : String)
+    suspend fun deleteWishlistById(itemId: String)
 
     @Update
     suspend fun updateWishlist(vararg wishlist: Wishlist)

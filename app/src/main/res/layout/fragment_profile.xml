@@ -37,14 +37,13 @@
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginTop="40dp"
-        android:src="@drawable/ic_person_outline"
         android:background="@drawable/shape_background_profile"
+        android:scaleType="center"
+        android:src="@drawable/ic_person_outline"
         app:layout_constraintBottom_toTopOf="@+id/layout_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/outline_appbar"
-        android:scaleType="center"
-    />
+        app:layout_constraintTop_toBottomOf="@id/outline_appbar" />
 
 
     <com.google.android.material.textfield.TextInputLayout

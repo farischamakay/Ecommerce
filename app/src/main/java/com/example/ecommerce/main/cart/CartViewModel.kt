@@ -1,6 +1,5 @@
 package com.example.ecommerce.main.cart
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,11 +27,13 @@ class CartViewModel @Inject constructor(
     private val _rating = MutableLiveData<ResourcesResult<RatingResponse?>>()
 
     val paymentResult: MutableLiveData<ResourcesResult<PaymentResponse?>> = _paymentResult
-    val fulfillmentResult : MutableLiveData<ResourcesResult<FullfilmentResponse?>> = _fulfillmentResult
-    val ratingResult : MutableLiveData<ResourcesResult<RatingResponse?>> = _rating
+    val fulfillmentResult: MutableLiveData<ResourcesResult<FullfilmentResponse?>> =
+        _fulfillmentResult
+    val ratingResult: MutableLiveData<ResourcesResult<RatingResponse?>> = _rating
 
     val getDataRoom =
         roomCartRepository.fetchCartData()
+
     fun updateCheckable(cartList: List<Pair<Cart, Boolean>>) {
         viewModelScope.launch {
             val updates = cartList.map { (cartList, isChecked) ->
@@ -41,6 +42,7 @@ class CartViewModel @Inject constructor(
             roomCartRepository.updateValues(updates)
         }
     }
+
     fun updateQuantity(cartList: List<Pair<Cart, Int>>) {
         viewModelScope.launch {
             val updates = cartList.map { (cartList, quantity) ->
@@ -49,17 +51,20 @@ class CartViewModel @Inject constructor(
             roomCartRepository.updateValues(updates)
         }
     }
-    fun deleteItemById(itemId : String){
+
+    fun deleteItemById(itemId: String) {
         viewModelScope.launch {
             roomCartRepository.deleteById(itemId)
         }
     }
+
     fun deleteCheckedItems() {
         viewModelScope.launch {
             val checkedItems = getDataRoom.value?.filter { it.isCheck } ?: emptyList()
             roomCartRepository.deleteData(*checkedItems.toTypedArray())
         }
     }
+
     fun selectedAllItems(isChecked: Boolean) {
         viewModelScope.launch {
             val cartList = getDataRoom.value ?: emptyList()
@@ -67,6 +72,7 @@ class CartViewModel @Inject constructor(
             roomCartRepository.updateValues(updateList)
         }
     }
+
     fun fetchPayment() {
         viewModelScope.launch {
             _paymentResult.value = ResourcesResult.Loading
@@ -74,6 +80,7 @@ class CartViewModel @Inject constructor(
             _paymentResult.value = result
         }
     }
+
     fun fulfillment(fullfilmentRequest: FullfilmentRequest) {
         viewModelScope.launch {
             _fulfillmentResult.value = ResourcesResult.Loading
@@ -84,7 +91,6 @@ class CartViewModel @Inject constructor(
 
     fun rating(ratingRequest: RatingRequest) {
         viewModelScope.launch {
-            Log.d("invoiceID", ratingRequest.invoiceId.toString())
             _rating.value = ResourcesResult.Loading
             val result = productRepository.ratingProduct(ratingRequest)
             _rating.value = result

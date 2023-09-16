@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WishlistViewModel @Inject constructor(private val roomCartRepository: RoomCartRepository)
-    : ViewModel() {
+class WishlistViewModel @Inject constructor(private val roomCartRepository: RoomCartRepository) :
+    ViewModel() {
 
     val getDataWishlist =
         roomCartRepository.fetchWishlistData()
@@ -18,11 +18,12 @@ class WishlistViewModel @Inject constructor(private val roomCartRepository: Room
     val getDataRoom =
         roomCartRepository.fetchCartData()
 
-    fun deleteItemById(itemId : String){
+    fun deleteItemById(itemId: String) {
         viewModelScope.launch {
             roomCartRepository.deleteWishlistById(itemId)
         }
     }
+
     fun insertToRoom(cart: Cart) {
         viewModelScope.launch {
             roomCartRepository.insertCartData(cart)

@@ -1,12 +1,11 @@
 package com.example.ecommerce.main.cart
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.ecommerce.R
@@ -21,15 +20,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class StatusFragment : Fragment() {
 
-    private var ratingUser : Int ?= null
-    private var _binding : FragmentStatusBinding ?= null
+    private var ratingUser: Int? = null
+    private var _binding: FragmentStatusBinding? = null
     private val binding get() = _binding!!
-    private val viewModel : CartViewModel by activityViewModels()
+    private val viewModel: CartViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentStatusBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -41,25 +40,28 @@ class StatusFragment : Fragment() {
             ratingUser = rating.toInt()
         }
 
-        val args : StatusFragmentArgs by navArgs()
+        val args: StatusFragmentArgs by navArgs()
         binding.btnDonePayment.setOnClickListener {
             val userReview = binding.txtInputReview.text
-            val userAllReview = RatingRequest(userReview.toString(),ratingUser,
-                args.fulfillmentDetail.invoiceId)
+            val userAllReview = RatingRequest(
+                userReview.toString(), ratingUser,
+                args.fulfillmentDetail.invoiceId
+            )
 
             viewModel.rating(userAllReview)
 
         }
 
 
-        viewModel.ratingResult.observe(viewLifecycleOwner){response ->
-            when(response){
+        viewModel.ratingResult.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is ResourcesResult.Loading -> {}
                 is ResourcesResult.Failure -> {}
                 is ResourcesResult.Success -> {
                     Snackbar.make(
-                        binding.root, "Terima kasih!",
-                        Snackbar.LENGTH_LONG).show()
+                        binding.root, getString(R.string.terima_kasih),
+                        Snackbar.LENGTH_LONG
+                    ).show()
                     findNavController().navigateUp()
                 }
             }
@@ -71,7 +73,7 @@ class StatusFragment : Fragment() {
             txtWaktuTransaksi.text = args.fulfillmentDetail.time
             txtMetodeTransaksi.text = args.fulfillmentDetail.payment
             txtTotalTransaksi.text = args.fulfillmentDetail.total.convertToRupiah()
-            if(args.fulfillmentDetail.status) {
+            if (args.fulfillmentDetail.status) {
                 txtStatusTransaksi.text = getString(R.string.berhasil)
             }
         }

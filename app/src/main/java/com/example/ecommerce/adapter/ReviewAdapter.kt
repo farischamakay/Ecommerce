@@ -29,19 +29,20 @@ class ReviewAdapter :
 
     inner class ReviewAdapterViewHolder(var binding: ItemUlasanPembeliBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(data: ReviewDataItem){
-                Glide.with(binding.root).load(data.userImage).circleCrop().error(R.drawable.img_thumbnail_produk)
-                    .into(binding.imgProfileUser)
-                binding.txtUsernameUser.text = data.userName
-                if (data.userRating != null) {
-                    binding.rBar.rating = data.userRating.toFloat()
-                }
-                binding.txtReviewUser.text = data.userReview
+        fun bind(data: ReviewDataItem) {
+            Glide.with(binding.root).load(data.userImage).circleCrop()
+                .error(R.drawable.img_thumbnail_produk)
+                .into(binding.imgProfileUser)
+            binding.txtUsernameUser.text = data.userName
+            if (data.userRating != null) {
+                binding.rBar.rating = data.userRating.toFloat()
             }
+            binding.txtReviewUser.text = data.userReview
         }
+    }
 }
 
-private class ReviewDiffCallback : DiffUtil.ItemCallback<ReviewDataItem>(){
+private class ReviewDiffCallback : DiffUtil.ItemCallback<ReviewDataItem>() {
     override fun areItemsTheSame(oldItem: ReviewDataItem, newItem: ReviewDataItem): Boolean {
         return oldItem == newItem
     }

@@ -119,8 +119,8 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/black"
             android:background="@drawable/ic_delete_item"
+            android:backgroundTint="@color/black"
             app:layout_constraintEnd_toStartOf="@id/layout_increment_decrement"
             app:layout_constraintTop_toBottomOf="@id/txt_jumlah_sisa" />
 

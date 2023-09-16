@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,7 +16,6 @@ import com.example.ecommerce.adapter.CheckoutAdapter
 import com.example.ecommerce.data.models.request.CheckoutRequest
 import com.example.ecommerce.data.models.request.FullfilmentItem
 import com.example.ecommerce.data.models.request.FullfilmentRequest
-import com.example.ecommerce.data.models.request.ListCheckout
 import com.example.ecommerce.data.models.response.fulfillmentToReview
 import com.example.ecommerce.databinding.FragmentCheckoutBinding
 import com.example.ecommerce.utils.ResourcesResult
@@ -27,10 +26,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CheckoutFragment : Fragment() {
 
-    private var _binding : FragmentCheckoutBinding ?=  null
-    private lateinit var checkboxAdapter : CheckoutAdapter
+    private var _binding: FragmentCheckoutBinding? = null
+    private lateinit var checkboxAdapter: CheckoutAdapter
     private val binding get() = _binding!!
-    private val viewModel : CartViewModel by activityViewModels()
+    private val viewModel: CartViewModel by viewModels()
     private val navHostFragment: NavHostFragment by lazy {
         requireActivity().supportFragmentManager.findFragmentById(R.id.nhf_main) as NavHostFragment
     }
@@ -42,7 +41,7 @@ class CheckoutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCheckoutBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,12 +49,12 @@ class CheckoutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val args : CheckoutFragmentArgs by navArgs()
+        val args: CheckoutFragmentArgs by navArgs()
 
         val titlePembayaran = args.titlePayment
         val imagePembayaran = args.imagePayment
 
-        if(titlePembayaran.isNotEmpty()){
+        if (titlePembayaran.isNotEmpty()) {
             Glide.with(binding.root).load(imagePembayaran).into(binding.imgCardView)
             binding.txtChosePayment.text = titlePembayaran
             binding.btnBayar.isEnabled = true
@@ -71,8 +70,8 @@ class CheckoutFragment : Fragment() {
 
                 viewModel.fulfillment(fulfillmentRequest)
 
-                viewModel.fulfillmentResult.observe(viewLifecycleOwner){response ->
-                    when(response){
+                viewModel.fulfillmentResult.observe(viewLifecycleOwner) { response ->
+                    when (response) {
                         is ResourcesResult.Loading -> {}
                         is ResourcesResult.Success -> {
                             val data = response.data?.data
@@ -81,9 +80,14 @@ class CheckoutFragment : Fragment() {
                                 Snackbar.LENGTH_LONG
                             ).show()
                             if (data != null) {
-                                navController.navigate(CheckoutFragmentDirections.actionCheckoutFragmentToStatusFragment(data.fulfillmentToReview()))
+                                navController.navigate(
+                                    CheckoutFragmentDirections.actionCheckoutFragmentToStatusFragment(
+                                        data.fulfillmentToReview()
+                                    )
+                                )
                             }
                         }
+
                         is ResourcesResult.Failure -> {}
                     }
                 }
@@ -97,9 +101,10 @@ class CheckoutFragment : Fragment() {
         var priceItem = args.listCheckout.listCheckout.map { it.productVariantPrice * it.quantity }
         binding.txtTotalBayar.text = priceItem.sum().convertToRupiah()
 
-        checkboxAdapter.setOnItemClickCallback(object : CheckoutAdapter.OnItemClickCallback{
-            override fun counterClicked(checkout: CheckoutRequest){
-                priceItem = args.listCheckout.listCheckout.map { it.productVariantPrice * it.quantity }
+        checkboxAdapter.setOnItemClickCallback(object : CheckoutAdapter.OnItemClickCallback {
+            override fun counterClicked(checkout: CheckoutRequest) {
+                priceItem =
+                    args.listCheckout.listCheckout.map { it.productVariantPrice * it.quantity }
                 val totalPrice = priceItem.sum()
                 binding.txtTotalBayar.text = totalPrice.convertToRupiah()
             }
@@ -112,7 +117,11 @@ class CheckoutFragment : Fragment() {
             findNavController().navigateUp()
         }
         binding.btnNextPayment.setOnClickListener {
-                navController.navigate(CheckoutFragmentDirections.actionCheckoutFragmentToPaymentFragment(args.listCheckout))
+            navController.navigate(
+                CheckoutFragmentDirections.actionCheckoutFragmentToPaymentFragment(
+                    args.listCheckout
+                )
+            )
         }
     }
 

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +25,7 @@ class CartFragment : Fragment() {
     private lateinit var cartAdapter: CartAdapter
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CartViewModel by activityViewModels()
+    private val viewModel: CartViewModel by viewModels()
 
     private val navHostFragment: NavHostFragment by lazy {
         requireActivity().supportFragmentManager.findFragmentById(R.id.nhf_main) as NavHostFragment
@@ -92,8 +92,13 @@ class CartFragment : Fragment() {
                     viewModel.deleteCheckedItems()
                 }
                 binding.btnBayar.setOnClickListener {
-                    navController.navigate(CartFragmentDirections.
-                    actionCartFragmentToCheckoutFragment(isSelected.toListCheckout(), "", ""))
+                    navController.navigate(
+                        CartFragmentDirections.actionCartFragmentToCheckoutFragment(
+                            isSelected.toListCheckout(),
+                            "",
+                            ""
+                        )
+                    )
                 }
             } else {
                 binding.btnBayar.isEnabled = false

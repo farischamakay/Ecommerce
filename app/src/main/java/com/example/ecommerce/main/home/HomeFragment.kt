@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
         val currentLangage = AppCompatDelegate.getApplicationLocales()
         binding.switchLanguage.isChecked = currentLangage == LocaleListCompat.forLanguageTags("ID")
         binding.switchLanguage.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked){
+            if (isChecked) {
                 val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("ID")
                 AppCompatDelegate.setApplicationLocales(appLocale)
             } else {
@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
 
 
         binding.switchTheme.isChecked = viewModel.isDarkThemeMode()
-        if(viewModel.isDarkThemeMode()){
+        if (viewModel.isDarkThemeMode()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
 
         binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
             viewModel.saveTheme(isChecked)
-            if(isChecked){
+            if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

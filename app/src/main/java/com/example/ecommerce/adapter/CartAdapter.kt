@@ -18,7 +18,7 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
     interface OnItemClickCallback {
         fun onItemClicked(cart: List<Pair<Cart, Boolean>>)
         fun counterClicked(cart: List<Pair<Cart, Int>>)
-        fun onDeleteClicked(itemId  : String)
+        fun onDeleteClicked(itemId: String)
     }
 
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -34,7 +34,7 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
             binding.txtTitleProduct.text = data.productName
             binding.txtGigaByte.text = data.productVariant
             binding.root.context.apply {
-                if((data.stock ?:0) < 10){
+                if ((data.stock ?: 0) < 10) {
                     val red = MaterialColors.getColor(
                         binding.root.rootView, com.google.android.material.R.attr.colorError
                     )
@@ -49,7 +49,7 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
             binding.btnKurang.setOnClickListener {
                 var quantity = data.quantity
                 quantity -= 1
-                if(quantity > 0){
+                if (quantity > 0) {
                     binding.txtQuantity.text = data.quantity.toString()
                     onItemClickCallback.counterClicked(listOf(data to quantity))
                 }
@@ -62,7 +62,7 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
                     onItemClickCallback.counterClicked(listOf(data to quantity))
                 } else {
                     Snackbar.make(
-                        binding.root, "Stok tidak mencukupi!",
+                        binding.root, binding.root.context.getString(R.string.stok_tidak_mencukupi),
                         Snackbar.LENGTH_LONG
                     ).show()
                 }
@@ -76,11 +76,13 @@ class CartAdapter : ListAdapter<Cart, CartAdapter.CartViewHolder>(CartDiffCallba
             }
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val binding =
             ItemListCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CartViewHolder(binding)
     }
+
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val cartItem = getItem(position)
         holder.bind(cartItem)
@@ -93,6 +95,7 @@ private class CartDiffCallback : DiffUtil.ItemCallback<Cart>() {
     override fun areItemsTheSame(oldItem: Cart, newItem: Cart): Boolean {
         return oldItem.productId == newItem.productId
     }
+
     override fun areContentsTheSame(oldItem: Cart, newItem: Cart): Boolean {
         return oldItem == newItem
     }

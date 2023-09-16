@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
@@ -21,11 +22,9 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -33,6 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
@@ -91,7 +91,7 @@ class ReviewComposeFragment : Fragment() {
                 TopAppBar(
                     title = {
                         Text(
-                            text = "Ulasan Pembeli",
+                            text = getString(R.string.ulasan_pembeli),
                             style = TextStyle(
                                 fontSize = 22.sp
                             )
@@ -137,10 +137,12 @@ class ReviewComposeFragment : Fragment() {
                                     ) {
                                         AsyncImage(
                                             model = image,
+                                            error = painterResource(id = R.drawable.img_thumbnail_produk),
                                             contentDescription = null,
                                             modifier = Modifier
                                                 .padding(start = 15.dp)
                                                 .size(36.dp)
+                                                .clip(CircleShape),
                                         )
                                         Spacer(
                                             modifier = Modifier
@@ -176,7 +178,7 @@ class ReviewComposeFragment : Fragment() {
                 is ResourcesResult.Failure -> {
                     ErrorStateCompose(errorCode = "Empty",
                         errorInfo = "Your requested data is unavailable",
-                        resetClick = {viewModel.reviewItem(id.id)}
+                        resetClick = { viewModel.reviewItem(id.id) }
                     )
                 }
 

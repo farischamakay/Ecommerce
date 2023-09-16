@@ -3,9 +3,10 @@ package com.example.ecommerce.data.models.request
 import android.os.Parcelable
 import com.example.ecommerce.data.database.cart.Cart
 import kotlinx.parcelize.Parcelize
+
 @Parcelize
-data class CheckoutRequest (
-    val productId : String?,
+data class CheckoutRequest(
+    val productId: String?,
     val productName: String?,
     val image: String?,
     val brand: String?,
@@ -24,14 +25,12 @@ data class CheckoutRequest (
 
 
 @Parcelize
-data class ListCheckout (
+data class ListCheckout(
     val listCheckout: List<CheckoutRequest>
 ) : Parcelable
 
 
-
-
-fun List<Cart>.toListCheckout() : ListCheckout {
+fun List<Cart>.toListCheckout(): ListCheckout {
     val data = mutableListOf<CheckoutRequest>()
     this.map {
         data.add(

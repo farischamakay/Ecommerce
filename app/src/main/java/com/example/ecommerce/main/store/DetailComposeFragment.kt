@@ -42,13 +42,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.InputChip
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -66,8 +64,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
@@ -93,6 +89,8 @@ class DetailComposeFragment : Fragment() {
 
     private val viewModel: StoreViewModel by viewModels()
     private lateinit var dataObserve: ProductDetailData
+    lateinit var productId: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -110,26 +108,22 @@ class DetailComposeFragment : Fragment() {
     }
 
 
-    @Preview(showBackground = true, device = Devices.PIXEL_4)
     @OptIn(
         ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
         ExperimentalFoundationApi::class
     )
     @Composable
-    fun ScaffoldWithTopBar() {
-        val getProduct by viewModel.detailProduct.observeAsState(initial = ResourcesResult.Loading)
+    fun ScaffoldWithTopBar(getProduct: ResourcesResult<ProductDetailResponse?>) {
         val getDataRoom by viewModel.getDataRoom.observeAsState()
         val getWishlist by viewModel.getDataWishlist.observeAsState()
-        val productId = arguments?.getString("id").toString()
         var currentIndex by rememberSaveable { mutableStateOf(0) }
         var priceSum: Int? = null
-        viewModel.detailItem(productId)
         Scaffold(
             topBar = {
                 TopAppBar(
                     title = {
                         Text(
-                            text = "Detail Product",
+                            text = stringResource(R.string.detail_product),
                             style = TextStyle(
                                 fontSize = 22.sp
                             ),
@@ -153,9 +147,8 @@ class DetailComposeFragment : Fragment() {
                     }
 
                     is ResourcesResult.Success -> {
-                        dataObserve =
-                            (getProduct as ResourcesResult.Success<ProductDetailResponse?>)
-                                .data?.data!!
+                        dataObserve = getProduct
+                            .data?.data!!
                         val isProductInWishList = getWishlist?.any { it.productId == productId }
 
 
@@ -186,25 +179,27 @@ class DetailComposeFragment : Fragment() {
                                         )
                                     }
                                 }
-                                Row(
-                                    Modifier
-                                        .height(50.dp)
-                                        .fillMaxWidth()
-                                        .align(Alignment.BottomCenter),
-                                    horizontalArrangement = Arrangement.Center
-                                ) {
-                                    dataObserve.image?.size?.let {
-                                        repeat(it) { iteration ->
-                                            val color =
-                                                if (pagerState.currentPage == iteration) Color
-                                                    .DarkGray else Color.LightGray
-                                            Box(
-                                                modifier = Modifier
-                                                    .padding(5.dp)
-                                                    .clip(CircleShape)
-                                                    .background(color)
-                                                    .size(8.dp)
-                                            )
+                                if ((dataObserve.image?.size ?: 0) > 1) {
+                                    Row(
+                                        Modifier
+                                            .height(50.dp)
+                                            .fillMaxWidth()
+                                            .align(Alignment.BottomCenter),
+                                        horizontalArrangement = Arrangement.Center
+                                    ) {
+                                        dataObserve.image?.size?.let {
+                                            repeat(it) { iteration ->
+                                                val color =
+                                                    if (pagerState.currentPage == iteration) Color
+                                                        .DarkGray else Color.LightGray
+                                                Box(
+                                                    modifier = Modifier
+                                                        .padding(5.dp)
+                                                        .clip(CircleShape)
+                                                        .background(color)
+                                                        .size(8.dp)
+                                                )
+                                            }
                                         }
                                     }
                                 }
@@ -269,7 +264,7 @@ class DetailComposeFragment : Fragment() {
                                                         Snackbar
                                                             .make(
                                                                 it,
-                                                                "Product sudah ada di Wishlist!",
+                                                                getString(R.string.product_sudah_ada_di_wishlist),
                                                                 Snackbar.LENGTH_LONG
                                                             )
                                                             .show()
@@ -283,7 +278,7 @@ class DetailComposeFragment : Fragment() {
                                                         Snackbar
                                                             .make(
                                                                 it,
-                                                                "Product ditambahkan pada Wishlist!",
+                                                                getString(R.string.product_ditambahkan_pada_wishlist),
                                                                 Snackbar.LENGTH_LONG
                                                             )
                                                             .show()
@@ -313,7 +308,7 @@ class DetailComposeFragment : Fragment() {
                                     text = "Terjual ${dataObserve.sale}",
                                     fontSize = 12.sp,
                                     fontFamily = FontFamily(Font(R.font.poppins_regular))
-                                    )
+                                )
                                 Spacer(
                                     modifier = Modifier
                                         .width(5.dp)
@@ -344,11 +339,11 @@ class DetailComposeFragment : Fragment() {
                             }
                             Divider()
                             Text(
-                                text = "Pilih Varian",
+                                text = stringResource(R.string.pilih_varian),
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold,
-                                    ),
+                                ),
                                 fontFamily = FontFamily(Font(R.font.poppins_regular)),
                                 modifier = Modifier
                                     .padding(start = 16.dp, top = 16.dp)
@@ -376,7 +371,7 @@ class DetailComposeFragment : Fragment() {
                             }
                             Divider()
                             Text(
-                                text = "Deskripsi Produk",
+                                text = stringResource(R.string.deskripsi_produk),
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold,
@@ -404,7 +399,7 @@ class DetailComposeFragment : Fragment() {
                             )
                             {
                                 Text(
-                                    text = "Ulasan Pembeli",
+                                    text = stringResource(R.string.ulasan_pembeli),
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 16.sp,
                                     fontFamily = FontFamily(Font(R.font.poppins_regular)),
@@ -421,7 +416,7 @@ class DetailComposeFragment : Fragment() {
                                 {
 
                                     Text(
-                                        text = "Lihat Semua",
+                                        text = getString(R.string.lihat_semua),
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 16.sp,
                                         fontFamily = FontFamily(Font(R.font.poppins_regular))
@@ -453,13 +448,13 @@ class DetailComposeFragment : Fragment() {
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 20.sp,
                                         fontFamily = FontFamily(Font(R.font.poppins_regular))
-                                        )
+                                    )
                                     Text(
                                         text = "/5.0",
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 10.sp,
                                         fontFamily = FontFamily(Font(R.font.poppins_regular))
-                                        )
+                                    )
                                 }
                                 Spacer(
                                     modifier = Modifier
@@ -479,7 +474,7 @@ class DetailComposeFragment : Fragment() {
                                                 "${dataObserve.totalReview} Ulasan",
                                         fontSize = 12.sp,
                                         fontFamily = FontFamily(Font(R.font.poppins_regular))
-                                        )
+                                    )
 
                                 }
                             }
@@ -487,81 +482,109 @@ class DetailComposeFragment : Fragment() {
                     }
 
                     is ResourcesResult.Failure -> {
-                        ErrorStateCompose(errorCode = "Empty", errorInfo = "Your requested data is unavailable") {
-                            viewModel.detailItem(productId)
-                        }
+                        ErrorStateCompose(errorCode = "Empty",
+                            errorInfo = "Your requested data is unavailable",
+                            resetClick = {
+                                viewModel.detailItem(productId)
+
+                            })
                     }
                 }
 
             },
             bottomBar = {
-                Divider(
-                )
-                Row(
-                    modifier = Modifier
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    OutlinedButton(
-                        onClick = {
-                              findNavController().navigate(DetailComposeFragmentDirections
-                                  .actionDetailProductFragmentToCheckoutFragment(ListCheckout(
-                                      listCheckout = mutableListOf(convertToCheckout(dataObserve, currentIndex))
-                                  ), "", ""))
-                        },
+                if (getProduct is ResourcesResult.Success) {
+                    Divider()
+                    Row(
                         modifier = Modifier
-                            .weight(1f)
-                            .padding(end = 4.dp)
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(text = getString(R.string.beli_langsung),fontFamily = FontFamily(Font(R.font.poppins_regular)))
-                    }
-
-                    Button(
-                        onClick = {
-                            val cartData = getDataRoom?.find { it.productId == productId }
-                            if (cartData == null) {
-                                val dataNew = dataObserve.copy(productPrice = priceSum)
-                                viewModel.insertToRoom(convertToCart(dataNew, currentIndex))
-                                view?.let {
-                                    Snackbar
-                                        .make(
-                                            it,
-                                            "Product ditambahkan pada Keranjang!",
-                                            Snackbar.LENGTH_LONG
+                        OutlinedButton(
+                            onClick = {
+                                findNavController().navigate(
+                                    DetailComposeFragmentDirections
+                                        .actionDetailProductFragmentToCheckoutFragment(
+                                            ListCheckout(
+                                                listCheckout = mutableListOf(
+                                                    convertToCheckout(dataObserve, currentIndex)
+                                                )
+                                            ), "", ""
                                         )
-                                        .show()
-                                }
-                            } else {
-                                var qtyCart = cartData.quantity
-                                if (qtyCart < (dataObserve.stock ?: 0)) {
-                                    qtyCart += 1
-                                    viewModel.updateQuantity(listOf(
-                                        convertToCart(dataObserve, currentIndex) to qtyCart))
+                                )
+                            },
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(end = 4.dp)
+                        ) {
+                            Text(
+                                text = getString(R.string.beli_langsung),
+                                fontFamily = FontFamily(Font(R.font.poppins_regular))
+                            )
+                        }
+
+                        Button(
+                            onClick = {
+                                val cartData = getDataRoom?.find { it.productId == productId }
+                                if (cartData == null) {
+                                    val dataNew = dataObserve.copy(productPrice = priceSum)
+                                    viewModel.insertToRoom(convertToCart(dataNew, currentIndex))
                                     view?.let {
-                                        Snackbar.make(
-                                            it, "Product berhasil ditambahkan pada keranjang!",
-                                            Snackbar.LENGTH_LONG
-                                        ).show()
+                                        Snackbar
+                                            .make(
+                                                it,
+                                                getString(R.string.product_ditambahkan_pada_keranjang),
+                                                Snackbar.LENGTH_LONG
+                                            )
+                                            .show()
                                     }
                                 } else {
-                                    view?.let {
-                                        Snackbar.make(
-                                            it, "Stok tidak tersedia",
-                                            Snackbar.LENGTH_LONG
-                                        ).show()
+                                    var qtyCart = cartData.quantity
+                                    if (qtyCart < (dataObserve.stock ?: 0)) {
+                                        qtyCart += 1
+                                        viewModel.updateQuantity(
+                                            listOf(
+                                                convertToCart(dataObserve, currentIndex) to qtyCart
+                                            )
+                                        )
+                                        view?.let {
+                                            Snackbar.make(
+                                                it,
+                                                getString(R.string.product_berhasil_ditambahkan_pada_keranjang),
+                                                Snackbar.LENGTH_LONG
+                                            ).show()
+                                        }
+                                    } else {
+                                        view?.let {
+                                            Snackbar.make(
+                                                it, getString(R.string.stok_tidak_mencukupi),
+                                                Snackbar.LENGTH_LONG
+                                            ).show()
+                                        }
                                     }
                                 }
-                            }
-                        },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 4.dp)
-                    ) {
-                        Text(text = getString(R.string.keranjang), fontFamily = FontFamily(Font(R.font.poppins_regular)))
+                            },
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 4.dp)
+                        ) {
+                            Text(
+                                text = getString(R.string.keranjang),
+                                fontFamily = FontFamily(Font(R.font.poppins_regular))
+                            )
+                        }
                     }
                 }
             }
         )
+    }
+
+    @Composable
+    fun ScaffoldWithTopBar() {
+        productId = arguments?.getString("id").toString()
+        viewModel.detailItem(productId)
+        val getProduct by viewModel.detailProduct.observeAsState(initial = ResourcesResult.Loading)
+        ScaffoldWithTopBar(getProduct)
     }
 
     @Composable

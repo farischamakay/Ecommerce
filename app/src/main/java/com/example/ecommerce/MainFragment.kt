@@ -14,12 +14,13 @@ import com.google.android.material.badge.BadgeUtils.attachBadgeDrawable
 import com.google.android.material.badge.ExperimentalBadgeUtils
 import dagger.hilt.android.AndroidEntryPoint
 
-@ExperimentalBadgeUtils @AndroidEntryPoint
+@ExperimentalBadgeUtils
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val viewModel : MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private val navHostFragment: NavHostFragment by lazy {
         childFragmentManager.findFragmentById(R.id.nhf_botnav) as NavHostFragment
     }
@@ -44,13 +45,13 @@ class MainFragment : Fragment() {
         }
 
         val cartBadges = BadgeDrawable.create(requireContext())
-        viewModel.getDataRoom.observe(viewLifecycleOwner){ response ->
+        viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
             cartBadges.isVisible = response.isNotEmpty()
             cartBadges.number = response.size
         }
-        attachBadgeDrawable(cartBadges,binding.topAppBar, R.id.cart)
+        attachBadgeDrawable(cartBadges, binding.topAppBar, R.id.cart)
 
-        viewModel.getDataWishlist.observe(viewLifecycleOwner){ response ->
+        viewModel.getDataWishlist.observe(viewLifecycleOwner) { response ->
             val wishListBadges = binding.bottomNavigation.getOrCreateBadge(R.id.wishlistFragment)
             wishListBadges.isVisible = response.isNotEmpty()
             wishListBadges.number = response.size
@@ -69,6 +70,7 @@ class MainFragment : Fragment() {
                     (requireActivity() as MainActivity).goToNotification()
                     true
                 }
+
                 else -> false
             }
         }

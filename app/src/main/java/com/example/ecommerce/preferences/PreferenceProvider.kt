@@ -12,7 +12,7 @@ class PreferenceProvider @Inject constructor(private val sharedPreferences: Shar
         editor.apply()
     }
 
-    fun saveDarkTheme(isChecked: Boolean){
+    fun saveDarkTheme(isChecked: Boolean) {
         val dark = sharedPreferences.edit()
         dark.putBoolean("dark_theme_on", isChecked)
         dark.apply()
@@ -51,7 +51,7 @@ class PreferenceProvider @Inject constructor(private val sharedPreferences: Shar
         return sharedPreferences.getString("userName", null)
     }
 
-    fun isDarkTheme() : Boolean {
+    fun isDarkTheme(): Boolean {
         return sharedPreferences.getBoolean("dark_theme_on", false)
     }
 

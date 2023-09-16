@@ -64,6 +64,7 @@ class LoginFragment : Fragment() {
                     binding.btnToHome.visibility = View.INVISIBLE
                     binding.progressbar.visibility = View.VISIBLE
                 }
+
                 is ResourcesResult.Success -> {
                     binding.progressbar.visibility = View.GONE
                     binding.btnToHome.visibility = View.VISIBLE
@@ -79,7 +80,7 @@ class LoginFragment : Fragment() {
                             .show()
                     }
 
-                    if (username.isNullOrEmpty()){
+                    if (username.isNullOrEmpty()) {
                         findNavController().navigate(R.id.action_loginFragment_to_profileFragment2)
                     } else {
                         findNavController().navigate(R.id.prelogin_to_main)

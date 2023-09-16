@@ -15,7 +15,7 @@ data class Wishlist(
     val stock: Int?,
     val totalRating: Int?,
     val totalReview: Int?,
-    val productRating : String?,
+    val productRating: String?,
     val totalSatisfaction: Int?,
     val productVariant: String,
     val productVariantPrice: Int,

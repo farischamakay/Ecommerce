@@ -1,7 +1,6 @@
 package com.example.ecommerce
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
@@ -17,19 +16,17 @@ class MainActivity : AppCompatActivity() {
         navHostFragment.navController
     }
 
-    private val viewModel : MainViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
-    fun goToCart(){
+    fun goToCart() {
         navController.navigate(R.id.action_mainFragment_to_cartFragment)
     }
 
-    fun goToNotification(){
+    fun goToNotification() {
         navController.navigate(R.id.action_mainFragment_to_notificationFragment)
     }
 

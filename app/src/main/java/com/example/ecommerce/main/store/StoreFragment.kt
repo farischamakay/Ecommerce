@@ -180,7 +180,12 @@ class StoreFragment : Fragment() {
 
                 binding.layoutError.root.isVisible = isError
 
+
                 if (isError) {
+                    binding.layoutError.btnReset.setOnClickListener {
+                        productAdapter.retry()
+                    }
+
                     when (val error = (loadStates.refresh as LoadState.Error).error) {
                         is HttpException -> {
                             if (error.code() == 404) {
@@ -200,17 +205,12 @@ class StoreFragment : Fragment() {
                                     binding.fieldSearchProduct.hint = "Search"
                                 }
                             }
-
                             if (error.code() == 500) {
                                 binding.layoutError.apply {
                                     imgErrorConnection
                                     txtErrorCode.text = getString(R.string.txt_error)
                                     txtMsgError.text = getString(R.string.internal_server_error)
                                     btnReset.text = getString(R.string.refresh)
-                                }
-
-                                binding.layoutError.btnReset.setOnClickListener {
-                                    productAdapter.retry()
                                 }
                             }
                         }
@@ -221,10 +221,6 @@ class StoreFragment : Fragment() {
                                 txtErrorCode.text = getString(R.string.connection)
                                 txtMsgError.text = getString(R.string.connection_error)
                                 btnReset.text = getString(R.string.refresh)
-                            }
-
-                            binding.layoutError.btnReset.setOnClickListener {
-                                productAdapter.retry()
                             }
                         }
                     }

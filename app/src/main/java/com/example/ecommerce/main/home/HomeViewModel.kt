@@ -14,11 +14,11 @@ class HomeViewModel @Inject constructor(
         return sharedPreferenceManager.deleteTokenAccess()
     }
 
-    fun saveTheme(isChecked: Boolean){
+    fun saveTheme(isChecked: Boolean) {
         return sharedPreferenceManager.saveDarkTheme(isChecked)
     }
 
-    fun isDarkThemeMode() : Boolean{
+    fun isDarkThemeMode(): Boolean {
         return sharedPreferenceManager.isDarkTheme()
     }
 }

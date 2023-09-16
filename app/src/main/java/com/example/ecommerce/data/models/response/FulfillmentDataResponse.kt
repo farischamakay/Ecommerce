@@ -5,16 +5,16 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class FulfillmentDataResponse (
+data class FulfillmentDataResponse(
     val payment: String,
-    val invoiceId : String,
-    val status : Boolean,
-    val date : String,
-    val time : String,
-    val total : Int
+    val invoiceId: String,
+    val status: Boolean,
+    val date: String,
+    val time: String,
+    val total: Int
 ) : Parcelable
 
-fun FulfillmentDetail.fulfillmentToReview() : FulfillmentDataResponse {
+fun FulfillmentDetail.fulfillmentToReview(): FulfillmentDataResponse {
     return FulfillmentDataResponse(
         payment = this.payment ?: "",
         invoiceId = this.invoiceId ?: "",
@@ -24,7 +24,8 @@ fun FulfillmentDetail.fulfillmentToReview() : FulfillmentDataResponse {
         total = this.total ?: 0
     )
 }
-fun TransactionDataItem.transactionToReview() : FulfillmentDataResponse {
+
+fun TransactionDataItem.transactionToReview(): FulfillmentDataResponse {
     return FulfillmentDataResponse(
         payment = this.payment ?: "",
         invoiceId = this.invoiceId ?: "",

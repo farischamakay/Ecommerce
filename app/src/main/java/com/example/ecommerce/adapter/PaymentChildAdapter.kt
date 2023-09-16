@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ecommerce.R
 import com.example.ecommerce.data.models.response.PaymentItem
 import com.example.ecommerce.databinding.ItemListPaymentBinding
-
 
 
 class PaymentChildAdapter : ListAdapter<PaymentItem, PaymentChildAdapter.PaymentChildViewHolder>
@@ -25,7 +23,8 @@ class PaymentChildAdapter : ListAdapter<PaymentItem, PaymentChildAdapter.Payment
         parent: ViewGroup,
         viewType: Int
     ): PaymentChildAdapter.PaymentChildViewHolder {
-        val binding = ItemListPaymentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemListPaymentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PaymentChildViewHolder(binding)
     }
 
@@ -37,27 +36,28 @@ class PaymentChildAdapter : ListAdapter<PaymentItem, PaymentChildAdapter.Payment
         holder.bind(items)
     }
 
-    inner class PaymentChildViewHolder (val binding: ItemListPaymentBinding) :
-            RecyclerView.ViewHolder(binding.root){
-                fun bind(data : PaymentItem){
-                    Glide.with(binding.root).load(data.image).into(binding.imgCardView)
-                    binding.txtChosePayment.text = data.label
+    inner class PaymentChildViewHolder(val binding: ItemListPaymentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: PaymentItem) {
+            Glide.with(binding.root).load(data.image).into(binding.imgCardView)
+            binding.txtChosePayment.text = data.label
 
-                    if(data.status == false){
-                        binding.root.alpha = 0.5f
-                    } else {
-                        binding.root.setOnClickListener {
-                            onItemClickListener?.invoke(data)
-                        }
-                    }
+            if (data.status == false) {
+                binding.root.alpha = 0.5f
+            } else {
+                binding.root.setOnClickListener {
+                    onItemClickListener?.invoke(data)
                 }
             }
+        }
+    }
 }
 
 private class ChildDiffUtil : DiffUtil.ItemCallback<PaymentItem>() {
     override fun areItemsTheSame(oldItem: PaymentItem, newItem: PaymentItem): Boolean {
         return oldItem.label == newItem.label
     }
+
     override fun areContentsTheSame(oldItem: PaymentItem, newItem: PaymentItem): Boolean {
         return oldItem == newItem
     }

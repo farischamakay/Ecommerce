@@ -211,7 +211,7 @@ import com.example.ecommerce.data.models.response.ProductDetailData
 //        }
 //    }
 //
-fun convertToCart(detailData: ProductDetailData, index : Int): Cart {
+fun convertToCart(detailData: ProductDetailData, index: Int): Cart {
     return Cart(
         detailData.productId ?: "",
         detailData.productName,

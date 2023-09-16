@@ -8,7 +8,8 @@ import javax.inject.Inject
 
 class RoomCartRepository @Inject constructor(
     private val cartDao: CartDao,
-    private val wishlistDao: WishlistDao) {
+    private val wishlistDao: WishlistDao
+) {
 
     //ENTITY CART
     fun fetchCartData() = cartDao.getAll()
@@ -16,6 +17,7 @@ class RoomCartRepository @Inject constructor(
     suspend fun updateValues(cartList: List<Cart>) {
         cartDao.update(*cartList.toTypedArray())
     }
+
     suspend fun deleteById(cart: String) = cartDao.deleteById(cart)
     suspend fun deleteData(vararg cart: Cart) = cartDao.delete(*cart)
 
@@ -23,6 +25,6 @@ class RoomCartRepository @Inject constructor(
     //ENTITY WISHLIST
     fun fetchWishlistData() = wishlistDao.getAll()
     suspend fun insertWishlistData(wishlist: Wishlist) = wishlistDao.insertWishlist(wishlist)
-    suspend fun deleteWishlistById(wishlist : String) = wishlistDao.deleteWishlistById(wishlist)
+    suspend fun deleteWishlistById(wishlist: String) = wishlistDao.deleteWishlistById(wishlist)
 
 }

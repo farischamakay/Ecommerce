@@ -21,7 +21,7 @@ class WishlistFragment : Fragment() {
 
     private var _binding: FragmentWhistlistBinding? = null
     private val binding get() = _binding!!
-    private val viewModel : WishlistViewModel by viewModels()
+    private val viewModel: WishlistViewModel by viewModels()
     private lateinit var wishlistAdapter: WishlistAdapter
 
     override fun onCreateView(
@@ -60,14 +60,14 @@ class WishlistFragment : Fragment() {
         }
 
         viewModel.getDataWishlist.observe(viewLifecycleOwner) { response ->
-                wishlistAdapter.submitList(response)
-                binding.txtJumlahWishlist.text = getString(R.string.barang, response.size.toString())
-                binding.emptyState.root.isVisible = response.isNullOrEmpty()
+            wishlistAdapter.submitList(response)
+            binding.txtJumlahWishlist.text = getString(R.string.barang, response.size.toString())
+            binding.emptyState.root.isVisible = response.isNullOrEmpty()
         }
 
-        viewModel.getDataRoom.observe(viewLifecycleOwner){ response ->
+        viewModel.getDataRoom.observe(viewLifecycleOwner) { response ->
 
-            wishlistAdapter.setOnItemClickCallback(object : WishlistAdapter.OnItemClickCallback{
+            wishlistAdapter.setOnItemClickCallback(object : WishlistAdapter.OnItemClickCallback {
 
                 override fun onAddCartClicked(wishlist: Wishlist, itemId: String) {
                     val cartData = response.find { it.productId == itemId }

@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TransactionViewModel @Inject constructor(private val productRepository: ProductRepository)
-    : ViewModel(){
+class TransactionViewModel @Inject constructor(private val productRepository: ProductRepository) :
+    ViewModel() {
 
     private val _transactionResult = MutableLiveData<ResourcesResult<TransactionResponse?>>()
     val paymentResult: MutableLiveData<ResourcesResult<TransactionResponse?>> = _transactionResult

@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerce.MainFragmentDirections
 import com.example.ecommerce.R
@@ -24,7 +23,7 @@ class TransactionFragment : Fragment() {
 
     private var _binding: FragmentTransactionBinding? = null
     private val binding get() = _binding!!
-    private val viewModel : TransactionViewModel by viewModels()
+    private val viewModel: TransactionViewModel by viewModels()
     private lateinit var transactionAdapter: TransactionAdapter
 
     private val navHostFragment: NavHostFragment by lazy {
@@ -51,29 +50,38 @@ class TransactionFragment : Fragment() {
 
         viewModel.fetchTransaction()
 
-        viewModel.paymentResult.observe(viewLifecycleOwner){response ->
-            when(response){
+        transactionAdapter.setOnUlasClickListener(object :
+            TransactionAdapter.OnItemClickCallback {
+            override fun onUlasClicked(transactionDataItem: TransactionDataItem) {
+                navController.navigate(
+                    MainFragmentDirections.actionMainFragmentToStatusFragment(
+                        transactionDataItem.transactionToReview()
+                    )
+                )
+            }
+        })
+
+        viewModel.paymentResult.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is ResourcesResult.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
+
                 is ResourcesResult.Failure -> {
                     binding.progressBar.visibility = View.GONE
                     binding.layoutTransactionError.root.isVisible = true
-                    binding.layoutTransactionError.txtErrorCode.text = getString(R.string.empty_code)
-                    binding.layoutTransactionError.txtMsgError.text = getString(R.string.empty_error)
+                    binding.layoutTransactionError.txtErrorCode.text =
+                        getString(R.string.empty_code)
+                    binding.layoutTransactionError.txtMsgError.text =
+                        getString(R.string.empty_error)
                     binding.layoutTransactionError.btnReset.setOnClickListener {
                         viewModel.fetchTransaction()
                     }
                 }
+
                 is ResourcesResult.Success -> {
                     binding.progressBar.visibility = View.GONE
                     transactionAdapter.submitList(response.data!!.data)
-                    transactionAdapter.setOnUlasClickListener(object  :
-                        TransactionAdapter.OnItemClickCallback{
-                        override fun onUlasClicked(transactionDataItem: TransactionDataItem) {
-                            navController.navigate(MainFragmentDirections.actionMainFragmentToStatusFragment(transactionDataItem.transactionToReview()))
-                        }
-                    })
                 }
             }
         }

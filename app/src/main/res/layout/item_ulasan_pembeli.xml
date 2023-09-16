@@ -11,15 +11,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp">
 
-            <ImageView
-                android:id="@+id/img_profile_user"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:scaleType="center"
-                android:layout_margin="20dp"
-                android:src="@drawable/img_thumbnail_produk"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/img_profile_user"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="20dp"
+            android:scaleType="center"
+            android:src="@drawable/img_thumbnail_produk"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="wrap_content"

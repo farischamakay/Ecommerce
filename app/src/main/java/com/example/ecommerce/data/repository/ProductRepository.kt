@@ -81,7 +81,7 @@ class ProductRepository @Inject constructor(
         }
     }
 
-    suspend fun paymentProduct() : ResourcesResult<PaymentResponse?> {
+    suspend fun paymentProduct(): ResourcesResult<PaymentResponse?> {
         return try {
             val response = productApiService.payment()
             if (response.isSuccessful) {
@@ -94,43 +94,45 @@ class ProductRepository @Inject constructor(
             ResourcesResult.Failure(exception.message)
         }
     }
-    suspend fun fullfilmentPayment(fullfilmentRequest: FullfilmentRequest) : ResourcesResult<FullfilmentResponse?>{
-        return  try {
-            val response = productApiService.fullfilment(fullfilmentRequest)
-            if(response.isSuccessful){
-                val data = response.body()
-                ResourcesResult.Success(data)
-            } else {
-                ResourcesResult.Failure(response.message())
-            }
-        } catch (exception : Exception){
-            ResourcesResult.Failure(exception.message)
-        }
-    }
-    suspend fun ratingProduct(ratingRequest: RatingRequest) : ResourcesResult<RatingResponse?>{
+
+    suspend fun fullfilmentPayment(fullfilmentRequest: FullfilmentRequest): ResourcesResult<FullfilmentResponse?> {
         return try {
-            val response = productApiService.rating(ratingRequest)
-            if (response.isSuccessful){
+            val response = productApiService.fullfilment(fullfilmentRequest)
+            if (response.isSuccessful) {
                 val data = response.body()
                 ResourcesResult.Success(data)
             } else {
                 ResourcesResult.Failure(response.message())
             }
-        } catch (exception : Exception){
+        } catch (exception: Exception) {
             ResourcesResult.Failure(exception.message)
         }
     }
 
-    suspend fun transactions() : ResourcesResult<TransactionResponse?> {
+    suspend fun ratingProduct(ratingRequest: RatingRequest): ResourcesResult<RatingResponse?> {
         return try {
-            val response = productApiService.transaction()
-            if(response.isSuccessful){
+            val response = productApiService.rating(ratingRequest)
+            if (response.isSuccessful) {
                 val data = response.body()
                 ResourcesResult.Success(data)
             } else {
                 ResourcesResult.Failure(response.message())
             }
-        } catch (exception : Exception){
+        } catch (exception: Exception) {
+            ResourcesResult.Failure(exception.message)
+        }
+    }
+
+    suspend fun transactions(): ResourcesResult<TransactionResponse?> {
+        return try {
+            val response = productApiService.transaction()
+            if (response.isSuccessful) {
+                val data = response.body()
+                ResourcesResult.Success(data)
+            } else {
+                ResourcesResult.Failure(response.message())
+            }
+        } catch (exception: Exception) {
             ResourcesResult.Failure(exception.message)
         }
     }

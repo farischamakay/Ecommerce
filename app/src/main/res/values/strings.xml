@@ -95,6 +95,23 @@
     <string name="text_description_notif">Your transaction is being processed by the seller, please wait for further updates in the application. While waiting, you can search for other items.</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
+    <string name="keranjang_title">Cart</string>
+    <string name="total_bayar">Total Cost</string>
+    <string name="items_buyed">Buyed items</string>
+    <string name="pembayaran">Payment</string>
+    <string name="pilih_pembayaran">Choose Payment Method</string>
+    <string name="bayar">Buy</string>
+    <string name="stok_tidak_mencukupi">Item out of stock!</string>
+    <string name="detail_product">Detail Product</string>
+    <string name="product_sudah_ada_di_wishlist">Product already add to Wishlist!</string>
+    <string name="product_ditambahkan_pada_wishlist">Product add to Wishlist!</string>
+    <string name="pilih_varian">Choose Varian</string>
+    <string name="deskripsi_produk">Description Product</string>
+    <string name="ulasan_pembeli">User Review</string>
+    <string name="terima_kasih">Thank You!</string>
+    <string name="product_ditambahkan_pada_keranjang">Product add to cart!</string>
+    <string name="product_berhasil_ditambahkan_pada_keranjang">Product successfully add to cart!</string>
+    <string name="barang_transaction">%1$s items</string>
     <string-array name="options_select_picture_array">
         <item>Camera</item>
         <item>Gallery</item>

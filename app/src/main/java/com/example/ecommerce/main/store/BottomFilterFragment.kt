@@ -5,6 +5,7 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.example.ecommerce.databinding.FragmentBottomFilterBinding
 import com.example.ecommerce.utils.Helpers.setSelectedChip
@@ -52,12 +53,13 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
             skipCollapsed = true
         }
 
+
         binding.btnResetFilter.setOnClickListener {
             binding.edtHargaTertinggi.text?.clear()
             binding.edtHargaTerendah.text?.clear()
             binding.chipGroupUrutkan.clearCheck()
             binding.chipGroupKategori.clearCheck()
-
+            binding.btnResetFilter.isVisible = false
         }
 
         binding.btnTampilkanProduk.setOnClickListener {

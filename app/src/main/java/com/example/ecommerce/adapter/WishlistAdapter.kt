@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.ecommerce.R
 import com.example.ecommerce.data.database.wishlist.Wishlist
 import com.example.ecommerce.databinding.ItemWishlistGridBinding
 import com.example.ecommerce.databinding.ItemWishlistLinearBinding
@@ -37,6 +38,7 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
                     false
                 )
             }
+
             LIST_VIEW -> {
                 ItemWishlistLinearBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -44,6 +46,7 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
                     false
                 )
             }
+
             else -> throw IllegalArgumentException("Undefined view type")
         }
 
@@ -63,10 +66,12 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
                 val gridViewHolder = holder as WishListGridViewHolder
                 gridViewHolder.bind(cartItem)
             }
+
             LIST_VIEW -> {
                 val listViewHolder = holder as WishListLinearViewHolder
                 listViewHolder.bind(cartItem)
             }
+
             else -> throw IllegalArgumentException("Undefined view type")
         }
     }
@@ -80,10 +85,11 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
         fun bind(data: Wishlist) {
             Glide.with(binding.root).load(data.image).into(binding.imgProductView)
             binding.txtTitleProduct.text = data.productName
-            binding.txtHargaProduct.text = "Rp. ${data.productVariantPrice.convertToRupiah()}"
+            binding.txtHargaProduct.text = data.productVariantPrice.convertToRupiah()
             binding.txtStoreName.text = data.store
             binding.txtProductRating.text = data.productRating
-            binding.txtProductTerjual.text = "| Terjual ${data.sale}"
+            binding.txtProductTerjual.text =
+                binding.root.context.getString(R.string.terjual, data.sale.toString())
             binding.btnDeleteItem.setOnClickListener {
                 onItemClickCallback.onDeleteClicked(data.productId)
             }
@@ -98,10 +104,13 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
         fun bind(data: Wishlist) {
             Glide.with(binding.root).load(data.image).into(binding.imgProduct)
             binding.txtTitleProduct.text = data.productName
-            binding.txtHargaProduct.text = "Rp. ${data.productVariantPrice.convertToRupiah()}"
+            binding.txtHargaProduct.text = data.productVariantPrice.convertToRupiah()
             binding.txtProductBrand.text = data.brand
             binding.txtRatingProduct.text = data.totalRating.toString()
-            binding.txtProductTerjual.text = "| Terjual ${data.sale}"
+            binding.txtProductTerjual.text = binding.root.context.getString(
+                R.string.terjual,
+                data.sale.toString()
+            )
             binding.btnDeleteItem.setOnClickListener {
                 onItemClickCallback.onDeleteClicked(data.productId)
             }
@@ -110,7 +119,7 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
 
     interface OnItemClickCallback {
         fun onAddCartClicked(wishlist: Wishlist, itemId: String)
-        fun onDeleteClicked(itemId : String)
+        fun onDeleteClicked(itemId: String)
     }
 
     companion object {

@@ -47,21 +47,21 @@ interface ProductApiService {
     @GET("payment")
     suspend fun payment(
 
-    ) : Response<PaymentResponse>
+    ): Response<PaymentResponse>
 
     @GET("transaction")
     suspend fun transaction(
 
-    ) : Response<TransactionResponse>
+    ): Response<TransactionResponse>
 
     @POST("fulfillment")
     suspend fun fullfilment(
         @Body fullfilmentRequest: FullfilmentRequest
-    ) : Response<FullfilmentResponse>
+    ): Response<FullfilmentResponse>
 
     @POST("rating")
     suspend fun rating(
-        @Body ratingRequest : RatingRequest
-    ) : Response<RatingResponse>
+        @Body ratingRequest: RatingRequest
+    ): Response<RatingResponse>
 
 }

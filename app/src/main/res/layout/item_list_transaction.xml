@@ -54,15 +54,15 @@
             android:layout_height="0dp"
             android:layout_marginEnd="10dp"
             android:backgroundTint="#EADDFF"
+            android:clickable="false"
             android:fontFamily="@font/poppins"
             android:text="@string/selesai"
-            app:textStartPadding="0dp"
-            app:textEndPadding="0dp"
-            android:clickable="false"
             android:textColor="?colorPrimary"
             app:layout_constraintBottom_toTopOf="@id/backline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:textEndPadding="0dp"
+            app:textStartPadding="0dp" />
 
         <View
             android:id="@+id/backline"
@@ -93,12 +93,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:text="@string/title_product"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/img_card_view"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_card_view"
             app:layout_constraintTop_toBottomOf="@id/backline" />
 
         <TextView
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="Total Belanja"
+            android:text="@string/total_bayar"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/img_card_view" />
@@ -140,8 +140,8 @@
             android:layout_height="35dp"
             android:layout_margin="10dp"
             android:text="@string/ulas"
-            android:visibility="gone"
             android:textSize="12sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
