@@ -1,6 +1,7 @@
 package com.example.ecommerce
 
 import androidx.lifecycle.ViewModel
+import com.example.ecommerce.data.repository.NotificationRepository
 import com.example.ecommerce.data.repository.RoomCartRepository
 import com.example.ecommerce.preferences.PreferenceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,7 +10,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val roomCartRepository: RoomCartRepository,
-    private val sharedPreferencesManager: PreferenceProvider
+    private val sharedPreferencesManager: PreferenceProvider,
+    private val notificationRepository: NotificationRepository
 ) : ViewModel() {
 
     val getDataWishlist =
@@ -17,6 +19,8 @@ class MainViewModel @Inject constructor(
 
     val getDataRoom =
         roomCartRepository.fetchCartData()
+
+    val getDataNotification = notificationRepository.fetchDataNotification()
 
     fun getUsername(): String? {
         return sharedPreferencesManager.getUsername()

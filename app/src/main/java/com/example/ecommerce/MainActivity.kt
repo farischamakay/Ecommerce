@@ -1,7 +1,12 @@
 package com.example.ecommerce
 
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private val navHostFragment: NavHostFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.nhf_main) as NavHostFragment
     }
+
     private val navController by lazy {
         navHostFragment.navController
     }
@@ -20,7 +26,9 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
     }
+
 
     fun goToCart() {
         navController.navigate(R.id.action_mainFragment_to_cartFragment)

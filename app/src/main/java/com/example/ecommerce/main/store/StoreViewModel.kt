@@ -25,7 +25,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StoreViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-    private val roomCartRepository: RoomCartRepository
+    private val roomCartRepository: RoomCartRepository,
 ) : ViewModel() {
 
     private var job: Job? = null
@@ -87,7 +87,6 @@ class StoreViewModel @Inject constructor(
             _detailProduct.value = result
         }
     }
-
 
     fun reviewItem(id: String) {
         viewModelScope.launch {

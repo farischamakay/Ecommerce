@@ -79,10 +79,13 @@ import com.example.ecommerce.utils.ErrorStateCompose
 import com.example.ecommerce.utils.ResourcesResult
 import com.example.ecommerce.utils.convertToRupiah
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import convertToCart
 import convertToCheckout
 import convertToWishlist
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailComposeFragment : Fragment() {
@@ -90,6 +93,8 @@ class DetailComposeFragment : Fragment() {
     private val viewModel: StoreViewModel by viewModels()
     private lateinit var dataObserve: ProductDetailData
     lateinit var productId: String
+    lateinit var params : Bundle
+    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
 
 
     override fun onCreateView(
@@ -147,10 +152,19 @@ class DetailComposeFragment : Fragment() {
                     }
 
                     is ResourcesResult.Success -> {
+
                         dataObserve = getProduct
                             .data?.data!!
                         val isProductInWishList = getWishlist?.any { it.productId == productId }
 
+
+                        params = Bundle()
+                        params.putString(FirebaseAnalytics.Param.CURRENCY, "IDR")
+                        params.putDouble(FirebaseAnalytics.Param.PRICE, dataObserve.productPrice?.toDouble() ?: 0.00)
+                        params.putString(FirebaseAnalytics.Param.ITEM_NAME, dataObserve.productName ?: "")
+                        params.putString(FirebaseAnalytics.Param.ITEM_BRAND, dataObserve.brand ?: "")
+
+                        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, params)
 
                         Column(
                             modifier = Modifier
@@ -526,6 +540,13 @@ class DetailComposeFragment : Fragment() {
                         Button(
                             onClick = {
                                 val cartData = getDataRoom?.find { it.productId == productId }
+
+                                val itemProductCart = Bundle(params).apply{
+                                    putInt(FirebaseAnalytics.Param.QUANTITY, cartData?.quantity?: 0)
+                                }
+
+//                                firebaseAnalytics.logEvent()
+
                                 if (cartData == null) {
                                     val dataNew = dataObserve.copy(productPrice = priceSum)
                                     viewModel.insertToRoom(convertToCart(dataNew, currentIndex))

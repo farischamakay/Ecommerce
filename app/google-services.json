@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "846241113618",
+    "project_id": "ecommercephincon",
+    "storage_bucket": "ecommercephincon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846241113618:android:f187e974350a95c8449acb",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-MSZUvAAtVQ2kx_cG8ZsPtzWJFGtNE7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_back_arrow"
-            app:title="Pilih Pembayaran" />
+            app:title="@string/pilih_method_pembayaran" />
 
         <View
             android:id="@+id/backline"

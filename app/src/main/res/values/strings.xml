@@ -112,6 +112,7 @@
     <string name="product_ditambahkan_pada_keranjang">Product add to cart!</string>
     <string name="product_berhasil_ditambahkan_pada_keranjang">Product successfully add to cart!</string>
     <string name="barang_transaction">%1$s items</string>
+    <string name="pilih_method_pembayaran">Choose Payment</string>
     <string-array name="options_select_picture_array">
         <item>Camera</item>
         <item>Gallery</item>

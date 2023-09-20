@@ -17,7 +17,6 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBottomFilterBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: StoreViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -53,7 +52,6 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
             skipCollapsed = true
         }
 
-
         binding.btnResetFilter.setOnClickListener {
             binding.edtHargaTertinggi.text?.clear()
             binding.edtHargaTerendah.text?.clear()
@@ -75,14 +73,14 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
             val lowest = binding.edtHargaTerendah.text.toString()
             val highest = binding.edtHargaTertinggi.text.toString()
 
-            val bundle = Bundle().apply {
-                putString("sort", sortOk)
-                putString("category", categoryOk)
-                putString("lowest", lowest)
-                putString("highest", highest)
-            }
 
-            requireActivity().supportFragmentManager.setFragmentResult("filterKey", bundle)
+            viewModel.setQuery(
+                search = viewModel.param.value?.search,
+                sort = sortOk, brand = categoryOk, lowest = lowest.toIntOrNull(),
+                highest = highest.toIntOrNull()
+            )
+
+//            requireActivity().supportFragmentManager.setFragmentResult("filterKey", bundle)
             dismiss()
         }
 

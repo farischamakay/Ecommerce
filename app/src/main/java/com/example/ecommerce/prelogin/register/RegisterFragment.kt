@@ -1,6 +1,8 @@
 package com.example.ecommerce.prelogin.register
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -16,15 +18,23 @@ import com.example.ecommerce.R
 import com.example.ecommerce.data.models.request.UserRequest
 import com.example.ecommerce.databinding.FragmentRegisterBinding
 import com.example.ecommerce.utils.ResourcesResult
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
 
-
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
     private val viewModel: RegisterViewModel by viewModels()
+
+    private var token : String = ""
+
+    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +49,27 @@ class RegisterFragment : Fragment() {
 
         validator()
 
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(ContentValues.TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            token = task.result
+        })
+
+        FirebaseMessaging.getInstance().subscribeToTopic("promo").addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("Promo", "Fetching FCM registration promo failed", task.exception)
+                return@OnCompleteListener
+            } else {
+                Log.d("Promo","Fetching FCM registration promo success")
+            }
+        })
+
         binding.btnToProfile.setOnClickListener {
-//            findNavController().navigate(R.id.action_registerFragment_to_profileFragment2)
             val email = binding.inputEmailRegister.text.toString()
             val password = binding.inputPasswordRegister.text.toString()
-            val userRequest = UserRequest(email = email, password = password)
+            val userRequest = UserRequest(email = email, password = password, firebaseToken = token)
 
             viewModel.registerUser(userRequest)
         }
@@ -60,6 +86,10 @@ class RegisterFragment : Fragment() {
 
                     val accessToken = result.data.data?.accessToken
                     val refreshToken = result.data.data?.refreshToken
+
+                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP){
+                        param(FirebaseAnalytics.Param.METHOD, "email")
+                    }
 
                     if (accessToken != null && refreshToken != null) {
                         viewModel.saveToken(accessToken, refreshToken)

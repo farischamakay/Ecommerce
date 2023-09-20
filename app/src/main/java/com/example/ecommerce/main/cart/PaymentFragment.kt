@@ -29,6 +29,7 @@ class PaymentFragment : Fragment() {
     private val navController by lazy {
         navHostFragment.navController
     }
+
     private val viewModel: CartViewModel by viewModels()
 
     override fun onCreateView(
@@ -61,7 +62,6 @@ class PaymentFragment : Fragment() {
         binding.rvListTransfer.layoutManager = LinearLayoutManager(requireContext())
         binding.rvListTransfer.adapter = parentAdapter
 
-        viewModel.fetchPayment()
 
         viewModel.paymentResult.observe(viewLifecycleOwner) { response ->
             Log.d("Payment", response.toString())

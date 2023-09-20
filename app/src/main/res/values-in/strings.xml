@@ -112,6 +112,7 @@
     <string name="product_ditambahkan_pada_keranjang">Produk ditambahkan ke keranjang!</string>
     <string name="product_berhasil_ditambahkan_pada_keranjang">Produk berhasil ditambahkan pada keranjang!</string>
     <string name="barang_transaction">%1$s Barang</string>
+    <string name="pilih_method_pembayaran">Pilih Pembayaran</string>
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
         <item>Galeri</item>

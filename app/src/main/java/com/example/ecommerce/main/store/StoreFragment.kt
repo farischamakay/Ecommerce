@@ -19,11 +19,14 @@ import com.example.ecommerce.adapter.LoadingStateAdapter
 import com.example.ecommerce.adapter.ProductListAdapter
 import com.example.ecommerce.databinding.FragmentStoreBinding
 import com.google.android.material.chip.Chip
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class StoreFragment : Fragment() {
@@ -34,8 +37,9 @@ class StoreFragment : Fragment() {
     private var highest: String? = null
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
-    private lateinit var productAdapter: ProductListAdapter
 
+    private lateinit var productAdapter: ProductListAdapter
+    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val viewModel: StoreViewModel by activityViewModels()
 
@@ -64,6 +68,13 @@ class StoreFragment : Fragment() {
         productAdapter = ProductListAdapter { itemId ->
             val bundle = bundleOf("id" to itemId?.productId)
             Log.d("BundleId", itemId?.productId.toString())
+
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM){
+                param(FirebaseAnalytics.Param.ITEM_LIST_ID, bundle)
+                param(FirebaseAnalytics.Param.ITEM_NAME, itemId?.productName?:"")
+                param(FirebaseAnalytics.Param.ITEM_BRAND, itemId?.brand?:"")
+            }
+
             navController.navigate(R.id.action_mainFragment_to_detailProductFragment, bundle)
         }
 

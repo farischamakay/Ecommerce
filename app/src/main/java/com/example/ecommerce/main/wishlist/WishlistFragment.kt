@@ -73,7 +73,6 @@ class WishlistFragment : Fragment() {
                     val cartData = response.find { it.productId == itemId }
                     if (cartData == null) {
                         viewModel.insertToRoom(convertToCart(wishlist))
-                        viewModel.deleteItemById(itemId)
                         Snackbar.make(
                             view, "Ditambahkan ke Keranjang!",
                             Snackbar.LENGTH_LONG
@@ -105,11 +104,8 @@ class WishlistFragment : Fragment() {
                     ).show()
 
                 }
-
             })
         }
-
-
     }
 
     private fun convertToCart(detailData: Wishlist): Cart {

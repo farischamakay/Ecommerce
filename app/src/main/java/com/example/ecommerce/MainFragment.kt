@@ -57,6 +57,15 @@ class MainFragment : Fragment() {
             wishListBadges.number = response.size
         }
 
+        val notifBadges = BadgeDrawable.create(requireContext())
+        viewModel.getDataNotification.observe(viewLifecycleOwner) { response ->
+            val new = response.filter {!it.isSelected}
+            notifBadges.isVisible = response.isNotEmpty()
+            notifBadges.number = new.size
+        }
+        attachBadgeDrawable(notifBadges, binding.topAppBar, R.id.notification)
+
+
 
         binding.topAppBar.title = viewModel.getUsername()
         binding.topAppBar.setOnMenuItemClickListener {

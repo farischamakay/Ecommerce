@@ -15,11 +15,16 @@ import com.example.ecommerce.adapter.SearchAdapter
 import com.example.ecommerce.databinding.FragmentSearchBinding
 import com.example.ecommerce.utils.Helpers.showSoftKeyboard
 import com.example.ecommerce.utils.ResourcesResult
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : DialogFragment() {
 
+    @Inject
+    lateinit var firebaseAnalyctic : FirebaseAnalytics
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val viewModel: StoreViewModel by activityViewModels()
@@ -85,6 +90,10 @@ class SearchFragment : DialogFragment() {
                 }
 
                 is ResourcesResult.Success -> {
+                    val search = binding.searchInputText.text.toString()
+                    firebaseAnalyctic.logEvent(FirebaseAnalytics.Event.VIEW_SEARCH_RESULTS){
+                        param(FirebaseAnalytics.Param.SEARCH_TERM, search)
+                    }
                     binding.progressBar.visibility = View.GONE
                     val response = results.data
                     if (response != null) {
