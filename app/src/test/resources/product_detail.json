@@ -1,0 +1,28 @@
+{
+  "code": 200,
+  "message": "OK",
+  "data": {
+    "productId": "productId",
+    "productName": "productName",
+    "productPrice": 24499000,
+    "image": [
+      "https:image1",
+      "https:image2"
+    ],
+    "brand": "brand",
+    "description": "description",
+    "store": "store",
+    "sale": 12,
+    "stock": 2,
+    "totalRating": 7,
+    "totalReview": 5,
+    "totalSatisfaction": 100,
+    "productRating": 5.0,
+    "productVariant": [
+      {
+        "variantName": "RAM 16GB",
+        "variantPrice": 0
+      }
+    ]
+  }
+}

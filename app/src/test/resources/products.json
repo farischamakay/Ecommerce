@@ -1,0 +1,22 @@
+{
+  "code": 200,
+  "message": "OK",
+  "data": {
+    "itemsPerPage": 10,
+    "currentItemCount": 10,
+    "pageIndex": 1,
+    "totalPages": 3,
+    "items": [
+      {
+        "productId": "productId",
+        "productName": "productName",
+        "productPrice": 15000000,
+        "image": "image",
+        "brand": "brand",
+        "store": "store",
+        "sale": 4,
+        "productRating": 4.0
+      }
+    ]
+  }
+}

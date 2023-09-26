@@ -1,0 +1,16 @@
+{
+  "code": 200,
+  "message": "OK",
+  "data": [
+    {
+      "title": "Transfer Virtual Account",
+      "item": [
+        {
+          "label": "BCA Virtual Account",
+          "image": "image",
+          "status": true
+        }
+      ]
+    }
+  ]
+}

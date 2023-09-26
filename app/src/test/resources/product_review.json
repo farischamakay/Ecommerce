@@ -1,0 +1,12 @@
+{
+  "code": 200,
+  "message": "OK",
+  "data": [
+    {
+      "userName": "userName",
+      "userImage": "userImage",
+      "userRating": 4,
+      "userReview": "userReview"
+    }
+  ]
+}
