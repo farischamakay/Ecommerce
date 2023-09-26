@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -14,10 +15,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.LoadingStateAdapter
 import com.example.ecommerce.adapter.ProductListAdapter
 import com.example.ecommerce.databinding.FragmentStoreBinding
+import com.example.ecommerce.utils.emptyToNull
 import com.google.android.material.chip.Chip
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
@@ -77,6 +80,33 @@ class StoreFragment : Fragment() {
 
             navController.navigate(R.id.action_mainFragment_to_detailProductFragment, bundle)
         }
+
+        productAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver(){
+            override fun onChanged() {
+                super.onChanged()
+                binding.rvProductList.smoothScrollToPosition(0)
+            }
+
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+                super.onItemRangeChanged(positionStart, itemCount)
+                binding.rvProductList.smoothScrollToPosition(0)
+            }
+
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+                super.onItemRangeChanged(positionStart, itemCount, payload)
+                binding.rvProductList.smoothScrollToPosition(0)
+            }
+
+            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+                super.onItemRangeRemoved(positionStart, itemCount)
+                binding.rvProductList.smoothScrollToPosition(0)
+            }
+
+            override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+                super.onItemRangeMoved(fromPosition, toPosition, itemCount)
+                binding.rvProductList.smoothScrollToPosition(0)
+            }
+        })
 
         binding.rvProductList.adapter = productAdapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
@@ -158,12 +188,8 @@ class StoreFragment : Fragment() {
                 highest = it
             }
 
-            viewModel.setQuery(
-                search = viewModel.param.value?.search,
-                sort = sort, brand = category, lowest = lowest?.toIntOrNull(),
-                highest = highest?.toIntOrNull()
-            )
         }
+
 
         binding.chipFilter.setOnClickListener {
             val fragmentManager: FragmentManager? = activity?.supportFragmentManager

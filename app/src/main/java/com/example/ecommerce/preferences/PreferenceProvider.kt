@@ -55,7 +55,6 @@ class PreferenceProvider @Inject constructor(private val sharedPreferences: Shar
         return sharedPreferences.getBoolean("dark_theme_on", false)
     }
 
-
     fun isOnBoardingCompleted(): Boolean {
         return sharedPreferences.getBoolean("is_onboardinig_completed", false)
     }

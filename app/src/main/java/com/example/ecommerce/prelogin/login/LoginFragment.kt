@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.ecommerce.R
 import com.example.ecommerce.data.models.request.UserRequest
 import com.example.ecommerce.databinding.FragmentLoginBinding
+import com.example.ecommerce.utils.Constants
 import com.example.ecommerce.utils.ResourcesResult
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -73,6 +74,9 @@ class LoginFragment : Fragment() {
         })
 
         binding.btnDaftar.setOnClickListener {
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME, "btn_daftar")
+            }
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
@@ -80,6 +84,10 @@ class LoginFragment : Fragment() {
             val email = binding.inputEmailLogin.text.toString()
             val password = binding.inputPasswordLogin.text.toString()
             val userRequest = UserRequest(email = email, password = password, firebaseToken = token)
+
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME, "btn_to_home")
+            }
 
             viewModel.loginUser(userRequest)
         }

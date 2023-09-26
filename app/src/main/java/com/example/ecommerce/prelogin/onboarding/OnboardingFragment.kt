@@ -18,13 +18,18 @@ import com.example.ecommerce.R
 import com.example.ecommerce.adapter.OnBoardingAdapter
 import com.example.ecommerce.adapter.OnBoardingItem
 import com.example.ecommerce.databinding.FragmentOnboardingBinding
+import com.example.ecommerce.utils.Constants
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingFragment : Fragment() {
 
     private var _binding: FragmentOnboardingBinding? = null
     private val binding get() = _binding!!
+    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private lateinit var indicatorContainer: LinearLayout
     private val viewModel: OnboardingViewModel by viewModels()
@@ -76,18 +81,27 @@ class OnboardingFragment : Fragment() {
             RecyclerView.OVER_SCROLL_NEVER
 
         binding.btnToRegister.setOnClickListener {
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME, "btn_to_register")
+            }
             viewModel.markOnboardingCompleted()
             findNavController().navigate(R.id.action_onboardingFragment_to_registerFragment)
         }
 
 
         binding.btnLewati.setOnClickListener {
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME, "btn_lewati")
+            }
             viewModel.markOnboardingCompleted()
             findNavController().navigate(R.id.action_onboardingFragment_to_loginFragment)
 
         }
 
         binding.btnSelanjutnya.setOnClickListener {
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME, "btn_selanjutnya")
+            }
             val nextSlide = binding.viewpagerOnboarding.currentItem + 1
             if (nextSlide < adapter.itemCount) {
                 binding.viewpagerOnboarding.setCurrentItem(nextSlide, true)

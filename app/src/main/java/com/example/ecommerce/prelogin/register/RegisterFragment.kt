@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.ecommerce.R
 import com.example.ecommerce.data.models.request.UserRequest
 import com.example.ecommerce.databinding.FragmentRegisterBinding
+import com.example.ecommerce.utils.Constants
 import com.example.ecommerce.utils.ResourcesResult
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -75,6 +76,9 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btnMasuk.setOnClickListener {
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME,"btn_masuk")
+            }
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
 

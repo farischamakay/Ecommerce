@@ -11,15 +11,21 @@ import androidx.navigation.fragment.navArgs
 import com.example.ecommerce.R
 import com.example.ecommerce.data.models.request.RatingRequest
 import com.example.ecommerce.databinding.FragmentStatusBinding
+import com.example.ecommerce.utils.Constants
 import com.example.ecommerce.utils.ResourcesResult
 import com.example.ecommerce.utils.convertToRupiah
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class StatusFragment : Fragment() {
 
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
     private var ratingUser: Int? = null
     private var _binding: FragmentStatusBinding? = null
     private val binding get() = _binding!!
@@ -47,7 +53,9 @@ class StatusFragment : Fragment() {
                 userReview.toString(), ratingUser,
                 args.fulfillmentDetail.invoiceId
             )
-
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME, "btn_done_payment")
+            }
             viewModel.rating(userAllReview)
 
         }
@@ -55,9 +63,14 @@ class StatusFragment : Fragment() {
 
         viewModel.ratingResult.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is ResourcesResult.Loading -> {}
-                is ResourcesResult.Failure -> {}
+                is ResourcesResult.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is ResourcesResult.Failure -> {
+                    binding.progressBar.visibility = View.GONE
+                }
                 is ResourcesResult.Success -> {
+                    binding.progressBar.visibility = View.GONE
                     Snackbar.make(
                         binding.root, getString(R.string.terima_kasih),
                         Snackbar.LENGTH_LONG

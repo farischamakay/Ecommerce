@@ -283,8 +283,12 @@ class DetailComposeFragment : Fragment() {
                                                             .show()
                                                     }
                                                 } else {
+
+                                                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_TO_WISHLIST, params)
+
+                                                    val dataNew = dataObserve.copy(productPrice = priceSum)
                                                     convertToWishlist(
-                                                        dataObserve
+                                                        dataNew
                                                     )
                                                         .let { viewModel.insertToWishlist(it) }
                                                     view?.let {
@@ -515,12 +519,13 @@ class DetailComposeFragment : Fragment() {
                     ) {
                         OutlinedButton(
                             onClick = {
+                                val dataNew = dataObserve.copy(productPrice = priceSum)
                                 findNavController().navigate(
                                     DetailComposeFragmentDirections
                                         .actionDetailProductFragmentToCheckoutFragment(
                                             ListCheckout(
                                                 listCheckout = mutableListOf(
-                                                    convertToCheckout(dataObserve, currentIndex)
+                                                    convertToCheckout(dataNew, currentIndex)
                                                 )
                                             ), "", ""
                                         )
@@ -544,7 +549,7 @@ class DetailComposeFragment : Fragment() {
                                     putInt(FirebaseAnalytics.Param.QUANTITY, cartData?.quantity?: 0)
                                 }
 
-//                                firebaseAnalytics.logEvent()
+                                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_TO_CART, itemProductCart)
 
                                 if (cartData == null) {
                                     val dataNew = dataObserve.copy(productPrice = priceSum)

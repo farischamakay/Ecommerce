@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.example.ecommerce.databinding.FragmentBottomFilterBinding
 import com.example.ecommerce.utils.Helpers.setSelectedChip
+import com.example.ecommerce.utils.emptyToNull
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
@@ -19,6 +20,8 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
     private val viewModel: StoreViewModel by activityViewModels()
 
+    var sort = View.NO_ID
+    var sortChip: Chip? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,11 +63,12 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
             binding.btnResetFilter.isVisible = false
         }
 
-        binding.btnTampilkanProduk.setOnClickListener {
 
-            val sort = binding.chipGroupUrutkan.checkedChipId
-            val sortChip = binding.chipGroupUrutkan.findViewById<Chip>(sort)
-            val sortOk = sortChip?.text?.toString()
+
+        binding.btnTampilkanProduk.setOnClickListener {
+            sort = binding.chipGroupUrutkan.checkedChipId
+            sortChip = binding.chipGroupUrutkan.findViewById(sort)
+            val sortOk = sortChip?.text ?: ""
 
             val category = binding.chipGroupKategori.checkedChipId
             val categoryChip = binding.chipGroupKategori.findViewById<Chip>(category)
@@ -76,15 +80,20 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
 
             viewModel.setQuery(
                 search = viewModel.param.value?.search,
-                sort = sortOk, brand = categoryOk, lowest = lowest.toIntOrNull(),
+                sort = sortOk.toString().emptyToNull(), brand = categoryOk.emptyToNull(), lowest = lowest.toIntOrNull(),
                 highest = highest.toIntOrNull()
             )
 
-//            requireActivity().supportFragmentManager.setFragmentResult("filterKey", bundle)
+            val bundle = Bundle().apply {
+                putString("sort", sortOk.toString())
+                putString("category", categoryOk)
+                putString("lowest", lowest)
+                putString("highest", highest)
+            }
+
+            requireActivity().supportFragmentManager.setFragmentResult("filterKey", bundle)
+
             dismiss()
         }
-
     }
-
-
 }

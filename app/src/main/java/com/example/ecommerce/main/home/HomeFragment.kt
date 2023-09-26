@@ -8,24 +8,23 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment
 import com.example.ecommerce.MainActivity
-import com.example.ecommerce.R
 import com.example.ecommerce.databinding.FragmentHomeBinding
+import com.example.ecommerce.utils.Constants
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
+    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val navHostFragment: NavHostFragment by lazy {
-        requireActivity().supportFragmentManager.findFragmentById(R.id.nhf_main) as NavHostFragment
-    }
-    private val navController by lazy {
-        navHostFragment.navController
-    }
+
 
     private val viewModel: HomeViewModel by viewModels()
     override fun onCreateView(
@@ -41,6 +40,9 @@ class HomeFragment : Fragment() {
 
 
         binding.btnLogout.setOnClickListener {
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME, "btn_logout")
+            }
             viewModel.deleteToken()
             (requireActivity() as MainActivity).logOut()
         }
@@ -48,6 +50,10 @@ class HomeFragment : Fragment() {
         val currentLangage = AppCompatDelegate.getApplicationLocales()
         binding.switchLanguage.isChecked = currentLangage == LocaleListCompat.forLanguageTags("ID")
         binding.switchLanguage.setOnCheckedChangeListener { _, isChecked ->
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME, "switch_language")
+            }
+
             if (isChecked) {
                 val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("ID")
                 AppCompatDelegate.setApplicationLocales(appLocale)
@@ -67,6 +73,10 @@ class HomeFragment : Fragment() {
         }
 
         binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME, "switch_theme")
+            }
+
             viewModel.saveTheme(isChecked)
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

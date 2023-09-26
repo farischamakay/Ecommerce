@@ -22,24 +22,30 @@ import com.bumptech.glide.Glide
 import com.example.ecommerce.R
 import com.example.ecommerce.data.models.request.ProfileRequest
 import com.example.ecommerce.databinding.FragmentProfileBinding
+import com.example.ecommerce.utils.Constants
 import com.example.ecommerce.utils.PhotoUriManager
 import com.example.ecommerce.utils.ResourcesResult
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
-    private val binding get() = _binding!!
-
     private var mediaUri: Uri? = null
+
+    private val binding get() = _binding!!
     private val viewModel: ProfileViewModel by viewModels()
+
     private lateinit var photoUriManager: PhotoUriManager
+    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private fun uriToFile(context: Context, uri: Uri): File? {
         val contentResolver = context.contentResolver
@@ -133,6 +139,10 @@ class ProfileFragment : Fragment() {
                 }
             }
             alertDialogBuilder.show()
+
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME, "img_profile")
+            }
         }
 
         binding.layoutUsername.editText?.doOnTextChanged { inputUsername, _, _, _ ->
@@ -149,7 +159,6 @@ class ProfileFragment : Fragment() {
                 MultipartBody.Part.createFormData("userImage", imageFile.name, requestImage)
             val userNamePart = MultipartBody.Part.createFormData("userName", username)
 
-
             if (imageFile.exists()) {
                 viewModel.updateProfile(
                     ProfileRequest(
@@ -159,6 +168,10 @@ class ProfileFragment : Fragment() {
                 )
             } else {
                 viewModel.updateProfile(ProfileRequest(userImage = null, userName = userNamePart))
+            }
+
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+                param(Constants.BUTTON_NAME, "btn_go_home")
             }
 
         }

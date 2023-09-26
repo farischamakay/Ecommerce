@@ -32,3 +32,11 @@ fun Int.convertToRupiah(): String {
     return NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(this).replace(",", ".")
         .removeSuffix(".00")
 }
+
+fun String?.emptyToNull(): String? {
+    return if(this.isNullOrEmpty()) {
+        null
+    } else {
+        this
+    }
+}
