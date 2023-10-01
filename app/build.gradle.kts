@@ -7,6 +7,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("org.gradle.jacoco")
 }
 
 android {
@@ -55,6 +56,61 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    val jacocoTestReport = tasks.create("jacocoTestReport")
+
+
+    androidComponents.onVariants { variant ->
+        val testTaskName = "test${variant.name.capitalize()}UnitTest"
+
+
+        val reportTask =
+            tasks.register("jacoco${testTaskName.capitalize()}Report", JacocoReport::class) {
+                dependsOn(testTaskName)
+
+
+                reports {
+                    html.required.set(true)
+                }
+
+
+                classDirectories.setFrom(
+                    fileTree("$buildDir/tmp/kotlin-classes/${variant.name}") {
+                        exclude(coverageExclusions)
+                    }
+                )
+
+
+                sourceDirectories.setFrom(
+                    files("$projectDir/src/main/java")
+                )
+                executionData.setFrom(file("$buildDir/jacoco/$testTaskName.exec"))
+                //executionData.setFrom(file("$buildDir/outputs/unit_test_code_coverage/${variant.name}UnitTest/$testTaskName.exec"))
+            }
+
+
+        jacocoTestReport.dependsOn(reportTask)
+    }
+}
+
+private val coverageExclusions = listOf(
+    "**/R.class",
+    "**/R\$*.class",
+    "**/BuildConfig.*",
+    "**/Manifest*.*"
+)
+
+
+configure<JacocoPluginExtension> {
+    toolVersion = "0.8.10"
+}
+
+
+tasks.withType<Test>().configureEach {
+    configure<JacocoTaskExtension> {
+        isIncludeNoLocationClasses = true
+        excludes = listOf("jdk.internal.*")
+    }
 }
 
 dependencies {
@@ -81,7 +137,8 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.10.3")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
-    testImplementation("org.mockito:mockito-core:2.19.0")
+    testImplementation("org.mockito:mockito-core:5.5.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
     testImplementation("androidx.test:core-ktx:1.5.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")

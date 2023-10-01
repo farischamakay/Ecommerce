@@ -51,14 +51,14 @@ object ProductModule {
 
     @Provides
     @Singleton
-    fun provideNotificationDao(cartDatabase: CartDatabase) : NotificationDao {
+    fun provideNotificationDao(cartDatabase: CartDatabase): NotificationDao {
         return cartDatabase.notificationDao()
     }
 
     @Provides
     @Singleton
-    fun provideRepositoryNotification(notificationDao: NotificationDao)
-    = NotificationRepository(notificationDao)
+    fun provideRepositoryNotification(notificationDao: NotificationDao) =
+        NotificationRepository(notificationDao)
 
     @Provides
     @Singleton
@@ -68,7 +68,7 @@ object ProductModule {
 
     @Provides
     @Singleton
-    fun firebaseRemoteConfig() : FirebaseRemoteConfig {
+    fun firebaseRemoteConfig(): FirebaseRemoteConfig {
         val remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
         val configSettings = remoteConfigSettings {
             minimumFetchIntervalInSeconds = 3600
@@ -80,6 +80,7 @@ object ProductModule {
 
     @Provides
     @Singleton
-    fun firebaseAnalytics(@ApplicationContext context : Context) : FirebaseAnalytics = Firebase.analytics
+    fun firebaseAnalytics(@ApplicationContext context: Context): FirebaseAnalytics =
+        Firebase.analytics
 
 }

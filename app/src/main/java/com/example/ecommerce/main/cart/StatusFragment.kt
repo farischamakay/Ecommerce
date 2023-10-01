@@ -53,7 +53,7 @@ class StatusFragment : Fragment() {
                 userReview.toString(), ratingUser,
                 args.fulfillmentDetail.invoiceId
             )
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "btn_done_payment")
             }
             viewModel.rating(userAllReview)
@@ -66,9 +66,11 @@ class StatusFragment : Fragment() {
                 is ResourcesResult.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
+
                 is ResourcesResult.Failure -> {
                     binding.progressBar.visibility = View.GONE
                 }
+
                 is ResourcesResult.Success -> {
                     binding.progressBar.visibility = View.GONE
                     Snackbar.make(

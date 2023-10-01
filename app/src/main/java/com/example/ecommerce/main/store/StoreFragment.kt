@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -20,7 +19,6 @@ import com.example.ecommerce.R
 import com.example.ecommerce.adapter.LoadingStateAdapter
 import com.example.ecommerce.adapter.ProductListAdapter
 import com.example.ecommerce.databinding.FragmentStoreBinding
-import com.example.ecommerce.utils.emptyToNull
 import com.google.android.material.chip.Chip
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
@@ -42,7 +40,8 @@ class StoreFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var productAdapter: ProductListAdapter
-    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val viewModel: StoreViewModel by activityViewModels()
 
@@ -72,16 +71,16 @@ class StoreFragment : Fragment() {
             val bundle = bundleOf("id" to itemId?.productId)
             Log.d("BundleId", itemId?.productId.toString())
 
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM){
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
                 param(FirebaseAnalytics.Param.ITEM_LIST_ID, bundle)
-                param(FirebaseAnalytics.Param.ITEM_NAME, itemId?.productName?:"")
-                param(FirebaseAnalytics.Param.ITEM_BRAND, itemId?.brand?:"")
+                param(FirebaseAnalytics.Param.ITEM_NAME, itemId?.productName ?: "")
+                param(FirebaseAnalytics.Param.ITEM_BRAND, itemId?.brand ?: "")
             }
 
             navController.navigate(R.id.action_mainFragment_to_detailProductFragment, bundle)
         }
 
-        productAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver(){
+        productAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 super.onChanged()
                 binding.rvProductList.smoothScrollToPosition(0)

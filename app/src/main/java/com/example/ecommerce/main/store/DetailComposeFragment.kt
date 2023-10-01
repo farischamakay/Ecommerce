@@ -92,8 +92,9 @@ class DetailComposeFragment : Fragment() {
     private val viewModel: StoreViewModel by viewModels()
     private lateinit var dataObserve: ProductDetailData
     lateinit var productId: String
-    lateinit var params : Bundle
-    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
+    lateinit var params: Bundle
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
 
     override fun onCreateView(
@@ -159,9 +160,18 @@ class DetailComposeFragment : Fragment() {
 
                         params = Bundle()
                         params.putString(FirebaseAnalytics.Param.CURRENCY, "IDR")
-                        params.putDouble(FirebaseAnalytics.Param.PRICE, dataObserve.productPrice?.toDouble() ?: 0.00)
-                        params.putString(FirebaseAnalytics.Param.ITEM_NAME, dataObserve.productName ?: "")
-                        params.putString(FirebaseAnalytics.Param.ITEM_BRAND, dataObserve.brand ?: "")
+                        params.putDouble(
+                            FirebaseAnalytics.Param.PRICE,
+                            dataObserve.productPrice?.toDouble() ?: 0.00
+                        )
+                        params.putString(
+                            FirebaseAnalytics.Param.ITEM_NAME,
+                            dataObserve.productName ?: ""
+                        )
+                        params.putString(
+                            FirebaseAnalytics.Param.ITEM_BRAND,
+                            dataObserve.brand ?: ""
+                        )
 
                         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, params)
 
@@ -284,9 +294,13 @@ class DetailComposeFragment : Fragment() {
                                                     }
                                                 } else {
 
-                                                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_TO_WISHLIST, params)
+                                                    firebaseAnalytics.logEvent(
+                                                        FirebaseAnalytics.Event.ADD_TO_WISHLIST,
+                                                        params
+                                                    )
 
-                                                    val dataNew = dataObserve.copy(productPrice = priceSum)
+                                                    val dataNew =
+                                                        dataObserve.copy(productPrice = priceSum)
                                                     convertToWishlist(
                                                         dataNew
                                                     )
@@ -545,11 +559,17 @@ class DetailComposeFragment : Fragment() {
                             onClick = {
                                 val cartData = getDataRoom?.find { it.productId == productId }
 
-                                val itemProductCart = Bundle(params).apply{
-                                    putInt(FirebaseAnalytics.Param.QUANTITY, cartData?.quantity?: 0)
+                                val itemProductCart = Bundle(params).apply {
+                                    putInt(
+                                        FirebaseAnalytics.Param.QUANTITY,
+                                        cartData?.quantity ?: 0
+                                    )
                                 }
 
-                                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_TO_CART, itemProductCart)
+                                firebaseAnalytics.logEvent(
+                                    FirebaseAnalytics.Event.ADD_TO_CART,
+                                    itemProductCart
+                                )
 
                                 if (cartData == null) {
                                     val dataNew = dataObserve.copy(productPrice = priceSum)

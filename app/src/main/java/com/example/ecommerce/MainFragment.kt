@@ -22,7 +22,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
-    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by viewModels()
@@ -47,11 +48,11 @@ class MainFragment : Fragment() {
         binding.apply {
             nhfBotnav
             bottomNavigation?.setupWithNavController(navController)
-            bottomNavigation?.setOnItemReselectedListener {  }
+            bottomNavigation?.setOnItemReselectedListener { }
             botnav600?.setupWithNavController(navController)
-            botnav600?.setOnItemReselectedListener {  }
+            botnav600?.setOnItemReselectedListener { }
             botnav840?.setupWithNavController(navController)
-            botnav840?.setOnItemReselectedListener {  }
+            botnav840?.setOnItemReselectedListener { }
         }
 
         val cartBadges = BadgeDrawable.create(requireContext())
@@ -80,10 +81,9 @@ class MainFragment : Fragment() {
         }
 
 
-
         val notifBadges = BadgeDrawable.create(requireContext())
         viewModel.getDataNotification.observe(viewLifecycleOwner) { response ->
-            val new = response.filter {!it.isSelected}
+            val new = response.filter { !it.isSelected }
             notifBadges.isVisible = response.isNotEmpty()
             notifBadges.number = new.size
         }
@@ -95,16 +95,16 @@ class MainFragment : Fragment() {
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.cart -> {
-                    firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
-                        param(Constants.BUTTON_NAME,"cart")
+                    firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
+                        param(Constants.BUTTON_NAME, "cart")
                     }
                     (requireActivity() as MainActivity).goToCart()
                     true
                 }
 
                 R.id.notification -> {
-                    firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
-                        param(Constants.BUTTON_NAME,"notification")
+                    firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
+                        param(Constants.BUTTON_NAME, "notification")
                     }
                     (requireActivity() as MainActivity).goToNotification()
                     true

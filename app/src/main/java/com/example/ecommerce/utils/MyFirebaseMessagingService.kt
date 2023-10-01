@@ -12,7 +12,6 @@ import com.example.ecommerce.MainActivity
 import com.example.ecommerce.R
 import com.example.ecommerce.data.database.notification.Notification
 import com.example.ecommerce.data.repository.NotificationRepository
-import com.example.ecommerce.main.notification.NotificationFragment
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,14 +31,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val date = remoteMessage.data["date"] ?: ""
         val time = remoteMessage.data["time"] ?: ""
 
-        notificationRepository.insertDataNotification(Notification(body = body,
-            title = title,
-            image = image,
-            type = type,
-            date = date,
-            time = time))
+        notificationRepository.insertDataNotification(
+            Notification(
+                body = body,
+                title = title,
+                image = image,
+                type = type,
+                date = date,
+                time = time
+            )
+        )
 
-        sendNotification(title,image,body)
+        sendNotification(title, image, body)
 
     }
 
@@ -64,7 +67,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(

@@ -80,7 +80,9 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
 
             viewModel.setQuery(
                 search = viewModel.param.value?.search,
-                sort = sortOk.toString().emptyToNull(), brand = categoryOk.emptyToNull(), lowest = lowest.toIntOrNull(),
+                sort = sortOk.toString().emptyToNull(),
+                brand = categoryOk.emptyToNull(),
+                lowest = lowest.toIntOrNull(),
                 highest = highest.toIntOrNull()
             )
 

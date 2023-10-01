@@ -33,9 +33,10 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: RegisterViewModel by viewModels()
 
-    private var token : String = ""
+    private var token: String = ""
 
-    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,14 +59,15 @@ class RegisterFragment : Fragment() {
             token = task.result
         })
 
-        FirebaseMessaging.getInstance().subscribeToTopic("promo").addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w("Promo", "Fetching FCM registration promo failed", task.exception)
-                return@OnCompleteListener
-            } else {
-                Log.d("Promo","Fetching FCM registration promo success")
-            }
-        })
+        FirebaseMessaging.getInstance().subscribeToTopic("promo")
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("Promo", "Fetching FCM registration promo failed", task.exception)
+                    return@OnCompleteListener
+                } else {
+                    Log.d("Promo", "Fetching FCM registration promo success")
+                }
+            })
 
         binding.btnToProfile.setOnClickListener {
             val email = binding.inputEmailRegister.text.toString()
@@ -76,8 +78,8 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btnMasuk.setOnClickListener {
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
-                param(Constants.BUTTON_NAME,"btn_masuk")
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
+                param(Constants.BUTTON_NAME, "btn_masuk")
             }
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
@@ -91,7 +93,7 @@ class RegisterFragment : Fragment() {
                     val accessToken = result.data.data?.accessToken
                     val refreshToken = result.data.data?.refreshToken
 
-                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP){
+                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP) {
                         param(FirebaseAnalytics.Param.METHOD, "email")
                     }
 

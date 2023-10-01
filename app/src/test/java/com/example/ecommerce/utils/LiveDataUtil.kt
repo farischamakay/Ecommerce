@@ -2,6 +2,7 @@ package com.example.ecommerce.utils
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -44,4 +45,10 @@ suspend fun <T> LiveData<T>.observeForTesting(block: suspend  () -> Unit) {
     } finally {
         removeObserver(observer)
     }
+}
+
+fun <T> liveDataOf(value : T) : LiveData<T> {
+    val liveData = MutableLiveData<T>()
+    liveData.value = value
+    return liveData
 }

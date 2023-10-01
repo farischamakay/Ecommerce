@@ -2,7 +2,6 @@ package com.example.ecommerce.data.database.cart
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.asFlow
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.example.ecommerce.data.database.notification.Notification
@@ -10,8 +9,6 @@ import com.example.ecommerce.data.database.notification.NotificationDao
 import com.example.ecommerce.data.database.wishlist.Wishlist
 import com.example.ecommerce.data.database.wishlist.WishlistDao
 import com.example.ecommerce.utils.getOrAwaitValue
-import com.example.ecommerce.utils.observeForTesting
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.After
@@ -41,12 +38,10 @@ class CartDatabaseTest {
         wishlistDao = db.wishlistDao()
         notificationDao = db.notificationDao()
     }
-
     @After
     fun tearDown() {
         db.close()
     }
-
 
     private val cart = Cart("1",
         "Laptop Asus VivoBook",

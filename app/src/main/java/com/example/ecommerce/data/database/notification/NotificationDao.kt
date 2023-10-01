@@ -9,7 +9,7 @@ import androidx.room.Update
 @Dao
 interface NotificationDao {
     @Query("Select * from notification ORDER BY id DESC")
-    fun getAll() : LiveData<List<Notification>>
+    fun getAll(): LiveData<List<Notification>>
 
     @Insert
     fun insertNotification(notification: Notification)

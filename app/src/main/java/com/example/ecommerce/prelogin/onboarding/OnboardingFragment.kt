@@ -29,7 +29,8 @@ class OnboardingFragment : Fragment() {
 
     private var _binding: FragmentOnboardingBinding? = null
     private val binding get() = _binding!!
-    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private lateinit var indicatorContainer: LinearLayout
     private val viewModel: OnboardingViewModel by viewModels()
@@ -81,7 +82,7 @@ class OnboardingFragment : Fragment() {
             RecyclerView.OVER_SCROLL_NEVER
 
         binding.btnToRegister.setOnClickListener {
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "btn_to_register")
             }
             viewModel.markOnboardingCompleted()
@@ -90,7 +91,7 @@ class OnboardingFragment : Fragment() {
 
 
         binding.btnLewati.setOnClickListener {
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "btn_lewati")
             }
             viewModel.markOnboardingCompleted()
@@ -99,7 +100,7 @@ class OnboardingFragment : Fragment() {
         }
 
         binding.btnSelanjutnya.setOnClickListener {
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "btn_selanjutnya")
             }
             val nextSlide = binding.viewpagerOnboarding.currentItem + 1

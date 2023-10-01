@@ -45,7 +45,8 @@ class ProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by viewModels()
 
     private lateinit var photoUriManager: PhotoUriManager
-    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private fun uriToFile(context: Context, uri: Uri): File? {
         val contentResolver = context.contentResolver
@@ -140,7 +141,7 @@ class ProfileFragment : Fragment() {
             }
             alertDialogBuilder.show()
 
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "img_profile")
             }
         }
@@ -170,7 +171,7 @@ class ProfileFragment : Fragment() {
                 viewModel.updateProfile(ProfileRequest(userImage = null, userName = userNamePart))
             }
 
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "btn_go_home")
             }
 

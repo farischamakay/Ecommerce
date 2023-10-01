@@ -89,7 +89,7 @@ class CartViewModel @Inject constructor(
 
     private fun fetchConfig() {
         remoteConfig.fetchAndActivate()
-            .addOnCompleteListener() { task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val response = remoteConfig.getString("payments")
                     val gson = Gson()
@@ -103,7 +103,7 @@ class CartViewModel @Inject constructor(
             }
 
         remoteConfig.addOnConfigUpdateListener(object : ConfigUpdateListener {
-            override fun onUpdate(configUpdate : ConfigUpdate) {
+            override fun onUpdate(configUpdate: ConfigUpdate) {
                 Log.d(TAG, "Updated keys: " + configUpdate.updatedKeys)
 
                 if (configUpdate.updatedKeys.contains("payments")) {
@@ -117,7 +117,7 @@ class CartViewModel @Inject constructor(
                 }
             }
 
-            override fun onError(error : FirebaseRemoteConfigException) {
+            override fun onError(error: FirebaseRemoteConfigException) {
                 Log.w(TAG, "Config update error with code: " + error.code, error)
             }
         })

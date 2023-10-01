@@ -19,11 +19,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
 
 
     private val viewModel: HomeViewModel by viewModels()
@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
 
 
         binding.btnLogout.setOnClickListener {
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "btn_logout")
             }
             viewModel.deleteToken()
@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
         val currentLangage = AppCompatDelegate.getApplicationLocales()
         binding.switchLanguage.isChecked = currentLangage == LocaleListCompat.forLanguageTags("ID")
         binding.switchLanguage.setOnCheckedChangeListener { _, isChecked ->
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "switch_language")
             }
 
@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "switch_theme")
             }
 

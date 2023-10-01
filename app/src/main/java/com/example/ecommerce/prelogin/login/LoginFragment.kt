@@ -32,9 +32,10 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var token : String
+    private lateinit var token: String
 
-    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,17 +65,18 @@ class LoginFragment : Fragment() {
             token = task.result
         })
 
-        FirebaseMessaging.getInstance().subscribeToTopic("promo").addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w("Promo", "Fetching FCM registration promo failed", task.exception)
-                return@OnCompleteListener
-            } else {
-                Log.d("Promo","Fetching FCM registration promo success")
-            }
-        })
+        FirebaseMessaging.getInstance().subscribeToTopic("promo")
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("Promo", "Fetching FCM registration promo failed", task.exception)
+                    return@OnCompleteListener
+                } else {
+                    Log.d("Promo", "Fetching FCM registration promo success")
+                }
+            })
 
         binding.btnDaftar.setOnClickListener {
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "btn_daftar")
             }
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -85,7 +87,7 @@ class LoginFragment : Fragment() {
             val password = binding.inputPasswordLogin.text.toString()
             val userRequest = UserRequest(email = email, password = password, firebaseToken = token)
 
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "btn_to_home")
             }
 
@@ -107,7 +109,7 @@ class LoginFragment : Fragment() {
                     val accessToken = result.data.data?.accessToken
                     val refreshToken = result.data.data?.refreshToken
 
-                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN){
+                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN) {
                         param(FirebaseAnalytics.Param.METHOD, "email")
                     }
 

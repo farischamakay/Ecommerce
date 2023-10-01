@@ -52,19 +52,21 @@ class PreferenceProviderTest {
         assertEquals(username, preferenceProvider.getUsername())
     }
 
-//    @Test
-//    fun deleteTokenAccess() {
-//        val apiAccessKey = "api_access_key"
-//        val apiRefreshKey = "api_refresh_key"
-//        val userName = "userName"
-//        preferenceProvider.saveAccess(apiAccessKey,apiRefreshKey)
-//        preferenceProvider.saveUsername(userName)
-//        preferenceProvider.deleteTokenAccess()
-//
+    @Test
+    fun deleteTokenAccess() {
+        val apiAccessKey = "api_access_key"
+        val apiRefreshKey = "api_refresh_key"
+        val userName = "userName"
+        preferenceProvider.saveAccess(apiAccessKey,apiRefreshKey)
+        preferenceProvider.saveUsername(userName)
+        preferenceProvider.deleteTokenAccess()
+
+//        assertEquals(empt)
+
 //        assertTrue(null, preferenceProvider.saveAccess(apiAccessKey,apiRefreshKey).equals(null))
 //        assertTrue(null, preferenceProvider.saveUsername(userName).equals(null))
 //        assertTrue(null, preferenceProvider.deleteTokenAccess().equals(null))
-//    }
+    }
 
     @Test
     fun getApiAccessKey() {

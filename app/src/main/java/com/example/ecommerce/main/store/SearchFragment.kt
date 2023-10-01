@@ -24,7 +24,7 @@ import javax.inject.Inject
 class SearchFragment : DialogFragment() {
 
     @Inject
-    lateinit var firebaseAnalyctic : FirebaseAnalytics
+    lateinit var firebaseAnalyctic: FirebaseAnalytics
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val viewModel: StoreViewModel by activityViewModels()
@@ -91,7 +91,7 @@ class SearchFragment : DialogFragment() {
 
                 is ResourcesResult.Success -> {
                     val search = binding.searchInputText.text.toString()
-                    firebaseAnalyctic.logEvent(FirebaseAnalytics.Event.VIEW_SEARCH_RESULTS){
+                    firebaseAnalyctic.logEvent(FirebaseAnalytics.Event.VIEW_SEARCH_RESULTS) {
                         param(FirebaseAnalytics.Param.SEARCH_TERM, search)
                     }
                     binding.progressBar.visibility = View.GONE

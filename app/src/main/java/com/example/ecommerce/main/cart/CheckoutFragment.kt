@@ -31,8 +31,9 @@ class CheckoutFragment : Fragment() {
 
     private var _binding: FragmentCheckoutBinding? = null
     private lateinit var checkboxAdapter: CheckoutAdapter
-    private lateinit var dataCheckout : List<Bundle>
-    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
+    private lateinit var dataCheckout: List<Bundle>
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
     private val binding get() = _binding!!
     private val viewModel: CartViewModel by viewModels()
     private val navHostFragment: NavHostFragment by lazy {
@@ -55,7 +56,7 @@ class CheckoutFragment : Fragment() {
             }
         }
 
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.BEGIN_CHECKOUT){
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.BEGIN_CHECKOUT) {
             param(FirebaseAnalytics.Param.ITEMS, dataCheckout.toTypedArray())
         }
     }
@@ -97,6 +98,7 @@ class CheckoutFragment : Fragment() {
                         is ResourcesResult.Loading -> {
                             binding.progressBar.visibility = View.VISIBLE
                         }
+
                         is ResourcesResult.Success -> {
                             binding.progressBar.visibility = View.GONE
                             val data = response.data?.data
@@ -112,6 +114,7 @@ class CheckoutFragment : Fragment() {
                                 )
                             }
                         }
+
                         is ResourcesResult.Failure -> {
                             binding.progressBar.visibility = View.GONE
                         }
@@ -144,7 +147,7 @@ class CheckoutFragment : Fragment() {
         }
 
         binding.btnNextPayment.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.PURCHASE){
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.PURCHASE) {
                 param(FirebaseAnalytics.Param.ITEMS, dataCheckout.toTypedArray())
             }
             navController.navigate(

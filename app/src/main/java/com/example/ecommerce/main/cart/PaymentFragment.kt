@@ -26,7 +26,8 @@ class PaymentFragment : Fragment() {
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
     private lateinit var parentAdapter: ParentPaymentAdapter
-    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
     private val navHostFragment: NavHostFragment by lazy {
         requireActivity().supportFragmentManager.findFragmentById(R.id.nhf_main) as NavHostFragment
     }
@@ -54,7 +55,7 @@ class PaymentFragment : Fragment() {
         }
 
         parentAdapter = ParentPaymentAdapter { paymentItem ->
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_PAYMENT_INFO){
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_PAYMENT_INFO) {
                 param(FirebaseAnalytics.Param.PAYMENT_TYPE, paymentItem.label.toString())
             }
             navController.navigate(
@@ -75,9 +76,11 @@ class PaymentFragment : Fragment() {
                 is ResourcesResult.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
+
                 is ResourcesResult.Failure -> {
                     binding.progressBar.visibility = View.INVISIBLE
                 }
+
                 is ResourcesResult.Success -> {
                     binding.progressBar.visibility = View.INVISIBLE
                     val paymentResponse = response.data

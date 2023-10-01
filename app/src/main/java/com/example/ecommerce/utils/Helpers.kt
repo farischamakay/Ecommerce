@@ -34,7 +34,7 @@ fun Int.convertToRupiah(): String {
 }
 
 fun String?.emptyToNull(): String? {
-    return if(this.isNullOrEmpty()) {
+    return if (this.isNullOrEmpty()) {
         null
     } else {
         this
