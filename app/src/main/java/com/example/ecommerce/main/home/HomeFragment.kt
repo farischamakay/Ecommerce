@@ -43,7 +43,6 @@ class HomeFragment : Fragment() {
             firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
                 param(Constants.BUTTON_NAME, "btn_logout")
             }
-            viewModel.deleteToken()
             (requireActivity() as MainActivity).logOut()
         }
 

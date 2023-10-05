@@ -116,8 +116,14 @@
     <string name="add">+</string>
     <string name="decree">-</string>
     <string name="ram_produk">16GB, 1TB SSD</string>
+    <string name="contoh_email">Contoh : text@gmail.com</string>
+    <string name="minimal_karakter">Minimal 8 karakter</string>
+    <string name="email_tidak_valid">Email is not valid</string>
+    <string name="password_tidak_valid">Password is not valid</string>
+    <string name="login_berhasil">Login was successfull!</string>
     <string name="default_notification_channel_id">123</string>
     <string name="default_notification_channel_name">notification</string>
+    <string name="sesi_anda_telah_berakhir">Sesi anda telah berakhir</string>
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
         <item>Galeri</item>

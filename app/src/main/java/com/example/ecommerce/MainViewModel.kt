@@ -1,19 +1,22 @@
 package com.example.ecommerce
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ecommerce.data.repository.NotificationRepository
 import com.example.ecommerce.data.repository.RoomCartRepository
 import com.example.ecommerce.preferences.PreferenceProvider
+import com.example.ecommerce.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val roomCartRepository: RoomCartRepository,
+    roomCartRepository: RoomCartRepository,
+    notificationRepository: NotificationRepository,
     private val sharedPreferencesManager: PreferenceProvider,
-    private val notificationRepository: NotificationRepository
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
     val getDataWishlist =
@@ -24,17 +27,21 @@ class MainViewModel @Inject constructor(
 
     val getDataNotification = notificationRepository.fetchDataNotification()
 
+    val sessionExpired : LiveData<Boolean?> = sessionManager.tokenExpired
+
     fun getUsername(): String? {
         return sharedPreferencesManager.getUsername()
+    }
+
+    fun deleteToken() {
+        return sharedPreferencesManager.deleteTokenAccess()
     }
 
     fun isDarkModeTheme(): Boolean {
         return sharedPreferencesManager.isDarkTheme()
     }
 
-    fun deleteCheckedItems() {
-        viewModelScope.launch {
-            roomCartRepository.deleteData()
-        }
+    fun resetSession(){
+        sessionManager.resetSession()
     }
 }

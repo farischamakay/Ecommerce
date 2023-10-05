@@ -9,6 +9,7 @@ import com.example.ecommerce.data.network.UserApiService
 import com.example.ecommerce.data.network.UserAuthInterceptor
 import com.example.ecommerce.preferences.PreferenceProvider
 import com.example.ecommerce.utils.Constants.BASE_URL
+import com.example.ecommerce.utils.SessionManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,9 +35,10 @@ object UserModule {
     fun provideTokenAuthenticator(
         sharedPreferences: PreferenceProvider,
         chuckerInterceptor: ChuckerInterceptor,
-        userAuthInterceptor: UserAuthInterceptor
+        userAuthInterceptor: UserAuthInterceptor,
+        sessionManager: SessionManager
     ): TokenAuthenticator {
-        return TokenAuthenticator(sharedPreferences, chuckerInterceptor, userAuthInterceptor)
+        return TokenAuthenticator(sharedPreferences, chuckerInterceptor, userAuthInterceptor, sessionManager)
     }
 
     @Provides

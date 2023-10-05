@@ -10,10 +10,6 @@ class HomeViewModel @Inject constructor(
     private val sharedPreferenceManager: PreferenceProvider
 ) : ViewModel() {
 
-    fun deleteToken() {
-        return sharedPreferenceManager.deleteTokenAccess()
-    }
-
     fun saveTheme(isChecked: Boolean) {
         return sharedPreferenceManager.saveDarkTheme(isChecked)
     }

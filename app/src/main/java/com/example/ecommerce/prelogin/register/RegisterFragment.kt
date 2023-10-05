@@ -135,7 +135,7 @@ class RegisterFragment : Fragment() {
             if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail ?: "")
                     .matches() && !inputEmail.isNullOrEmpty()
             ) {
-                elr.error = "Email tidak valid"
+                elr.error = getString(R.string.email_tidak_valid)
                 btnRegister.isEnabled = false
             } else {
                 elr.error = ""
@@ -145,7 +145,7 @@ class RegisterFragment : Fragment() {
 
         plr.editText?.doOnTextChanged { inputPassword, _, _, _ ->
             if ((inputPassword?.length ?: 0) < 8 && !inputPassword.isNullOrEmpty()) {
-                plr.error = "Password tidak valid"
+                plr.error = getString(R.string.password_tidak_valid)
                 btnRegister.isEnabled = false
             } else {
                 plr.error = ""

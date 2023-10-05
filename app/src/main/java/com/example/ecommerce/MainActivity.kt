@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var database : CartDatabase
 
+    private val mainViewModel : MainViewModel by viewModels()
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) { isGranted: Boolean ->
@@ -51,6 +54,14 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mainViewModel.sessionExpired.observe(this@MainActivity) { response ->
+            if(response != null && response == true){
+                logOut()
+                mainViewModel.resetSession()
+                Toast.makeText(this, getString(R.string.sesi_anda_telah_berakhir), Toast.LENGTH_LONG).show()
+            }
+        }
 
         askNotificationPermission()
 
@@ -79,6 +90,7 @@ class MainActivity : AppCompatActivity() {
     @OptIn(DelicateCoroutinesApi::class)
     fun logOut() {
         navController.navigate(R.id.main_to_prelogin)
+        mainViewModel.deleteToken()
         GlobalScope.launch {
             database.clearAllTables()
         }

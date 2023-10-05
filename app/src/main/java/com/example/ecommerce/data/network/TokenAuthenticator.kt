@@ -1,10 +1,13 @@
 package com.example.ecommerce.data.network
 
+import android.util.Log
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.example.ecommerce.MainActivity
 import com.example.ecommerce.data.models.request.RefreshRequest
 import com.example.ecommerce.data.models.response.RefreshResponse
 import com.example.ecommerce.preferences.PreferenceProvider
 import com.example.ecommerce.utils.Constants.BASE_URL
+import com.example.ecommerce.utils.SessionManager
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.OkHttpClient
@@ -19,7 +22,8 @@ import javax.inject.Inject
 class TokenAuthenticator @Inject constructor(
     private val sharedPreferenceManager: PreferenceProvider,
     private val chuckerInterceptor: ChuckerInterceptor,
-    private val userAuthInterceptor: UserAuthInterceptor
+    private val userAuthInterceptor: UserAuthInterceptor,
+    private val sessionManager: SessionManager
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         synchronized(this) {
@@ -31,24 +35,26 @@ class TokenAuthenticator @Inject constructor(
                     val newToken = getNewToken(token)
                     if (!newToken.isSuccessful || newToken.body() == null) {
                         sharedPreferenceManager.deleteTokenAccess()
-                    }
-                    newToken.body()?.let {
-                        sharedPreferenceManager.saveAccess(
-                            it.data?.accessToken.toString(),
-                            it.data?.refreshToken.toString()
-                        )
-                        response.request.newBuilder()
-                            .header("Authorization", "Bearer ${it.data?.accessToken}")
-                            .build()
-                    }
+                        if (newToken.code() == 401 ) {
+                            Log.d("exired_token", "EXPIRED TOKEN")
+                            sessionManager.setTokenExpired()
+                            sharedPreferenceManager.deleteTokenAccess()
+                            null
+                        } else {
+                            null
+                        }
+                    } else
+                        newToken.body()?.let {
+                            sharedPreferenceManager.saveAccess(
+                                it.data?.accessToken.toString(),
+                                it.data?.refreshToken.toString()
+                            )
+                            response.request.newBuilder()
+                                .header("Authorization", "Bearer ${it.data?.accessToken}")
+                                .build()
+                        }
                 } catch (error: HttpException) {
-                    if (error.code() == 401) {
-                        println("EXPIRED TOKEN")
-                        sharedPreferenceManager.deleteTokenAccess()
-                        null
-                    } else {
-                        null
-                    }
+                    null
                 }
             }
         }

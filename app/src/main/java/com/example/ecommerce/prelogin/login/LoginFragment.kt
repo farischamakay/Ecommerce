@@ -116,7 +116,8 @@ class LoginFragment : Fragment() {
                     if (accessToken != null && refreshToken != null) {
                         viewModel.saveToken(accessToken, refreshToken)
                         viewModel.saveUserName(username.toString())
-                        Toast.makeText(requireContext(), "Login berhasil!", Toast.LENGTH_LONG)
+                        Toast.makeText(requireContext(),
+                            getString(R.string.login_berhasil), Toast.LENGTH_LONG)
                             .show()
                     }
 
@@ -150,7 +151,7 @@ class LoginFragment : Fragment() {
             if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail ?: "").matches()
                 && !inputEmail.isNullOrEmpty()
             ) {
-                el.error = "Email tidak valid"
+                el.error = getString(R.string.email_tidak_valid)
                 btnHome.isEnabled = false
             } else {
                 el.error = ""
@@ -160,7 +161,7 @@ class LoginFragment : Fragment() {
 
         pl.editText?.doOnTextChanged { inputPassword, _, _, _ ->
             if ((inputPassword?.length ?: 0) < 8 && !inputPassword.isNullOrEmpty()) {
-                pl.error = "Password tidak valid"
+                pl.error = getString(R.string.password_tidak_valid)
                 btnHome.isEnabled = false
             } else {
                 pl.error = ""
