@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="@string/search"
         app:hintTextAppearance="@style/TextAppearance.Design.Hint."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +24,7 @@
             android:layout_height="wrap_content"
             android:cursorVisible="false"
             android:focusable="false"
+            android:text="@string/search"
             android:focusableInTouchMode="false" />
 
     </com.google.android.material.textfield.TextInputLayout>

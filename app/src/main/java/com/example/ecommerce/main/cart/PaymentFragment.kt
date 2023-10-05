@@ -26,6 +26,7 @@ class PaymentFragment : Fragment() {
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
     private lateinit var parentAdapter: ParentPaymentAdapter
+
     @Inject
     lateinit var firebaseAnalytics: FirebaseAnalytics
     private val navHostFragment: NavHostFragment by lazy {

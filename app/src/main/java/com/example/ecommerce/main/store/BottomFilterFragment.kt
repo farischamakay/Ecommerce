@@ -1,13 +1,10 @@
 package com.example.ecommerce.main.store
 
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import com.example.ecommerce.databinding.FragmentBottomFilterBinding
@@ -50,11 +47,11 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
             highest?.let { binding.edtHargaTertinggi.setText(it.toString()) }
         }
 
-       viewModel.param.observe(viewLifecycleOwner){ response ->
-           if (!response.sort.isNullOrEmpty()){
-               binding.btnResetFilter.visibility = View.VISIBLE
-           }
-       }
+        viewModel.param.observe(viewLifecycleOwner) { response ->
+            if (!response.sort.isNullOrEmpty()) {
+                binding.btnResetFilter.visibility = View.VISIBLE
+            }
+        }
 
         return binding.root
     }
@@ -75,7 +72,7 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
 
         updateResetButtonVisibility()
 
-        chipGroupSort.setOnCheckedStateChangeListener { _, _  ->
+        chipGroupSort.setOnCheckedStateChangeListener { _, _ ->
             isSortChipGroupChecked = chipGroupSort.checkedChipId != View.NO_ID
             updateResetButtonVisibility()
         }
@@ -137,7 +134,8 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
 
     private fun updateResetButtonVisibility() {
         if (isSortChipGroupChecked || isCategoryChipGroupChecked || isHighestTextView
-            || isLowestTextView) {
+            || isLowestTextView
+        ) {
             binding.btnResetFilter.visibility = View.VISIBLE
         } else {
             binding.btnResetFilter.visibility = View.GONE

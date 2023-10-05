@@ -26,6 +26,7 @@ class PaymentViewModel @Inject constructor(
 
     private val _paymentResult = MutableLiveData<ResourcesResult<PaymentResponse?>>()
     val paymentResult: LiveData<ResourcesResult<PaymentResponse?>> = _paymentResult
+
     init {
         fetchConfig()
     }
@@ -37,6 +38,7 @@ class PaymentViewModel @Inject constructor(
             _paymentResult.value = result
         }
     }
+
     private fun fetchConfig() {
         remoteConfig.fetchAndActivate()
             .addOnCompleteListener { task ->

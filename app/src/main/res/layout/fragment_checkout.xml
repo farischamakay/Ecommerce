@@ -73,6 +73,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_title_product_buy"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
                 tools:listitem="@layout/item_list_checkout" />
 
             <com.google.android.material.divider.MaterialDivider

@@ -32,6 +32,7 @@ class CheckoutFragment : Fragment() {
     private var _binding: FragmentCheckoutBinding? = null
     private lateinit var checkboxAdapter: CheckoutAdapter
     private lateinit var dataCheckout: List<Bundle>
+
     @Inject
     lateinit var firebaseAnalytics: FirebaseAnalytics
     private val binding get() = _binding!!
@@ -117,7 +118,11 @@ class CheckoutFragment : Fragment() {
 
                         is ResourcesResult.Failure -> {
                             binding.progressBar.visibility = View.GONE
-                            Snackbar.make(binding.root, response.error.toString(), Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(
+                                binding.root,
+                                response.error.toString(),
+                                Snackbar.LENGTH_LONG
+                            ).show()
                         }
                     }
                 }

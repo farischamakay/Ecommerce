@@ -50,6 +50,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -91,8 +92,9 @@ class DetailComposeFragment : Fragment() {
 
     private val viewModel: StoreViewModel by viewModels()
     private lateinit var dataObserve: ProductDetailData
+    private lateinit var params: Bundle
     lateinit var productId: String
-    lateinit var params: Bundle
+
     @Inject
     lateinit var firebaseAnalytics: FirebaseAnalytics
 
@@ -121,28 +123,31 @@ class DetailComposeFragment : Fragment() {
     fun ScaffoldWithTopBar(getProduct: ResourcesResult<ProductDetailResponse?>) {
         val getDataRoom by viewModel.getDataRoom.observeAsState()
         val getWishlist by viewModel.getDataWishlist.observeAsState()
-        var currentIndex by rememberSaveable { mutableStateOf(0) }
+        var currentIndex by rememberSaveable { mutableIntStateOf(0) }
         var priceSum: Int? = null
         Scaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(R.string.detail_product),
-                            style = TextStyle(
-                                fontSize = 22.sp
-                            ),
-                            fontFamily = FontFamily(Font(R.font.poppins_regular))
-                        )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            findNavController().navigateUp()
-                        }) {
-                            Icon(Icons.Filled.ArrowBack, "backIcon")
-                        }
-                    },
-                )
+                Column {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = stringResource(R.string.detail_product),
+                                style = TextStyle(
+                                    fontSize = 22.sp
+                                ),
+                                fontFamily = FontFamily(Font(R.font.poppins_regular))
+                            )
+                        },
+                        navigationIcon = {
+                            IconButton(onClick = {
+                                findNavController().navigateUp()
+                            }) {
+                                Icon(Icons.Filled.ArrowBack, "backIcon")
+                            }
+                        },
+                    )
+                    Divider()
+                }
             },
             content = { innerPadding ->
                 when (getProduct) {
@@ -156,7 +161,6 @@ class DetailComposeFragment : Fragment() {
                         dataObserve = getProduct
                             .data?.data!!
                         val isProductInWishList = getWishlist?.any { it.productId == productId }
-
 
                         params = Bundle()
                         params.putString(FirebaseAnalytics.Param.CURRENCY, "IDR")
@@ -182,7 +186,6 @@ class DetailComposeFragment : Fragment() {
 //                                .padding(horizontal = 16.dp)
                                 .verticalScroll(rememberScrollState()),
                         ) {
-                            Divider()
                             Box(
                                 modifier = Modifier
                                     .height(300.dp)
@@ -270,7 +273,7 @@ class DetailComposeFragment : Fragment() {
                                                 startActivity(shareIntent)
                                             })
                                     )
-                                    Spacer(modifier = Modifier.width(5.dp))
+                                    Spacer(modifier = Modifier.width(16.dp))
                                     Icon(
                                         imageVector = if (isProductInWishList == true) {
                                             Icons.Default.Favorite

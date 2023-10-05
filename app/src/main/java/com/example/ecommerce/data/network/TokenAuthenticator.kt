@@ -2,7 +2,6 @@ package com.example.ecommerce.data.network
 
 import android.util.Log
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.example.ecommerce.MainActivity
 import com.example.ecommerce.data.models.request.RefreshRequest
 import com.example.ecommerce.data.models.response.RefreshResponse
 import com.example.ecommerce.preferences.PreferenceProvider
@@ -35,7 +34,7 @@ class TokenAuthenticator @Inject constructor(
                     val newToken = getNewToken(token)
                     if (!newToken.isSuccessful || newToken.body() == null) {
                         sharedPreferenceManager.deleteTokenAccess()
-                        if (newToken.code() == 401 ) {
+                        if (newToken.code() == 401) {
                             Log.d("exired_token", "EXPIRED TOKEN")
                             sessionManager.setTokenExpired()
                             sharedPreferenceManager.deleteTokenAccess()

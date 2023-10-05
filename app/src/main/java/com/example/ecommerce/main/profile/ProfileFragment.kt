@@ -45,6 +45,7 @@ class ProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by viewModels()
 
     private lateinit var photoUriManager: PhotoUriManager
+
     @Inject
     lateinit var firebaseAnalytics: FirebaseAnalytics
 
@@ -59,7 +60,6 @@ class ProfileFragment : Fragment() {
             cursor.moveToFirst()
 
             val name = cursor.getString(nameIndex)
-            val size = cursor.getLong(sizeIndex)
 
             val cacheDir = File(context.cacheDir, "camera_cache")
             cacheDir.mkdirs()

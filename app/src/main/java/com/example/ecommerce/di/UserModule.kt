@@ -38,7 +38,12 @@ object UserModule {
         userAuthInterceptor: UserAuthInterceptor,
         sessionManager: SessionManager
     ): TokenAuthenticator {
-        return TokenAuthenticator(sharedPreferences, chuckerInterceptor, userAuthInterceptor, sessionManager)
+        return TokenAuthenticator(
+            sharedPreferences,
+            chuckerInterceptor,
+            userAuthInterceptor,
+            sessionManager
+        )
     }
 
     @Provides

@@ -116,8 +116,10 @@ class LoginFragment : Fragment() {
                     if (accessToken != null && refreshToken != null) {
                         viewModel.saveToken(accessToken, refreshToken)
                         viewModel.saveUserName(username.toString())
-                        Toast.makeText(requireContext(),
-                            getString(R.string.login_berhasil), Toast.LENGTH_LONG)
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.login_berhasil), Toast.LENGTH_LONG
+                        )
                             .show()
                     }
 

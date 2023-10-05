@@ -37,8 +37,7 @@ class StoreViewModel @Inject constructor(
     val searchResult: LiveData<ResourcesResult<SearchResponse<List<String>>?>> = _searchResult
     val reviewProduct: LiveData<ResourcesResult<ReviewResponse?>> = _reviewProduct
     val param: LiveData<ProductRequest> = _param
-    private val _detail = MutableLiveData<String>()
-    val detail: LiveData<String> = _detail
+    var searchText : String = ""
 
 
     init {

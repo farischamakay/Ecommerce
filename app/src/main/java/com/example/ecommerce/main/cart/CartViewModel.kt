@@ -1,7 +1,5 @@
 package com.example.ecommerce.main.cart
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,16 +8,10 @@ import com.example.ecommerce.data.database.cart.Cart
 import com.example.ecommerce.data.models.request.FullfilmentRequest
 import com.example.ecommerce.data.models.request.RatingRequest
 import com.example.ecommerce.data.models.response.FullfilmentResponse
-import com.example.ecommerce.data.models.response.PaymentResponse
 import com.example.ecommerce.data.models.response.RatingResponse
 import com.example.ecommerce.data.repository.ProductRepository
 import com.example.ecommerce.data.repository.RoomCartRepository
 import com.example.ecommerce.utils.ResourcesResult
-import com.google.firebase.remoteconfig.ConfigUpdate
-import com.google.firebase.remoteconfig.ConfigUpdateListener
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigException
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -39,7 +31,6 @@ class CartViewModel @Inject constructor(
 
     val getDataRoom =
         roomCartRepository.fetchCartData()
-
 
 
     fun updateCheckable(cartList: List<Pair<Cart, Boolean>>) {

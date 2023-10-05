@@ -40,6 +40,7 @@ class StoreFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var productAdapter: ProductListAdapter
+
     @Inject
     lateinit var firebaseAnalytics: FirebaseAnalytics
 
@@ -150,7 +151,8 @@ class StoreFragment : Fragment() {
             "dataKey", this
         ) { _, bundle ->
             val data = bundle.getString("query")
-            binding.fieldSearchProduct.hint = data
+            viewModel.searchText = data?:""
+            binding.edtSearchText.setText(viewModel.searchText)
             viewModel.setQuery(
                 search = data,
                 viewModel.param.value?.brand, viewModel.param.value?.lowest,
@@ -189,7 +191,6 @@ class StoreFragment : Fragment() {
 
         }
 
-
         binding.chipFilter.setOnClickListener {
             val fragmentManager: FragmentManager? = activity?.supportFragmentManager
             val dialogFragment = BottomFilterFragment()
@@ -198,6 +199,13 @@ class StoreFragment : Fragment() {
                 dialogFragment.show(fragmentManager, BottomFilterFragment::class.java.simpleName)
             }
         }
+
+        if(viewModel.searchText.isEmpty()){
+            binding.edtSearchText.setText(getString(R.string.search))
+        } else {
+            binding.edtSearchText.setText(viewModel.searchText)
+        }
+
         getData()
     }
 
@@ -238,7 +246,8 @@ class StoreFragment : Fragment() {
                                         search = null,
                                         brand = null, lowest = null, highest = null, sort = null
                                     )
-                                    binding.fieldSearchProduct.hint = "Search"
+                                    binding.edtSearchText.setText(getString(R.string.search))
+                                    viewModel.searchText = ""
                                 }
                             }
                             if (error.code() == 500) {

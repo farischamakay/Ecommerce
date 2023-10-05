@@ -24,6 +24,7 @@ class NotificationFragment : Fragment() {
     private var _binding: FragmentNotificationBinding? = null
     private val viewModel: NotificationViewModel by viewModels()
     private lateinit var notificationAdapter: NotificationAdapter
+
     @Inject
     lateinit var firebaseAnalytics: FirebaseAnalytics
     private val binding get() = _binding!!

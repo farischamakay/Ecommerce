@@ -29,6 +29,7 @@ class OnboardingFragment : Fragment() {
 
     private var _binding: FragmentOnboardingBinding? = null
     private val binding get() = _binding!!
+
     @Inject
     lateinit var firebaseAnalytics: FirebaseAnalytics
 

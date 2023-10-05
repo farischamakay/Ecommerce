@@ -31,9 +31,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Inject
-    lateinit var database : CartDatabase
+    lateinit var database: CartDatabase
 
-    private val mainViewModel : MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -56,10 +56,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mainViewModel.sessionExpired.observe(this@MainActivity) { response ->
-            if(response != null && response == true){
+            if (response != null && response == true) {
                 logOut()
                 mainViewModel.resetSession()
-                Toast.makeText(this, getString(R.string.sesi_anda_telah_berakhir), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    getString(R.string.sesi_anda_telah_berakhir),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 
@@ -98,7 +102,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) ==
                 PackageManager.PERMISSION_GRANTED
             ) {
                 // FCM SDK (and your app) can post notifications.

@@ -2,13 +2,11 @@ package com.example.ecommerce
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.ecommerce.data.repository.NotificationRepository
 import com.example.ecommerce.data.repository.RoomCartRepository
 import com.example.ecommerce.preferences.PreferenceProvider
 import com.example.ecommerce.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +25,7 @@ class MainViewModel @Inject constructor(
 
     val getDataNotification = notificationRepository.fetchDataNotification()
 
-    val sessionExpired : LiveData<Boolean?> = sessionManager.tokenExpired
+    val sessionExpired: LiveData<Boolean?> = sessionManager.tokenExpired
 
     fun getUsername(): String? {
         return sharedPreferencesManager.getUsername()
@@ -41,7 +39,7 @@ class MainViewModel @Inject constructor(
         return sharedPreferencesManager.isDarkTheme()
     }
 
-    fun resetSession(){
+    fun resetSession() {
         sessionManager.resetSession()
     }
 }
