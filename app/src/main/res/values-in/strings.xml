@@ -30,16 +30,16 @@
     <string name="store_filter">Filter</string>
     <string name="store_ulasan">Ulasan</string>
     <string name="store_penjualan">Penjualan</string>
-    <string name="store_harga_terendah">Harga Terendah</string>
-    <string name="store_harga_tertinggi">Harga Tertinggi</string>
+    <string name="store_harga_terendah">Terendah</string>
+    <string name="store_harga_tertinggi">Tertinggi</string>
     <string name="store_kategori">Kategori</string>
     <string name="store_apple">Apple</string>
     <string name="store_asus">Asus</string>
     <string name="store_dell">Dell</string>
     <string name="store_lenovo">Lenovo</string>
     <string name="store_harga">Harga</string>
-    <string name="storeharga_terendah">Harga Terendah</string>
-    <string name="storeharga_tertinggi">Harga Tertinggi</string>
+    <string name="storeharga_terendah">Terendah</string>
+    <string name="storeharga_tertinggi">Tertinggi</string>
     <string name="store_tampilkan_produk">Tampilkan Produk</string>
     <string name="nodesc">Tanpa deskripsi</string>
     <string name="title_product">Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS</string>
@@ -113,6 +113,11 @@
     <string name="product_berhasil_ditambahkan_pada_keranjang">Produk berhasil ditambahkan pada keranjang!</string>
     <string name="barang_transaction">%1$s Barang</string>
     <string name="pilih_method_pembayaran">Pilih Pembayaran</string>
+    <string name="add">+</string>
+    <string name="decree">-</string>
+    <string name="ram_produk">16GB, 1TB SSD</string>
+    <string name="default_notification_channel_id">123</string>
+    <string name="default_notification_channel_name">notification</string>
     <string-array name="options_select_picture_array">
         <item>Kamera</item>
         <item>Galeri</item>

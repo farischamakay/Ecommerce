@@ -7,6 +7,7 @@ import com.example.ecommerce.data.models.response.LoginResponse
 import com.example.ecommerce.data.models.response.ProfileResponse
 import com.example.ecommerce.data.models.response.RegisterResponse
 import com.example.ecommerce.data.network.UserApiService
+import com.example.ecommerce.utils.ErrorMessage.getParsingError
 import com.example.ecommerce.utils.ResourcesResult
 import javax.inject.Inject
 
@@ -23,7 +24,7 @@ class UserRepository @Inject constructor(private val userApiService: UserApiServ
                     ResourcesResult.Failure("Response body is null")
                 }
             } else {
-                ResourcesResult.Failure("Error response: ${response.code()} -> ${response.message()}")
+                ResourcesResult.Failure(response.errorBody()?.getParsingError())
             }
         } catch (e: Exception) {
             ResourcesResult.Failure("Exception: ${e.message}")
@@ -41,7 +42,7 @@ class UserRepository @Inject constructor(private val userApiService: UserApiServ
                     ResourcesResult.Failure("Response Body is null")
                 }
             } else {
-                ResourcesResult.Failure("Error response: ${response.code()} -> ${response.message()}")
+                ResourcesResult.Failure(response.errorBody()?.getParsingError())
             }
         } catch (e: Exception) {
             ResourcesResult.Failure("Exception : ${e.message}")
@@ -62,7 +63,7 @@ class UserRepository @Inject constructor(private val userApiService: UserApiServ
                     ResourcesResult.Failure("Response Body is null")
                 }
             } else {
-                ResourcesResult.Failure("Error response: ${response.code()} -> ${response.message()}")
+                ResourcesResult.Failure(response.errorBody()?.getParsingError())
             }
         } catch (e: Exception) {
             ResourcesResult.Failure("Exception : ${e.message}")

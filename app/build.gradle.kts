@@ -1,4 +1,5 @@
 plugins {
+    id("io.gitlab.arturbosch.detekt")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
@@ -29,11 +30,12 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -67,7 +69,6 @@ android {
         val reportTask =
             tasks.register("jacoco${testTaskName.capitalize()}Report", JacocoReport::class) {
                 dependsOn(testTaskName)
-
 
                 reports {
                     html.required.set(true)
@@ -195,6 +196,7 @@ dependencies {
 
     //Chucker
     debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
 
     //DaggerHilt
     implementation ("com.google.dagger:hilt-android:2.45")
@@ -202,4 +204,7 @@ dependencies {
 
     //Animation
     implementation("com.airbnb.android:lottie:3.4.0")
+
+    //detekt
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.1")
 }

@@ -136,10 +136,6 @@ class StoreViewModelTest {
     }
 
     @Test
-    fun getProduct() {
-    }
-
-    @Test
     fun setQuery() {
     }
 
@@ -148,7 +144,12 @@ class StoreViewModelTest {
     }
 
     @Test
-    fun detailItem() {
+    fun detailItem() = runTest{
+        val actualResponse = roomCartRepository.deleteById("123")
+        backgroundScope.launch {
+            whenever(actualResponse).thenReturn(Unit)
+            assertEquals(Unit, storeViewModel.detailItem("123"))
+        }
     }
 
     @Test

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -60,6 +61,18 @@ class StatusFragment : Fragment() {
 
         }
 
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (findNavController().previousBackStackEntry?.destination?.id == R.id.checkoutFragment) {
+                        findNavController().navigate(StatusFragmentDirections.actionStatusFragmentToMainFragment())
+                    } else {
+                        findNavController().navigateUp()
+                    }
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
 
         viewModel.ratingResult.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -77,7 +90,8 @@ class StatusFragment : Fragment() {
                         binding.root, getString(R.string.terima_kasih),
                         Snackbar.LENGTH_LONG
                     ).show()
-                    findNavController().navigateUp()
+                    findNavController().navigate(StatusFragmentDirections.actionStatusFragmentToMainFragment())
+
                 }
             }
         }

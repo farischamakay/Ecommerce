@@ -58,4 +58,5 @@ class PreferenceProvider @Inject constructor(private val sharedPreferences: Shar
     fun isOnBoardingCompleted(): Boolean {
         return sharedPreferences.getBoolean("is_onboardinig_completed", false)
     }
+
 }

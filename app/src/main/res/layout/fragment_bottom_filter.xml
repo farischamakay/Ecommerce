@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/BottomSheetModal"
     tools:context=".main.store.BottomFilterFragment">
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="@string/store_reset"
+        android:visibility="gone"
         android:textAllCaps="false"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,28 +67,36 @@
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/store_ulasan" />
+            android:text="@string/store_ulasan"
+            android:textAppearance="@style/ChipFont"
+            app:chipBackgroundColor="@color/selector_chip_background"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/penjualan"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/store_penjualan" />
+            android:text="@string/store_penjualan"
+            android:textAppearance="@style/ChipFont"
+            app:chipBackgroundColor="@color/selector_chip_background" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/harga_terendah"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/store_harga_terendah" />
+            android:text="@string/store_harga_terendah"
+            android:textAppearance="@style/ChipFont"
+            app:chipBackgroundColor="@color/selector_chip_background" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/harga_tertinggi"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/store_harga_tertinggi" />
+            android:text="@string/store_harga_tertinggi"
+            android:textAppearance="@style/ChipFont"
+            app:chipBackgroundColor="@color/selector_chip_background" />
 
     </com.google.android.material.chip.ChipGroup>
 
@@ -117,28 +127,36 @@
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/store_apple" />
+            android:text="@string/store_apple"
+            android:textAppearance="@style/ChipFont"
+            app:chipBackgroundColor="@color/selector_chip_background" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/asus"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/store_asus" />
+            android:text="@string/store_asus"
+            android:textAppearance="@style/ChipFont"
+            app:chipBackgroundColor="@color/selector_chip_background" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/dell"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/store_dell" />
+            android:text="@string/store_dell"
+            android:textAppearance="@style/ChipFont"
+            app:chipBackgroundColor="@color/selector_chip_background" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/lenovo"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/store_lenovo" />
+            android:text="@string/store_lenovo"
+            android:textAppearance="@style/ChipFont"
+            app:chipBackgroundColor="@color/selector_chip_background" />
 
     </com.google.android.material.chip.ChipGroup>
 

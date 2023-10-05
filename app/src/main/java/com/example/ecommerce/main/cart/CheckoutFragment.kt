@@ -117,6 +117,7 @@ class CheckoutFragment : Fragment() {
 
                         is ResourcesResult.Failure -> {
                             binding.progressBar.visibility = View.GONE
+                            Snackbar.make(binding.root, response.error.toString(), Snackbar.LENGTH_LONG).show()
                         }
                     }
                 }

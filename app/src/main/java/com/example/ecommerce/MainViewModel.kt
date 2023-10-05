@@ -1,10 +1,12 @@
 package com.example.ecommerce
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.ecommerce.data.repository.NotificationRepository
 import com.example.ecommerce.data.repository.RoomCartRepository
 import com.example.ecommerce.preferences.PreferenceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,5 +30,11 @@ class MainViewModel @Inject constructor(
 
     fun isDarkModeTheme(): Boolean {
         return sharedPreferencesManager.isDarkTheme()
+    }
+
+    fun deleteCheckedItems() {
+        viewModelScope.launch {
+            roomCartRepository.deleteData()
+        }
     }
 }

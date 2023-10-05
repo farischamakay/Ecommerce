@@ -89,8 +89,6 @@ class MainFragment : Fragment() {
         }
         attachBadgeDrawable(notifBadges, binding.topAppBar, R.id.notification)
 
-
-
         binding.topAppBar.title = viewModel.getUsername()
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {

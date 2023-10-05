@@ -35,7 +35,7 @@ class PaymentFragment : Fragment() {
         navHostFragment.navController
     }
 
-    private val viewModel: CartViewModel by viewModels()
+    private val viewModel: PaymentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

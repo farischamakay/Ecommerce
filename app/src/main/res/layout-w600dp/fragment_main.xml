@@ -37,9 +37,19 @@
         app:defaultNavHost="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout"
-        app:layout_constraintStart_toEndOf="@+id/botnav_600"
+        app:layout_constraintStart_toEndOf="@+id/divider_navigation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:navGraph="@navigation/bottom_navigation" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider_navigation"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        app:dividerColor="?colorOutlineVariant"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintStart_toEndOf="@id/botnav_600"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 
     <com.google.android.material.navigationrail.NavigationRailView
         android:id="@+id/botnav_600"

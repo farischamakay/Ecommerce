@@ -37,11 +37,20 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintBottom_toTopOf="@id/divider_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         app:navGraph="@navigation/bottom_navigation" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        app:dividerColor="?colorOutlineVariant"
+        app:layout_constraintTop_toBottomOf="@id/nhf_botnav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
@@ -52,7 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nhf_botnav"
+        app:layout_constraintTop_toBottomOf="@id/divider_navigation"
         app:menu="@menu/menu_bottom_nav">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

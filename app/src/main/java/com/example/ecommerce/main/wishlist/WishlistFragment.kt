@@ -82,7 +82,6 @@ class WishlistFragment : Fragment() {
                         if (qtyCart < (wishlist.stock ?: 0)) {
                             qtyCart += 1
                             viewModel.updateQuantity(listOf(convertToCart(wishlist) to qtyCart))
-                            viewModel.deleteItemById(itemId)
                             Snackbar.make(
                                 view, "Product berhasil ditambahkan pada keranjang!",
                                 Snackbar.LENGTH_LONG
@@ -102,7 +101,6 @@ class WishlistFragment : Fragment() {
                         view, "Deleted item!",
                         Snackbar.LENGTH_LONG
                     ).show()
-
                 }
             })
         }

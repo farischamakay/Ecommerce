@@ -1,9 +1,11 @@
 package com.example.ecommerce.data.models.response
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
 
 
+@Keep
 @Parcelize
 data class FulfillmentDataResponse(
     val payment: String,

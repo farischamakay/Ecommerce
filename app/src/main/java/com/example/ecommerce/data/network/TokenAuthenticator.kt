@@ -44,6 +44,7 @@ class TokenAuthenticator @Inject constructor(
                 } catch (error: HttpException) {
                     if (error.code() == 401) {
                         println("EXPIRED TOKEN")
+                        sharedPreferenceManager.deleteTokenAccess()
                         null
                     } else {
                         null

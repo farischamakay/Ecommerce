@@ -50,14 +50,13 @@ class TransactionAdapter : ListAdapter<TransactionDataItem,
                 )
             binding.txtTotalPrice.text = data.total?.convertToRupiah()
 
-            if (data.review == null) {
+            if (data.review.isNullOrEmpty()) {
                 binding.btnUlas.visibility = View.VISIBLE
                 binding.btnUlas.setOnClickListener {
                     onItemClickCallback.onUlasClicked(data)
                 }
             }
         }
-
     }
 
     interface OnItemClickCallback {

@@ -1,9 +1,11 @@
 package com.example.ecommerce.data.models.request
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.example.ecommerce.data.database.cart.Cart
 import kotlinx.parcelize.Parcelize
 
+@Keep
 @Parcelize
 data class CheckoutRequest(
     val productId: String?,
@@ -23,7 +25,7 @@ data class CheckoutRequest(
     var quantity: Int = 1,
 ) : Parcelable
 
-
+@Keep
 @Parcelize
 data class ListCheckout(
     val listCheckout: List<CheckoutRequest>

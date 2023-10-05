@@ -140,6 +140,11 @@
         <argument
             android:name="fulfillmentDetail"
             app:argType="com.example.ecommerce.data.models.response.FulfillmentDataResponse" />
+        <action
+            android:id="@+id/action_statusFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"

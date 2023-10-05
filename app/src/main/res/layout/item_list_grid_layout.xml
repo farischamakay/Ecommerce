@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="8dp"
     android:padding="10dp"
     app:cardCornerRadius="10dp">
 
@@ -26,7 +25,7 @@
             android:id="@+id/txt_title_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="8dp"
             android:text="@string/title_product"
             android:maxLines="2"
             android:ellipsize="end"
@@ -40,7 +39,7 @@
             android:id="@+id/txt_harga_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="8dp"
             android:text="@string/harga_product"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +49,7 @@
             android:id="@+id/img_product_brand"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="8dp"
             android:src="@drawable/ic_home_profile"
             app:layout_constraintBottom_toTopOf="@+id/img_rating"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +59,7 @@
             android:id="@+id/txt_product_brand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="8dp"
             android:text="@string/text_pemilik_toko"
             android:textSize="11sp"
             app:layout_constraintStart_toEndOf="@id/img_product_brand"
@@ -70,7 +69,7 @@
             android:id="@+id/img_rating"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="8dp"
             android:layout_marginBottom="20dp"
             android:src="@drawable/ic_star_product"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -81,7 +80,7 @@
             android:id="@+id/txt_rating_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="8dp"
             android:layout_marginBottom="20dp"
             android:text="@string/rating_float"
             android:textSize="11sp"
@@ -95,12 +94,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="20dp"
-            android:text="| Terjual 10"
+            android:text="@string/terjual"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/txt_rating_product"
             app:layout_constraintTop_toBottomOf="@id/txt_product_brand" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.cardview.widget.CardView>

@@ -28,10 +28,10 @@
     <string name="store_urutkan">Sort</string>
     <string name="store_reset">Reset</string>
     <string name="store_filter">Filter</string>
-    <string name="store_ulasan">Reviews</string>
-    <string name="store_penjualan">Sales</string>
-    <string name="store_harga_terendah">Lowest Price</string>
-    <string name="store_harga_tertinggi">Highest Price</string>
+    <string name="store_ulasan">Rating</string>
+    <string name="store_penjualan">Sale</string>
+    <string name="store_harga_terendah">Lowest</string>
+    <string name="store_harga_tertinggi">Highest</string>
     <string name="store_kategori">Category</string>
     <string name="store_apple">Apple</string>
     <string name="store_asus">Asus</string>
@@ -113,6 +113,11 @@
     <string name="product_berhasil_ditambahkan_pada_keranjang">Product successfully add to cart!</string>
     <string name="barang_transaction">%1$s items</string>
     <string name="pilih_method_pembayaran">Choose Payment</string>
+    <string name="add">+</string>
+    <string name="decree">-</string>
+    <string name="ram_produk">16GB, 1TB SSD</string>
+    <string name="default_notification_channel_id">123</string>
+    <string name="default_notification_channel_name">notification</string>
     <string-array name="options_select_picture_array">
         <item>Camera</item>
         <item>Gallery</item>

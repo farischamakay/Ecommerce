@@ -114,6 +114,9 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
             binding.btnDeleteItem.setOnClickListener {
                 onItemClickCallback.onDeleteClicked(data.productId)
             }
+            binding.btnTambahKeranjang.setOnClickListener {
+                onItemClickCallback.onAddCartClicked(data, data.productId)
+            }
         }
     }
 

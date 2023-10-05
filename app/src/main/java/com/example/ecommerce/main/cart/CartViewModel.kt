@@ -28,14 +28,11 @@ import javax.inject.Inject
 class CartViewModel @Inject constructor(
     private val roomCartRepository: RoomCartRepository,
     private val productRepository: ProductRepository,
-    private val remoteConfig: FirebaseRemoteConfig
 ) : ViewModel() {
 
-    private val _paymentResult = MutableLiveData<ResourcesResult<PaymentResponse?>>()
     private val _fulfillmentResult = MutableLiveData<ResourcesResult<FullfilmentResponse?>>()
     private val _rating = MutableLiveData<ResourcesResult<RatingResponse?>>()
 
-    val paymentResult: LiveData<ResourcesResult<PaymentResponse?>> = _paymentResult
     val fulfillmentResult: LiveData<ResourcesResult<FullfilmentResponse?>> =
         _fulfillmentResult
     val ratingResult: LiveData<ResourcesResult<RatingResponse?>> = _rating
@@ -44,9 +41,6 @@ class CartViewModel @Inject constructor(
         roomCartRepository.fetchCartData()
 
 
-    init {
-        fetchConfig()
-    }
 
     fun updateCheckable(cartList: List<Pair<Cart, Boolean>>) {
         viewModelScope.launch {
@@ -87,49 +81,6 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    private fun fetchConfig() {
-        remoteConfig.fetchAndActivate()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val response = remoteConfig.getString("payments")
-                    val gson = Gson()
-                    val resultConfig = gson.fromJson(response, PaymentResponse::class.java)
-                    _paymentResult.value = ResourcesResult.Success(resultConfig)
-                    Log.d("Data remote config", "Data remoteconfig: $response")
-
-                } else {
-                    Log.w(TAG, "Config update error with code: ")
-                }
-            }
-
-        remoteConfig.addOnConfigUpdateListener(object : ConfigUpdateListener {
-            override fun onUpdate(configUpdate: ConfigUpdate) {
-                Log.d(TAG, "Updated keys: " + configUpdate.updatedKeys)
-
-                if (configUpdate.updatedKeys.contains("payments")) {
-                    remoteConfig.activate().addOnCompleteListener {
-                        val response = remoteConfig.getString("payments")
-                        val gson = Gson()
-                        val resultConfig = gson.fromJson(response, PaymentResponse::class.java)
-                        _paymentResult.value = ResourcesResult.Success(resultConfig)
-                        Log.d("Data remote config", "Data remoteconfig: $response")
-                    }
-                }
-            }
-
-            override fun onError(error: FirebaseRemoteConfigException) {
-                Log.w(TAG, "Config update error with code: " + error.code, error)
-            }
-        })
-    }
-
-    private fun fetchPayment() {
-        viewModelScope.launch {
-            _paymentResult.value = ResourcesResult.Loading
-            val result = productRepository.paymentProduct()
-            _paymentResult.value = result
-        }
-    }
 
     fun fulfillment(fullfilmentRequest: FullfilmentRequest) {
         viewModelScope.launch {
