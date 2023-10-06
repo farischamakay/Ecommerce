@@ -7,12 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.example.ecommerce.data.database.cart.Cart
-import com.example.ecommerce.data.database.wishlist.Wishlist
-import com.example.ecommerce.data.models.request.ProductRequest
-import com.example.ecommerce.data.models.response.ProductDetailResponse
-import com.example.ecommerce.data.models.response.ReviewResponse
-import com.example.ecommerce.data.models.response.SearchResponse
+import com.example.ecommerce.core.data.database.cart.Cart
+import com.example.ecommerce.core.data.database.wishlist.Wishlist
+import com.example.ecommerce.core.data.models.request.ProductRequest
+import com.example.ecommerce.core.data.models.response.ProductDetailResponse
+import com.example.ecommerce.core.data.models.response.ReviewResponse
+import com.example.ecommerce.core.data.models.response.SearchResponse
 import com.example.ecommerce.data.repository.ProductRepository
 import com.example.ecommerce.data.repository.RoomCartRepository
 import com.example.ecommerce.utils.ResourcesResult
@@ -38,6 +38,10 @@ class StoreViewModel @Inject constructor(
     val reviewProduct: LiveData<ResourcesResult<ReviewResponse?>> = _reviewProduct
     val param: LiveData<ProductRequest> = _param
     var searchText : String = ""
+    var isSortChipGroupChecked = false
+    var isCategoryChipGroupChecked = false
+    var isHighestTextView = false
+    var isLowestTextView = false
 
 
     init {

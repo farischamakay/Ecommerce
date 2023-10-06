@@ -2,7 +2,7 @@ package com.example.ecommerce.main.wishlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ecommerce.data.database.cart.Cart
+import com.example.ecommerce.core.data.database.cart.Cart
 import com.example.ecommerce.data.repository.RoomCartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

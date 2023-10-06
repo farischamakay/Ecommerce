@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecommerce.adapter.PaymentChildAdapter
-import com.example.ecommerce.data.models.response.PaymentItem
-import com.example.ecommerce.data.models.response.PaymentType
+import com.example.ecommerce.core.data.models.response.PaymentItem
+import com.example.ecommerce.core.data.models.response.PaymentType
 import com.example.ecommerce.databinding.ItemListParentPaymentBinding
 
 class ParentPaymentAdapter(private val onChildItemClickListener: (PaymentItem) -> Unit) :

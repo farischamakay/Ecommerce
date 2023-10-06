@@ -4,10 +4,13 @@ import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.example.ecommerce.data.database.notification.Notification
-import com.example.ecommerce.data.database.notification.NotificationDao
-import com.example.ecommerce.data.database.wishlist.Wishlist
-import com.example.ecommerce.data.database.wishlist.WishlistDao
+import com.example.ecommerce.core.data.database.cart.Cart
+import com.example.ecommerce.core.data.database.cart.CartDao
+import com.example.ecommerce.core.data.database.cart.CartDatabase
+import com.example.ecommerce.core.data.database.notification.Notification
+import com.example.ecommerce.core.data.database.notification.NotificationDao
+import com.example.ecommerce.core.data.database.wishlist.Wishlist
+import com.example.ecommerce.core.data.database.wishlist.WishlistDao
 import com.example.ecommerce.utils.getOrAwaitValue
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*

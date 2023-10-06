@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerce.adapter.NotificationAdapter
-import com.example.ecommerce.data.database.notification.Notification
+import com.example.ecommerce.core.data.database.notification.Notification
 import com.example.ecommerce.databinding.FragmentNotificationBinding
 import com.example.ecommerce.utils.Constants
 import com.google.firebase.analytics.FirebaseAnalytics

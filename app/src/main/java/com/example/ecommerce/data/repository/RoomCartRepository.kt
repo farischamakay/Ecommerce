@@ -1,9 +1,9 @@
 package com.example.ecommerce.data.repository
 
-import com.example.ecommerce.data.database.cart.Cart
-import com.example.ecommerce.data.database.cart.CartDao
-import com.example.ecommerce.data.database.wishlist.Wishlist
-import com.example.ecommerce.data.database.wishlist.WishlistDao
+import com.example.ecommerce.core.data.database.cart.Cart
+import com.example.ecommerce.core.data.database.cart.CartDao
+import com.example.ecommerce.core.data.database.wishlist.Wishlist
+import com.example.ecommerce.core.data.database.wishlist.WishlistDao
 import javax.inject.Inject
 
 class RoomCartRepository @Inject constructor(

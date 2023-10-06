@@ -5,6 +5,7 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import com.example.ecommerce.databinding.FragmentBottomFilterBinding
@@ -22,10 +23,6 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
     private val viewModel: StoreViewModel by activityViewModels()
     private var sort = View.NO_ID
     private var sortChip: Chip? = null
-    private var isSortChipGroupChecked = false
-    private var isCategoryChipGroupChecked = false
-    private var isHighestTextView = false
-    private var isLowestTextView = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,22 +70,22 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
         updateResetButtonVisibility()
 
         chipGroupSort.setOnCheckedStateChangeListener { _, _ ->
-            isSortChipGroupChecked = chipGroupSort.checkedChipId != View.NO_ID
+            viewModel.isSortChipGroupChecked = chipGroupSort.checkedChipId != View.NO_ID
             updateResetButtonVisibility()
         }
 
         chipGroupCategory.setOnCheckedStateChangeListener { _, _ ->
-            isCategoryChipGroupChecked = chipGroupCategory.checkedChipId != View.NO_ID
+            viewModel.isCategoryChipGroupChecked = chipGroupCategory.checkedChipId != View.NO_ID
             updateResetButtonVisibility()
         }
 
         edtHighest.doOnTextChanged { _, _, _, _ ->
-            isHighestTextView = !edtHighest.text.isNullOrEmpty()
+            viewModel.isHighestTextView = !edtHighest.text.isNullOrEmpty()
             updateResetButtonVisibility()
         }
 
         edtLowest.doOnTextChanged { _, _, _, _ ->
-            isLowestTextView = !edtLowest.text.isNullOrEmpty()
+            viewModel.isLowestTextView = !edtLowest.text.isNullOrEmpty()
             updateResetButtonVisibility()
         }
 
@@ -133,13 +130,8 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
     }
 
     private fun updateResetButtonVisibility() {
-        if (isSortChipGroupChecked || isCategoryChipGroupChecked || isHighestTextView
-            || isLowestTextView
-        ) {
-            binding.btnResetFilter.visibility = View.VISIBLE
-        } else {
-            binding.btnResetFilter.visibility = View.GONE
-        }
+        binding.btnResetFilter.isVisible = viewModel.isSortChipGroupChecked || viewModel.isCategoryChipGroupChecked
+                || viewModel.isHighestTextView || viewModel.isLowestTextView
     }
 
 }

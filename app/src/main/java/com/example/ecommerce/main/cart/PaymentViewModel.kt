@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ecommerce.data.models.response.PaymentResponse
+import com.example.ecommerce.core.data.models.response.PaymentResponse
 import com.example.ecommerce.data.repository.ProductRepository
 import com.example.ecommerce.utils.ResourcesResult
 import com.google.firebase.remoteconfig.ConfigUpdate

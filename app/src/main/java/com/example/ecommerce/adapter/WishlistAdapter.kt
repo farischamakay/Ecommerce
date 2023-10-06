@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerce.R
-import com.example.ecommerce.data.database.wishlist.Wishlist
+import com.example.ecommerce.core.data.database.wishlist.Wishlist
 import com.example.ecommerce.databinding.ItemWishlistGridBinding
 import com.example.ecommerce.databinding.ItemWishlistLinearBinding
 import com.example.ecommerce.utils.convertToRupiah
@@ -96,6 +96,7 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
             binding.btnTambahKeranjang.setOnClickListener {
                 onItemClickCallback.onAddCartClicked(data, data.productId)
             }
+
         }
     }
 
@@ -122,6 +123,7 @@ class WishlistAdapter : ListAdapter<Wishlist, RecyclerView.ViewHolder>(DIFF_CALL
 
     interface OnItemClickCallback {
         fun onAddCartClicked(wishlist: Wishlist, itemId: String)
+
         fun onDeleteClicked(itemId: String)
     }
 

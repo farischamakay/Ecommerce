@@ -1,12 +1,12 @@
 package com.example.ecommerce.data.repository
 
 
-import com.example.ecommerce.data.models.request.ProfileRequest
-import com.example.ecommerce.data.models.request.UserRequest
-import com.example.ecommerce.data.models.response.LoginResponse
-import com.example.ecommerce.data.models.response.ProfileResponse
-import com.example.ecommerce.data.models.response.RegisterResponse
-import com.example.ecommerce.data.network.UserApiService
+import com.example.ecommerce.core.data.models.request.ProfileRequest
+import com.example.ecommerce.core.data.models.request.UserRequest
+import com.example.ecommerce.core.data.models.response.LoginResponse
+import com.example.ecommerce.core.data.models.response.ProfileResponse
+import com.example.ecommerce.core.data.models.response.RegisterResponse
+import com.example.ecommerce.core.data.network.UserApiService
 import com.example.ecommerce.utils.ErrorMessage.getParsingError
 import com.example.ecommerce.utils.ResourcesResult
 import javax.inject.Inject

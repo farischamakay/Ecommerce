@@ -1,7 +1,7 @@
 package com.example.ecommerce.main.notification
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.ecommerce.data.database.notification.Notification
+import com.example.ecommerce.core.data.database.notification.Notification
 import com.example.ecommerce.data.repository.NotificationRepository
 import com.example.ecommerce.utils.getOrAwaitValue
 import com.example.ecommerce.utils.liveDataOf

@@ -1,10 +1,10 @@
 package com.example.ecommerce.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.ecommerce.data.database.cart.Cart
-import com.example.ecommerce.data.database.cart.CartDao
-import com.example.ecommerce.data.database.wishlist.Wishlist
-import com.example.ecommerce.data.database.wishlist.WishlistDao
+import com.example.ecommerce.core.data.database.cart.Cart
+import com.example.ecommerce.core.data.database.cart.CartDao
+import com.example.ecommerce.core.data.database.wishlist.Wishlist
+import com.example.ecommerce.core.data.database.wishlist.WishlistDao
 import com.example.ecommerce.utils.getOrAwaitValue
 import com.example.ecommerce.utils.liveDataOf
 import kotlinx.coroutines.test.runTest

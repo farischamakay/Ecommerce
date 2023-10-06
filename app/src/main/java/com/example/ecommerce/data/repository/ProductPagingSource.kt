@@ -2,8 +2,8 @@ package com.example.ecommerce.data.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.ecommerce.data.models.response.ItemsItem
-import com.example.ecommerce.data.network.ProductApiService
+import com.example.ecommerce.core.data.models.response.ItemsItem
+import com.example.ecommerce.core.data.network.ProductApiService
 import retrofit2.HttpException
 import java.io.IOException
 

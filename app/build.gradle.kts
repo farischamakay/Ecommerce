@@ -5,10 +5,10 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
-    id("kotlin-kapt")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("org.gradle.jacoco")
+    id("kotlin-kapt")
 }
 
 android {
@@ -135,6 +135,7 @@ dependencies {
     implementation("com.google.accompanist:accompanist-pager:0.22.0-rc")
     implementation ("androidx.compose.runtime:runtime-livedata:1.5.1")
     implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation(project(mapOf("path" to ":core")))
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.10.3")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
@@ -207,4 +208,8 @@ dependencies {
 
     //detekt
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.1")
+
+    //add screen module
+    implementation(project(":screen"))
+    implementation(project(":core"))
 }

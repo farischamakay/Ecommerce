@@ -1,7 +1,7 @@
 package com.example.ecommerce.data.repository
 
-import com.example.ecommerce.data.database.notification.Notification
-import com.example.ecommerce.data.database.notification.NotificationDao
+import com.example.ecommerce.core.data.database.notification.Notification
+import com.example.ecommerce.core.data.database.notification.NotificationDao
 import javax.inject.Inject
 
 class NotificationRepository @Inject constructor(

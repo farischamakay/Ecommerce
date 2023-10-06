@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerce.MainFragmentDirections
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.TransactionAdapter
-import com.example.ecommerce.data.models.response.TransactionDataItem
-import com.example.ecommerce.data.models.response.transactionToReview
+import com.example.ecommerce.core.data.models.response.TransactionDataItem
+import com.example.ecommerce.core.data.models.response.transactionToReview
 import com.example.ecommerce.databinding.FragmentTransactionBinding
 import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.AndroidEntryPoint

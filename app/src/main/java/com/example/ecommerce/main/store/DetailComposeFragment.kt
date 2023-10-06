@@ -72,9 +72,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.compose.AsyncImage
 import com.example.ecommerce.R
-import com.example.ecommerce.data.models.request.ListCheckout
-import com.example.ecommerce.data.models.response.ProductDetailData
-import com.example.ecommerce.data.models.response.ProductDetailResponse
+import com.example.ecommerce.core.data.models.request.ListCheckout
+import com.example.ecommerce.core.data.models.response.ProductDetailData
+import com.example.ecommerce.core.data.models.response.ProductDetailResponse
 import com.example.ecommerce.utils.ComposeTheme
 import com.example.ecommerce.utils.ErrorStateCompose
 import com.example.ecommerce.utils.ResourcesResult
@@ -540,7 +540,7 @@ class DetailComposeFragment : Fragment() {
                                 findNavController().navigate(
                                     DetailComposeFragmentDirections
                                         .actionDetailProductFragmentToCheckoutFragment(
-                                            ListCheckout(
+                                            com.example.ecommerce.core.data.models.request.ListCheckout(
                                                 listCheckout = mutableListOf(
                                                     convertToCheckout(dataNew, currentIndex)
                                                 )

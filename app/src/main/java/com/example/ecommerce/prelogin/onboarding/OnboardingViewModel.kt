@@ -1,7 +1,7 @@
 package com.example.ecommerce.prelogin.onboarding
 
 import androidx.lifecycle.ViewModel
-import com.example.ecommerce.preferences.PreferenceProvider
+import com.example.ecommerce.core.data.preferences.PreferenceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

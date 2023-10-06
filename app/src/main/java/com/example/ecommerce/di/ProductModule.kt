@@ -3,11 +3,11 @@ package com.example.ecommerce.di
 import android.content.Context
 import androidx.room.Room
 import com.example.ecommerce.R
-import com.example.ecommerce.data.database.cart.CartDao
-import com.example.ecommerce.data.database.cart.CartDatabase
-import com.example.ecommerce.data.database.notification.NotificationDao
-import com.example.ecommerce.data.database.wishlist.WishlistDao
-import com.example.ecommerce.data.network.ProductApiService
+import com.example.ecommerce.core.data.database.cart.CartDao
+import com.example.ecommerce.core.data.database.cart.CartDatabase
+import com.example.ecommerce.core.data.database.notification.NotificationDao
+import com.example.ecommerce.core.data.database.wishlist.WishlistDao
+import com.example.ecommerce.core.data.network.ProductApiService
 import com.example.ecommerce.data.repository.NotificationRepository
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics

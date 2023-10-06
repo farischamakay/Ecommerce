@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.WishlistAdapter
-import com.example.ecommerce.data.database.cart.Cart
-import com.example.ecommerce.data.database.wishlist.Wishlist
+import com.example.ecommerce.core.data.database.cart.Cart
+import com.example.ecommerce.core.data.database.wishlist.Wishlist
 import com.example.ecommerce.databinding.FragmentWhistlistBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,7 +74,7 @@ class WishlistFragment : Fragment() {
                     if (cartData == null) {
                         viewModel.insertToRoom(convertToCart(wishlist))
                         Snackbar.make(
-                            view, "Ditambahkan ke Keranjang!",
+                            view, getString(R.string.product_ditambahkan_pada_keranjang),
                             Snackbar.LENGTH_LONG
                         ).show()
                     } else {
@@ -83,12 +83,12 @@ class WishlistFragment : Fragment() {
                             qtyCart += 1
                             viewModel.updateQuantity(listOf(convertToCart(wishlist) to qtyCart))
                             Snackbar.make(
-                                view, "Product berhasil ditambahkan pada keranjang!",
+                                view, getString(R.string.product_berhasil_ditambahkan_pada_keranjang),
                                 Snackbar.LENGTH_LONG
                             ).show()
                         } else {
                             Snackbar.make(
-                                view, "Barang sudah ada di Keranjang!",
+                                view, getString(R.string.stok_tidak_mencukupi),
                                 Snackbar.LENGTH_LONG
                             ).show()
                         }

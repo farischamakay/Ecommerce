@@ -6,7 +6,7 @@ import com.example.ecommerce.data.models.request.ProfileRequest
 import com.example.ecommerce.data.models.response.ProfileData
 import com.example.ecommerce.data.models.response.ProfileResponse
 import com.example.ecommerce.data.repository.UserRepository
-import com.example.ecommerce.preferences.PreferenceProvider
+import com.example.ecommerce.core.data.preferences.PreferenceProvider
 import com.example.ecommerce.utils.MainDispatcherRule
 import com.example.ecommerce.utils.ResourcesResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi

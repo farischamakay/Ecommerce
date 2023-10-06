@@ -13,10 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.CheckoutAdapter
-import com.example.ecommerce.data.models.request.CheckoutRequest
-import com.example.ecommerce.data.models.request.FullfilmentItem
-import com.example.ecommerce.data.models.request.FullfilmentRequest
-import com.example.ecommerce.data.models.response.fulfillmentToReview
+import com.example.ecommerce.core.data.models.request.FullfilmentItem
+import com.example.ecommerce.core.data.models.request.FullfilmentRequest
+import com.example.ecommerce.core.data.models.response.fulfillmentToReview
 import com.example.ecommerce.databinding.FragmentCheckoutBinding
 import com.example.ecommerce.utils.ResourcesResult
 import com.example.ecommerce.utils.convertToRupiah
@@ -137,7 +136,7 @@ class CheckoutFragment : Fragment() {
         binding.txtTotalBayar.text = priceItem.sum().convertToRupiah()
 
         checkboxAdapter.setOnItemClickCallback(object : CheckoutAdapter.OnItemClickCallback {
-            override fun counterClicked(checkout: CheckoutRequest) {
+            override fun counterClicked(checkout: com.example.ecommerce.core.data.models.request.CheckoutRequest) {
                 priceItem =
                     args.listCheckout.listCheckout.map { it.productVariantPrice * it.quantity }
                 val totalPrice = priceItem.sum()

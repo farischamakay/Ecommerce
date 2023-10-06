@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerce.R
-import com.example.ecommerce.data.database.cart.Cart
+import com.example.ecommerce.core.data.database.cart.Cart
 import com.example.ecommerce.databinding.ItemListCartBinding
 import com.example.ecommerce.utils.convertToRupiah
 import com.google.android.material.color.MaterialColors

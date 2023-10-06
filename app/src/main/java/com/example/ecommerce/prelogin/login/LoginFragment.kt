@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.ecommerce.R
-import com.example.ecommerce.data.models.request.UserRequest
+import com.example.ecommerce.core.data.models.request.UserRequest
 import com.example.ecommerce.databinding.FragmentLoginBinding
 import com.example.ecommerce.utils.Constants
 import com.example.ecommerce.utils.ResourcesResult

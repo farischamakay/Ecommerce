@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerce.R
 import com.example.ecommerce.adapter.CartAdapter
-import com.example.ecommerce.data.database.cart.Cart
-import com.example.ecommerce.data.models.request.toListCheckout
+import com.example.ecommerce.core.data.database.cart.Cart
+import com.example.ecommerce.core.data.models.request.toListCheckout
 import com.example.ecommerce.databinding.FragmentCartBinding
 import com.example.ecommerce.utils.convertToRupiah
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,6 +51,7 @@ class CartFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+
         cartAdapter = CartAdapter()
         binding.rvCart.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCart.adapter = cartAdapter
@@ -79,6 +80,7 @@ class CartFragment : Fragment() {
 
             binding.emptyState.root.isVisible = response.isNullOrEmpty()
             binding.bottomCart.isVisible = response.isNotEmpty()
+            binding.checkboxParent.isVisible = response.isNotEmpty()
 
             isSelectAllChecked = response.isNotEmpty() && response.all { it.isCheck }
 

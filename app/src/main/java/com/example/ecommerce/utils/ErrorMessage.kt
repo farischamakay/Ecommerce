@@ -1,6 +1,6 @@
 package com.example.ecommerce.utils
 
-import com.example.ecommerce.data.models.response.ErrorResponse
+import com.example.ecommerce.core.data.models.response.ErrorResponse
 import com.google.gson.Gson
 import okhttp3.ResponseBody
 

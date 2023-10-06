@@ -20,7 +20,7 @@ import com.example.ecommerce.data.models.response.SearchResponse
 import com.example.ecommerce.data.models.response.TransactionDataItem
 import com.example.ecommerce.data.models.response.TransactionResponse
 import com.example.ecommerce.data.models.response.TranscationsItem
-import com.example.ecommerce.data.network.ProductApiService
+import com.example.ecommerce.core.data.network.ProductApiService
 import com.example.ecommerce.utils.ResourcesResult
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*

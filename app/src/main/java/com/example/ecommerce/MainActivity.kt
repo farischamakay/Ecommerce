@@ -2,6 +2,7 @@ package com.example.ecommerce
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -12,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
-import com.example.ecommerce.data.database.cart.CartDatabase
+import com.example.ecommerce.core.data.database.cart.CartDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -90,6 +91,11 @@ class MainActivity : AppCompatActivity() {
     fun goToNotification() {
         navController.navigate(R.id.action_mainFragment_to_notificationFragment)
     }
+
+    fun goToMore() {
+        navController.navigate(R.id.action_mainFragment_to_screenFragment)
+    }
+
 
     @OptIn(DelicateCoroutinesApi::class)
     fun logOut() {

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerce.R
-import com.example.ecommerce.data.models.response.ReviewDataItem
+import com.example.ecommerce.core.data.models.response.ReviewDataItem
 import com.example.ecommerce.databinding.ItemUlasanPembeliBinding
 
 class ReviewAdapter :
@@ -35,7 +35,7 @@ class ReviewAdapter :
                 .into(binding.imgProfileUser)
             binding.txtUsernameUser.text = data.userName
             if (data.userRating != null) {
-                binding.rBar.rating = data.userRating.toFloat()
+                binding.rBar.rating = data.userRating!!.toFloat()
             }
             binding.txtReviewUser.text = data.userReview
         }

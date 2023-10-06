@@ -3,7 +3,7 @@ package com.example.ecommerce.main.transaction
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ecommerce.data.models.response.TransactionResponse
+import com.example.ecommerce.core.data.models.response.TransactionResponse
 import com.example.ecommerce.data.repository.ProductRepository
 import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.lifecycle.HiltViewModel

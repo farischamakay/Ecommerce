@@ -52,7 +52,6 @@ class MainFragment : Fragment() {
             botnav600?.setupWithNavController(navController)
             botnav600?.setOnItemReselectedListener { }
             botnav840?.setupWithNavController(navController)
-            botnav840?.setOnItemReselectedListener { }
         }
 
         val cartBadges = BadgeDrawable.create(requireContext())
@@ -73,13 +72,6 @@ class MainFragment : Fragment() {
             wishListBadges?.isVisible = response.isNotEmpty()
             wishListBadges?.number = response.size
         }
-
-        viewModel.getDataWishlist.observe(viewLifecycleOwner) { response ->
-            val wishListBadges = binding.botnav840?.getOrCreateBadge(R.id.wishlistFragment)
-            wishListBadges?.isVisible = response.isNotEmpty()
-            wishListBadges?.number = response.size
-        }
-
 
         val notifBadges = BadgeDrawable.create(requireContext())
         viewModel.getDataNotification.observe(viewLifecycleOwner) { response ->
@@ -105,6 +97,11 @@ class MainFragment : Fragment() {
                         param(Constants.BUTTON_NAME, "notification")
                     }
                     (requireActivity() as MainActivity).goToNotification()
+                    true
+                }
+
+                R.id.more -> {
+                    (requireActivity() as MainActivity).goToMore()
                     true
                 }
 

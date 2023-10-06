@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ecommerce.data.models.response.PaymentItem
+import com.example.ecommerce.core.data.models.response.PaymentItem
 import com.example.ecommerce.databinding.ItemListPaymentBinding
 
 

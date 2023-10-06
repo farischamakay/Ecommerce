@@ -10,7 +10,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.example.ecommerce.MainActivity
 import com.example.ecommerce.R
-import com.example.ecommerce.data.database.notification.Notification
+import com.example.ecommerce.core.data.database.notification.Notification
 import com.example.ecommerce.data.repository.NotificationRepository
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage

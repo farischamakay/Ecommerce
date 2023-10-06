@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.ecommerce.R
-import com.example.ecommerce.data.models.request.RatingRequest
+import com.example.ecommerce.core.data.models.request.RatingRequest
 import com.example.ecommerce.databinding.FragmentStatusBinding
 import com.example.ecommerce.utils.Constants
 import com.example.ecommerce.utils.ResourcesResult
@@ -43,10 +43,6 @@ class StatusFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ratingPembayaran.setOnRatingBarChangeListener { _, rating, _ ->
-            ratingUser = rating.toInt()
-        }
-
         val args: StatusFragmentArgs by navArgs()
         binding.btnDonePayment.setOnClickListener {
             val userReview = binding.txtInputReview.text
@@ -59,6 +55,15 @@ class StatusFragment : Fragment() {
             }
             viewModel.rating(userAllReview)
 
+        }
+
+
+        binding.ratingPembayaran.rating = args.fulfillmentDetail.rating.toFloat()
+
+
+
+        binding.ratingPembayaran.setOnRatingBarChangeListener { _, rating, _ ->
+            ratingUser = rating.toInt()
         }
 
         val callback: OnBackPressedCallback =

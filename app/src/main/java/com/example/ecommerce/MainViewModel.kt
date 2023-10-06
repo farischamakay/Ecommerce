@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.ecommerce.data.repository.NotificationRepository
 import com.example.ecommerce.data.repository.RoomCartRepository
-import com.example.ecommerce.preferences.PreferenceProvider
+import com.example.ecommerce.core.data.preferences.PreferenceProvider
 import com.example.ecommerce.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

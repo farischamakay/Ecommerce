@@ -1,8 +1,8 @@
 package com.example.ecommerce.main.store
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.ecommerce.data.database.cart.Cart
-import com.example.ecommerce.data.database.wishlist.Wishlist
+import com.example.ecommerce.core.data.database.cart.Cart
+import com.example.ecommerce.core.data.database.wishlist.Wishlist
 import com.example.ecommerce.data.models.response.ProductDetailData
 import com.example.ecommerce.data.models.response.ProductDetailResponse
 import com.example.ecommerce.data.models.response.ProductVariantItem

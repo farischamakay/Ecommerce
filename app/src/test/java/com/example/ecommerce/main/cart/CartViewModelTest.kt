@@ -1,6 +1,6 @@
 package com.example.ecommerce.main.cart
 
-import com.example.ecommerce.data.database.cart.Cart
+import com.example.ecommerce.core.data.database.cart.Cart
 import com.example.ecommerce.data.models.request.FullfilmentRequest
 import com.example.ecommerce.data.models.request.RatingRequest
 import com.example.ecommerce.data.models.response.FulfillmentDetail

@@ -5,7 +5,7 @@ import com.example.ecommerce.data.models.response.LoginData
 import com.example.ecommerce.data.models.response.LoginResponse
 import com.example.ecommerce.data.models.response.RegisterData
 import com.example.ecommerce.data.models.response.RegisterResponse
-import com.example.ecommerce.data.network.UserApiService
+import com.example.ecommerce.core.data.network.UserApiService
 import com.example.ecommerce.utils.ResourcesResult
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*

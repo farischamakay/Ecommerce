@@ -1,6 +1,6 @@
 package com.example.ecommerce.main.home
 
-import com.example.ecommerce.preferences.PreferenceProvider
+import com.example.ecommerce.core.data.preferences.PreferenceProvider
 import org.junit.Assert.*
 
 import org.junit.Before
@@ -21,12 +21,6 @@ class HomeViewModelTest {
     fun setUp() {
         sharedPreferenceManager = mock()
         homeViewModel = HomeViewModel(sharedPreferenceManager)
-    }
-
-    @Test
-    fun deleteToken() {
-        doNothing(). whenever(sharedPreferenceManager).deleteTokenAccess()
-        assertEquals(Unit, homeViewModel.deleteToken())
     }
 
     @Test

@@ -6,7 +6,7 @@ import com.example.ecommerce.data.models.request.UserRequest
 import com.example.ecommerce.data.models.response.LoginData
 import com.example.ecommerce.data.models.response.LoginResponse
 import com.example.ecommerce.data.repository.UserRepository
-import com.example.ecommerce.preferences.PreferenceProvider
+import com.example.ecommerce.core.data.preferences.PreferenceProvider
 import com.example.ecommerce.utils.MainDispatcherRule
 import com.example.ecommerce.utils.ResourcesResult
 import com.example.ecommerce.utils.getOrAwaitValue

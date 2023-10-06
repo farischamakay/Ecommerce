@@ -20,7 +20,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.ecommerce.R
-import com.example.ecommerce.data.models.request.ProfileRequest
+import com.example.ecommerce.core.data.models.request.ProfileRequest
 import com.example.ecommerce.databinding.FragmentProfileBinding
 import com.example.ecommerce.utils.Constants
 import com.example.ecommerce.utils.PhotoUriManager
@@ -45,9 +45,7 @@ class ProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by viewModels()
 
     private lateinit var photoUriManager: PhotoUriManager
-
-    @Inject
-    lateinit var firebaseAnalytics: FirebaseAnalytics
+    @Inject lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private fun uriToFile(context: Context, uri: Uri): File? {
         val contentResolver = context.contentResolver
@@ -60,6 +58,7 @@ class ProfileFragment : Fragment() {
             cursor.moveToFirst()
 
             val name = cursor.getString(nameIndex)
+            val size = cursor.getLong(sizeIndex)
 
             val cacheDir = File(context.cacheDir, "camera_cache")
             cacheDir.mkdirs()
@@ -98,7 +97,8 @@ class ProfileFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { mediaUri ->
             if (mediaUri != null) {
                 this.mediaUri = mediaUri
-                Glide.with(this).load(mediaUri).into(binding.imgProfile)
+                Glide.with(this).load(mediaUri).circleCrop()
+                    .into(binding.imgProfile)
 
                 Log.d("PhotoPicker", "Selected URI: $mediaUri")
             } else {
@@ -141,7 +141,7 @@ class ProfileFragment : Fragment() {
             }
             alertDialogBuilder.show()
 
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
                 param(Constants.BUTTON_NAME, "img_profile")
             }
         }
@@ -171,7 +171,7 @@ class ProfileFragment : Fragment() {
                 viewModel.updateProfile(ProfileRequest(userImage = null, userName = userNamePart))
             }
 
-            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK) {
+            firebaseAnalytics.logEvent(Constants.BUTTON_CLICK){
                 param(Constants.BUTTON_NAME, "btn_go_home")
             }
 

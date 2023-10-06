@@ -3,6 +3,7 @@ package com.example.ecommerce.preferences
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.test.core.app.ApplicationProvider
+import com.example.ecommerce.core.data.preferences.PreferenceProvider
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test

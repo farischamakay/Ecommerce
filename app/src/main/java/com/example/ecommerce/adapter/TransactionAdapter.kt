@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerce.R
-import com.example.ecommerce.data.models.response.TransactionDataItem
+import com.example.ecommerce.core.data.models.response.TransactionDataItem
 import com.example.ecommerce.databinding.ItemListTransactionBinding
 import com.example.ecommerce.utils.convertToRupiah
 

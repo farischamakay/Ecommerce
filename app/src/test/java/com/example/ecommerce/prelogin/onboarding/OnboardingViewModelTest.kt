@@ -1,7 +1,7 @@
 package com.example.ecommerce.prelogin.onboarding
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.ecommerce.preferences.PreferenceProvider
+import com.example.ecommerce.core.data.preferences.PreferenceProvider
 import org.junit.Assert.*
 
 import org.junit.Before

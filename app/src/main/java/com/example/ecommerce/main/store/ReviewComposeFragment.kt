@@ -51,7 +51,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.compose.AsyncImage
 import com.example.ecommerce.R
-import com.example.ecommerce.data.models.response.ReviewResponse
+import com.example.ecommerce.core.data.models.response.ReviewResponse
 import com.example.ecommerce.utils.ComposeTheme
 import com.example.ecommerce.utils.ErrorStateCompose
 import com.example.ecommerce.utils.ResourcesResult

@@ -4,12 +4,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.example.ecommerce.data.network.TokenAuthenticator
-import com.example.ecommerce.data.network.UserApiService
-import com.example.ecommerce.data.network.UserAuthInterceptor
-import com.example.ecommerce.preferences.PreferenceProvider
+import com.example.ecommerce.core.data.network.TokenAuthenticator
+import com.example.ecommerce.core.data.network.UserApiService
+import com.example.ecommerce.core.data.network.UserAuthInterceptor
+import com.example.ecommerce.core.data.preferences.PreferenceProvider
+import com.example.ecommerce.core.data.utils.SessionManager
 import com.example.ecommerce.utils.Constants.BASE_URL
-import com.example.ecommerce.utils.SessionManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

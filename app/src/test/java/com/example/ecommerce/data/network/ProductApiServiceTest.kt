@@ -1,5 +1,6 @@
 package com.example.ecommerce.data.network
 
+import com.example.ecommerce.core.data.network.ProductApiService
 import com.example.ecommerce.data.models.request.FullfilmentRequest
 import com.example.ecommerce.data.models.request.RatingRequest
 import com.example.ecommerce.data.models.response.FulfillmentDetail

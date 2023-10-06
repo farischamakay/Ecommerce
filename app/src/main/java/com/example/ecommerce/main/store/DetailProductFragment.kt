@@ -1,7 +1,7 @@
-import com.example.ecommerce.data.database.cart.Cart
-import com.example.ecommerce.data.database.wishlist.Wishlist
-import com.example.ecommerce.data.models.request.CheckoutRequest
-import com.example.ecommerce.data.models.response.ProductDetailData
+import com.example.ecommerce.core.data.database.cart.Cart
+import com.example.ecommerce.core.data.database.wishlist.Wishlist
+import com.example.ecommerce.core.data.models.request.CheckoutRequest
+import com.example.ecommerce.core.data.models.response.ProductDetailData
 
 //package com.example.ecommerce.main.store
 //
@@ -230,8 +230,8 @@ fun convertToCart(detailData: ProductDetailData, index: Int): Cart {
 }
 
 //
-fun convertToCheckout(detailData: ProductDetailData, index: Int): CheckoutRequest {
-    return CheckoutRequest(
+fun convertToCheckout(detailData: ProductDetailData, index: Int): com.example.ecommerce.core.data.models.request.CheckoutRequest {
+    return com.example.ecommerce.core.data.models.request.CheckoutRequest(
         detailData.productId,
         detailData.productName,
         detailData.image?.get(0),
