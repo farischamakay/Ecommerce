@@ -151,7 +151,7 @@ class StoreFragment : Fragment() {
             "dataKey", this
         ) { _, bundle ->
             val data = bundle.getString("query")
-            viewModel.searchText = data?:""
+            viewModel.searchText = data ?: ""
             binding.edtSearchText.setText(viewModel.searchText)
             viewModel.setQuery(
                 search = data,
@@ -200,7 +200,7 @@ class StoreFragment : Fragment() {
             }
         }
 
-        if(viewModel.searchText.isEmpty()){
+        if (viewModel.searchText.isEmpty()) {
             binding.edtSearchText.setText(getString(R.string.search))
         } else {
             binding.edtSearchText.setText(viewModel.searchText)

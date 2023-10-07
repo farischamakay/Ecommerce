@@ -1,16 +1,16 @@
 package com.example.ecommerce.data.network
 
+import com.example.ecommerce.core.data.models.request.RefreshRequest
+import com.example.ecommerce.core.data.models.request.UserRequest
+import com.example.ecommerce.core.data.models.response.LoginData
+import com.example.ecommerce.core.data.models.response.LoginResponse
+import com.example.ecommerce.core.data.models.response.ProfileData
+import com.example.ecommerce.core.data.models.response.ProfileResponse
+import com.example.ecommerce.core.data.models.response.RefreshData
+import com.example.ecommerce.core.data.models.response.RefreshResponse
+import com.example.ecommerce.core.data.models.response.RegisterData
+import com.example.ecommerce.core.data.models.response.RegisterResponse
 import com.example.ecommerce.core.data.network.UserApiService
-import com.example.ecommerce.data.models.request.RefreshRequest
-import com.example.ecommerce.data.models.request.UserRequest
-import com.example.ecommerce.data.models.response.LoginData
-import com.example.ecommerce.data.models.response.LoginResponse
-import com.example.ecommerce.data.models.response.ProfileData
-import com.example.ecommerce.data.models.response.ProfileResponse
-import com.example.ecommerce.data.models.response.RefreshData
-import com.example.ecommerce.data.models.response.RefreshResponse
-import com.example.ecommerce.data.models.response.RegisterData
-import com.example.ecommerce.data.models.response.RegisterResponse
 import com.example.ecommerce.utils.JsonConverter.q
 import kotlinx.coroutines.test.runTest
 import okhttp3.MultipartBody
@@ -52,7 +52,8 @@ class UserApiServiceTest {
         mockWebServer.q("register.json", 200)
 
             val actualResponse = userApiService.register(
-                UserRequest(password = null, firebaseToken = "", email = null))
+                UserRequest(password = null, firebaseToken = "", email = null)
+            )
 
             val dataExpected = RegisterResponse(
                 code = 200,

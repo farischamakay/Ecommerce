@@ -34,6 +34,13 @@ class MainFragment : Fragment() {
         navHostFragment.navController
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (viewModel.isAccessKeyTokenEmpty() || viewModel.getUsername().isNullOrEmpty()) {
+            (requireActivity() as MainActivity).mainToPrelogin()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

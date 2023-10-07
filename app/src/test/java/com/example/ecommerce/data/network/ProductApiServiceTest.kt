@@ -1,26 +1,26 @@
 package com.example.ecommerce.data.network
 
+import com.example.ecommerce.core.data.models.request.FullfilmentRequest
+import com.example.ecommerce.core.data.models.request.RatingRequest
+import com.example.ecommerce.core.data.models.response.FulfillmentDetail
+import com.example.ecommerce.core.data.models.response.FullfilmentResponse
+import com.example.ecommerce.core.data.models.response.ItemsItem
+import com.example.ecommerce.core.data.models.response.PaymentItem
+import com.example.ecommerce.core.data.models.response.PaymentResponse
+import com.example.ecommerce.core.data.models.response.PaymentType
+import com.example.ecommerce.core.data.models.response.ProductData
+import com.example.ecommerce.core.data.models.response.ProductDetailData
+import com.example.ecommerce.core.data.models.response.ProductDetailResponse
+import com.example.ecommerce.core.data.models.response.ProductResponse
+import com.example.ecommerce.core.data.models.response.ProductVariantItem
+import com.example.ecommerce.core.data.models.response.RatingResponse
+import com.example.ecommerce.core.data.models.response.ReviewDataItem
+import com.example.ecommerce.core.data.models.response.ReviewResponse
+import com.example.ecommerce.core.data.models.response.SearchResponse
+import com.example.ecommerce.core.data.models.response.TransactionDataItem
+import com.example.ecommerce.core.data.models.response.TransactionResponse
+import com.example.ecommerce.core.data.models.response.TranscationsItem
 import com.example.ecommerce.core.data.network.ProductApiService
-import com.example.ecommerce.data.models.request.FullfilmentRequest
-import com.example.ecommerce.data.models.request.RatingRequest
-import com.example.ecommerce.data.models.response.FulfillmentDetail
-import com.example.ecommerce.data.models.response.FullfilmentResponse
-import com.example.ecommerce.data.models.response.ItemsItem
-import com.example.ecommerce.data.models.response.PaymentItem
-import com.example.ecommerce.data.models.response.PaymentResponse
-import com.example.ecommerce.data.models.response.PaymentType
-import com.example.ecommerce.data.models.response.ProductData
-import com.example.ecommerce.data.models.response.ProductDetailData
-import com.example.ecommerce.data.models.response.ProductDetailResponse
-import com.example.ecommerce.data.models.response.ProductResponse
-import com.example.ecommerce.data.models.response.ProductVariantItem
-import com.example.ecommerce.data.models.response.RatingResponse
-import com.example.ecommerce.data.models.response.ReviewDataItem
-import com.example.ecommerce.data.models.response.ReviewResponse
-import com.example.ecommerce.data.models.response.SearchResponse
-import com.example.ecommerce.data.models.response.TransactionDataItem
-import com.example.ecommerce.data.models.response.TransactionResponse
-import com.example.ecommerce.data.models.response.TranscationsItem
 import com.example.ecommerce.utils.JsonConverter.q
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -88,11 +88,13 @@ class ProductApiServiceTest {
             data = listOf(
                 PaymentType(
                     title = "Transfer Virtual Account",
-                    item = listOf(PaymentItem(
+                    item = listOf(
+                        PaymentItem(
                         label = "BCA Virtual Account",
                         image = "image",
                         status = true
-                    ))
+                    )
+                    )
                 )
             )
         )
@@ -122,10 +124,12 @@ class ProductApiServiceTest {
                 totalReview = 5,
                 totalSatisfaction = 100,
                 productRating = 5.0,
-                productVariant = listOf(ProductVariantItem(
+                productVariant = listOf(
+                    ProductVariantItem(
                     variantName = "RAM 16GB",
                     variantPrice = 0
-                ))
+                )
+                )
             )
         )
         assertEquals(actualResponse.body(), expectedResponse)
@@ -140,12 +144,14 @@ class ProductApiServiceTest {
         val expectedResponse = ReviewResponse(
             code = 200,
             message = "OK",
-            data = listOf(ReviewDataItem(
+            data = listOf(
+                ReviewDataItem(
                 userName= "userName",
                 userImage = "userImage",
                 userRating = 4,
                 userReview= "userReview"
-            ))
+            )
+            )
         )
         assertEquals(actualResponse.body(), expectedResponse)
     }
@@ -165,7 +171,8 @@ class ProductApiServiceTest {
                 currentItemCount = 10,
                 pageIndex = 1,
                 totalPages = 3,
-                items = listOf(ItemsItem(
+                items = listOf(
+                    ItemsItem(
                     productId = "productId",
                     productName = "productName",
                     productPrice = 15000000,
@@ -174,7 +181,8 @@ class ProductApiServiceTest {
                     store = "store",
                     sale = 4,
                     productRating = 4.0
-                ))
+                )
+                )
             )
         )
         assertEquals(actualResponse, expectedResponse)
@@ -188,7 +196,8 @@ class ProductApiServiceTest {
             review = null,
             rating = null,
             invoiceId = null
-        ))
+        )
+        )
 
         val expectedResponse = RatingResponse(
             code = 200,
@@ -221,7 +230,8 @@ class ProductApiServiceTest {
         val expectedResponse = TransactionResponse(
             code = 200,
             message = "OK",
-            data = listOf(TransactionDataItem(
+            data = listOf(
+                TransactionDataItem(
                 invoiceId = "invoiceId",
                 status = true,
                 date = "date",
@@ -232,12 +242,15 @@ class ProductApiServiceTest {
                 review = "review",
                 image = "image",
                 name = "name",
-                items = listOf(TranscationsItem(
+                items = listOf(
+                    TranscationsItem(
                     productId = "productId",
                     variantName = "variantName",
                     quantity = 2
-                ))
-            ))
+                )
+                )
+            )
+            )
         )
         assertEquals(actualResponse.body(),expectedResponse)
     }

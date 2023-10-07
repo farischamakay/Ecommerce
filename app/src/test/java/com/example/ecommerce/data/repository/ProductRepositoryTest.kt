@@ -1,25 +1,25 @@
 package com.example.ecommerce.data.repository
 
-import com.example.ecommerce.data.models.request.FullfilmentRequest
-import com.example.ecommerce.data.models.request.RatingRequest
-import com.example.ecommerce.data.models.response.FulfillmentDetail
-import com.example.ecommerce.data.models.response.FullfilmentResponse
-import com.example.ecommerce.data.models.response.ItemsItem
-import com.example.ecommerce.data.models.response.PaymentItem
-import com.example.ecommerce.data.models.response.PaymentResponse
-import com.example.ecommerce.data.models.response.PaymentType
-import com.example.ecommerce.data.models.response.ProductData
-import com.example.ecommerce.data.models.response.ProductDetailData
-import com.example.ecommerce.data.models.response.ProductDetailResponse
-import com.example.ecommerce.data.models.response.ProductResponse
-import com.example.ecommerce.data.models.response.ProductVariantItem
-import com.example.ecommerce.data.models.response.RatingResponse
-import com.example.ecommerce.data.models.response.ReviewDataItem
-import com.example.ecommerce.data.models.response.ReviewResponse
-import com.example.ecommerce.data.models.response.SearchResponse
-import com.example.ecommerce.data.models.response.TransactionDataItem
-import com.example.ecommerce.data.models.response.TransactionResponse
-import com.example.ecommerce.data.models.response.TranscationsItem
+import com.example.ecommerce.core.data.models.request.FullfilmentRequest
+import com.example.ecommerce.core.data.models.request.RatingRequest
+import com.example.ecommerce.core.data.models.response.FulfillmentDetail
+import com.example.ecommerce.core.data.models.response.FullfilmentResponse
+import com.example.ecommerce.core.data.models.response.ItemsItem
+import com.example.ecommerce.core.data.models.response.PaymentItem
+import com.example.ecommerce.core.data.models.response.PaymentResponse
+import com.example.ecommerce.core.data.models.response.PaymentType
+import com.example.ecommerce.core.data.models.response.ProductData
+import com.example.ecommerce.core.data.models.response.ProductDetailData
+import com.example.ecommerce.core.data.models.response.ProductDetailResponse
+import com.example.ecommerce.core.data.models.response.ProductResponse
+import com.example.ecommerce.core.data.models.response.ProductVariantItem
+import com.example.ecommerce.core.data.models.response.RatingResponse
+import com.example.ecommerce.core.data.models.response.ReviewDataItem
+import com.example.ecommerce.core.data.models.response.ReviewResponse
+import com.example.ecommerce.core.data.models.response.SearchResponse
+import com.example.ecommerce.core.data.models.response.TransactionDataItem
+import com.example.ecommerce.core.data.models.response.TransactionResponse
+import com.example.ecommerce.core.data.models.response.TranscationsItem
 import com.example.ecommerce.core.data.network.ProductApiService
 import com.example.ecommerce.utils.ResourcesResult
 import kotlinx.coroutines.test.runTest
@@ -108,10 +108,12 @@ class ProductRepositoryTest {
                 totalReview = 5,
                 totalSatisfaction = 100,
                 productRating = 5.0,
-                productVariant = listOf(ProductVariantItem(
+                productVariant = listOf(
+                    ProductVariantItem(
                     variantName = "RAM 16GB",
                     variantPrice = 0
-                ))
+                )
+                )
             )
         )
 
@@ -132,7 +134,8 @@ class ProductRepositoryTest {
                 userImage = "userImage",
                 userRating = 4,
                 userReview= "userReview"
-            ))
+            )
+            )
         )
         whenever(actualResponse).thenReturn(Response.success(expectedResponse))
         val result = productRepository.reviewProduct(productId = "1234")
@@ -188,7 +191,8 @@ class ProductRepositoryTest {
     fun ratingProduct() = runTest{
         val actualResponse = productApiService.rating(ratingRequest = RatingRequest(review = null,
             rating = null,
-            invoiceId = null))
+            invoiceId = null)
+        )
         val expectedResponse = RatingResponse(
             code = 200,
             message = "message"

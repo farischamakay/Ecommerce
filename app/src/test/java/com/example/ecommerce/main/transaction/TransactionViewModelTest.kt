@@ -1,9 +1,9 @@
 package com.example.ecommerce.main.transaction
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.ecommerce.data.models.response.TransactionDataItem
-import com.example.ecommerce.data.models.response.TransactionResponse
-import com.example.ecommerce.data.models.response.TranscationsItem
+import com.example.ecommerce.core.data.models.response.TransactionDataItem
+import com.example.ecommerce.core.data.models.response.TransactionResponse
+import com.example.ecommerce.core.data.models.response.TranscationsItem
 import com.example.ecommerce.data.repository.ProductRepository
 import com.example.ecommerce.utils.ResourcesResult
 import kotlinx.coroutines.launch
@@ -37,7 +37,8 @@ class TransactionViewModelTest {
         val expectedResponse = TransactionResponse(
             code = 200,
             message= "OK",
-            data = listOf(TransactionDataItem(
+            data = listOf(
+                TransactionDataItem(
                 invoiceId = "invoiceId",
                 status =  true,
                 date = "date",
@@ -55,7 +56,8 @@ class TransactionViewModelTest {
                 review =  "review",
                 image = "image",
                 name= "name"
-            ))
+            )
+            )
         )
         backgroundScope.launch {
             whenever(actualResponse).thenReturn(ResourcesResult.Success(expectedResponse))

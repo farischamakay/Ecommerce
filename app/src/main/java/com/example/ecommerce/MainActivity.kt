@@ -2,7 +2,6 @@ package com.example.ecommerce
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -96,6 +95,13 @@ class MainActivity : AppCompatActivity() {
         navController.navigate(R.id.action_mainFragment_to_screenFragment)
     }
 
+    fun mainToPrelogin() {
+        navController.navigate(R.id.main_to_prelogin)
+    }
+
+    fun goToProfile() {
+        navController.navigate(R.id.action_loginFragment_to_profileFragment2)
+    }
 
     @OptIn(DelicateCoroutinesApi::class)
     fun logOut() {

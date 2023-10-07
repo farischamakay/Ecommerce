@@ -1,22 +1,19 @@
 package com.example.ecommerce.main.cart
 
 import com.example.ecommerce.core.data.database.cart.Cart
-import com.example.ecommerce.data.models.request.FullfilmentRequest
-import com.example.ecommerce.data.models.request.RatingRequest
-import com.example.ecommerce.data.models.response.FulfillmentDetail
-import com.example.ecommerce.data.models.response.FullfilmentResponse
-import com.example.ecommerce.data.models.response.RatingResponse
+import com.example.ecommerce.core.data.models.request.FullfilmentRequest
+import com.example.ecommerce.core.data.models.request.RatingRequest
+import com.example.ecommerce.core.data.models.response.FulfillmentDetail
+import com.example.ecommerce.core.data.models.response.FullfilmentResponse
+import com.example.ecommerce.core.data.models.response.RatingResponse
 import com.example.ecommerce.data.repository.ProductRepository
 import com.example.ecommerce.data.repository.RoomCartRepository
 import com.example.ecommerce.utils.ResourcesResult
 import com.example.ecommerce.utils.getOrAwaitValue
 import com.example.ecommerce.utils.liveDataOf
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
-
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -57,7 +54,8 @@ class CartViewModelTest {
     @Test
     fun getFulfillmentResult()  = runTest {
         val actualResponse = productRepository.fullfilmentPayment(fullfilmentRequest = FullfilmentRequest(null,null
-        ))
+        )
+        )
         val expectedResponse = FullfilmentResponse(
             code = 200,
             message = "OK",
@@ -80,7 +78,8 @@ class CartViewModelTest {
     fun getRatingResult() = runTest {
         val actualResponse = productRepository.ratingProduct(ratingRequest = RatingRequest(review = null,
             rating = null,
-            invoiceId = null))
+            invoiceId = null)
+        )
         val expectedResponse = RatingResponse(
             code = 200,
             message = "message"

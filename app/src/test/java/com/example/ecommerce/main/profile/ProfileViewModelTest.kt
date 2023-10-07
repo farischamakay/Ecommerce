@@ -2,9 +2,9 @@ package com.example.ecommerce.main.profile
 
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.ecommerce.data.models.request.ProfileRequest
-import com.example.ecommerce.data.models.response.ProfileData
-import com.example.ecommerce.data.models.response.ProfileResponse
+import com.example.ecommerce.core.data.models.request.ProfileRequest
+import com.example.ecommerce.core.data.models.response.ProfileData
+import com.example.ecommerce.core.data.models.response.ProfileResponse
 import com.example.ecommerce.data.repository.UserRepository
 import com.example.ecommerce.core.data.preferences.PreferenceProvider
 import com.example.ecommerce.utils.MainDispatcherRule
@@ -49,7 +49,8 @@ class ProfileViewModelTest {
         val image = "http:/image"
         val actualResponse = userRepository.profileUser(profileRequest = ProfileRequest(
             MultipartBody.Part.createFormData("username", user),
-            MultipartBody.Part.createFormData("image", image)))
+            MultipartBody.Part.createFormData("image", image))
+        )
         val expectedResponse = ProfileResponse(
             code = 200,
             message = "OK",

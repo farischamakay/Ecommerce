@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ecommerce.core.data.models.request.UserRequest
 import com.example.ecommerce.core.data.models.response.LoginResponse
-import com.example.ecommerce.data.repository.UserRepository
 import com.example.ecommerce.core.data.preferences.PreferenceProvider
+import com.example.ecommerce.data.repository.UserRepository
 import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -36,6 +36,10 @@ class LoginViewModel @Inject constructor(
 
     fun saveUserName(username: String) {
         return sharedUserPreferenceManager.saveUsername(username)
+    }
+
+    fun isAccessKeyTokenEmpty(): Boolean {
+        return sharedUserPreferenceManager.getApiAccessKey() == null
     }
 
     fun getUsername(): String? {

@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ecommerce"
         android:usesCleartextTraffic="true"
+        android:launchMode="singleTask"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"

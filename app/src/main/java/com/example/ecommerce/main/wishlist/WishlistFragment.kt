@@ -83,7 +83,8 @@ class WishlistFragment : Fragment() {
                             qtyCart += 1
                             viewModel.updateQuantity(listOf(convertToCart(wishlist) to qtyCart))
                             Snackbar.make(
-                                view, getString(R.string.product_berhasil_ditambahkan_pada_keranjang),
+                                view,
+                                getString(R.string.product_berhasil_ditambahkan_pada_keranjang),
                                 Snackbar.LENGTH_LONG
                             ).show()
                         } else {

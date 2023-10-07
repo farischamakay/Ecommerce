@@ -7,13 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerce.R
-import com.example.ecommerce.core.data.models.request.CheckoutRequest
 import com.example.ecommerce.databinding.ItemListCheckoutBinding
 import com.example.ecommerce.utils.convertToRupiah
 import com.google.android.material.snackbar.Snackbar
 
 class CheckoutAdapter :
-    ListAdapter<com.example.ecommerce.core.data.models.request.CheckoutRequest, CheckoutAdapter.CheckoutViewHolder>(CheckoutDiffCallback()) {
+    ListAdapter<com.example.ecommerce.core.data.models.request.CheckoutRequest, CheckoutAdapter.CheckoutViewHolder>(
+        CheckoutDiffCallback()
+    ) {
 
     interface OnItemClickCallback {
         fun counterClicked(checkout: com.example.ecommerce.core.data.models.request.CheckoutRequest)
@@ -76,12 +77,19 @@ class CheckoutAdapter :
     }
 }
 
-private class CheckoutDiffCallback : DiffUtil.ItemCallback<com.example.ecommerce.core.data.models.request.CheckoutRequest>() {
-    override fun areItemsTheSame(oldItem: com.example.ecommerce.core.data.models.request.CheckoutRequest, newItem: com.example.ecommerce.core.data.models.request.CheckoutRequest): Boolean {
+private class CheckoutDiffCallback :
+    DiffUtil.ItemCallback<com.example.ecommerce.core.data.models.request.CheckoutRequest>() {
+    override fun areItemsTheSame(
+        oldItem: com.example.ecommerce.core.data.models.request.CheckoutRequest,
+        newItem: com.example.ecommerce.core.data.models.request.CheckoutRequest
+    ): Boolean {
         return oldItem.productId == newItem.productId
     }
 
-    override fun areContentsTheSame(oldItem: com.example.ecommerce.core.data.models.request.CheckoutRequest, newItem: com.example.ecommerce.core.data.models.request.CheckoutRequest): Boolean {
+    override fun areContentsTheSame(
+        oldItem: com.example.ecommerce.core.data.models.request.CheckoutRequest,
+        newItem: com.example.ecommerce.core.data.models.request.CheckoutRequest
+    ): Boolean {
         return oldItem == newItem
     }
 }

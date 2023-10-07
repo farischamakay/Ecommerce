@@ -37,7 +37,7 @@ class StoreViewModel @Inject constructor(
     val searchResult: LiveData<ResourcesResult<SearchResponse<List<String>>?>> = _searchResult
     val reviewProduct: LiveData<ResourcesResult<ReviewResponse?>> = _reviewProduct
     val param: LiveData<ProductRequest> = _param
-    var searchText : String = ""
+    var searchText: String = ""
     var isSortChipGroupChecked = false
     var isCategoryChipGroupChecked = false
     var isHighestTextView = false

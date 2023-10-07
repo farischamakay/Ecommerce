@@ -48,8 +48,8 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (viewModel.getUsername() != null) {
-            findNavController().navigate(R.id.prelogin_to_main)
+        if (viewModel.getUsername().isNullOrEmpty() && !viewModel.isAccessKeyTokenEmpty()) {
+            findNavController().navigate(R.id.action_loginFragment_to_profileFragment2)
         }
     }
 

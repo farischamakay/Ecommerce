@@ -3,11 +3,11 @@ package com.example.ecommerce.main.store
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.ecommerce.core.data.database.cart.Cart
 import com.example.ecommerce.core.data.database.wishlist.Wishlist
-import com.example.ecommerce.data.models.response.ProductDetailData
-import com.example.ecommerce.data.models.response.ProductDetailResponse
-import com.example.ecommerce.data.models.response.ProductVariantItem
-import com.example.ecommerce.data.models.response.ReviewDataItem
-import com.example.ecommerce.data.models.response.ReviewResponse
+import com.example.ecommerce.core.data.models.response.ProductDetailData
+import com.example.ecommerce.core.data.models.response.ProductDetailResponse
+import com.example.ecommerce.core.data.models.response.ProductVariantItem
+import com.example.ecommerce.core.data.models.response.ReviewDataItem
+import com.example.ecommerce.core.data.models.response.ReviewResponse
 import com.example.ecommerce.data.repository.ProductRepository
 import com.example.ecommerce.data.repository.RoomCartRepository
 import com.example.ecommerce.utils.ResourcesResult

@@ -2,22 +2,19 @@ package com.example.ecommerce.prelogin.login
 
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.ecommerce.data.models.request.UserRequest
-import com.example.ecommerce.data.models.response.LoginData
-import com.example.ecommerce.data.models.response.LoginResponse
+import com.example.ecommerce.core.data.models.request.UserRequest
+import com.example.ecommerce.core.data.models.response.LoginData
+import com.example.ecommerce.core.data.models.response.LoginResponse
 import com.example.ecommerce.data.repository.UserRepository
 import com.example.ecommerce.core.data.preferences.PreferenceProvider
 import com.example.ecommerce.utils.MainDispatcherRule
 import com.example.ecommerce.utils.ResourcesResult
-import com.example.ecommerce.utils.getOrAwaitValue
 import com.example.ecommerce.utils.observeForTesting
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
-
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -75,7 +72,8 @@ class LoginViewModelTest {
         whenever(actualResponse).thenReturn(ResourcesResult.Success(expectedResponse))
         launch {
             loginViewModel.loginUser(userRequest = UserRequest(password = null,
-                firebaseToken = "", email = null))
+                firebaseToken = "", email = null)
+            )
         }.join()
         advanceTimeBy(1)
         assertEquals(ResourcesResult.Success(expectedResponse), loginViewModel.loginResult.value)

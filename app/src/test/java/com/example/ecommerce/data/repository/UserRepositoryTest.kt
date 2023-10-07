@@ -1,10 +1,10 @@
 package com.example.ecommerce.data.repository
 
-import com.example.ecommerce.data.models.request.UserRequest
-import com.example.ecommerce.data.models.response.LoginData
-import com.example.ecommerce.data.models.response.LoginResponse
-import com.example.ecommerce.data.models.response.RegisterData
-import com.example.ecommerce.data.models.response.RegisterResponse
+import com.example.ecommerce.core.data.models.request.UserRequest
+import com.example.ecommerce.core.data.models.response.LoginData
+import com.example.ecommerce.core.data.models.response.LoginResponse
+import com.example.ecommerce.core.data.models.response.RegisterData
+import com.example.ecommerce.core.data.models.response.RegisterResponse
 import com.example.ecommerce.core.data.network.UserApiService
 import com.example.ecommerce.utils.ResourcesResult
 import kotlinx.coroutines.test.runTest
@@ -70,29 +70,4 @@ class UserRepositoryTest {
         assertEquals((result as ResourcesResult.Success).data, expectedResponse)
     }
 
-//    @Test
-//    fun profileUser() = runTest{
-//
-//        val user = "abcde"
-//        val image = "http:/image"
-//
-//        val actualResponse = userApiService.updateProfile(
-//            MultipartBody.Part.createFormData("username", user),
-//            MultipartBody.Part.createFormData("image", image))
-//
-//        val expectedResponse = ProfileResponse(
-//            code = 200,
-//            message = "OK",
-//            data = ProfileData(
-//                userName = "userName",
-//                userImage = "userImage"
-//            )
-//        )
-//        whenever(actualResponse).thenReturn(Response.success(expectedResponse))
-//        val result = userRepository.profileUser(profileRequest = ProfileRequest(
-//            MultipartBody.Part.createFormData("username", user),
-//            MultipartBody.Part.createFormData("image", image))
-//        )
-//        assertEquals((result as ResourcesResult.Success).data, expectedResponse)
-//    }
 }

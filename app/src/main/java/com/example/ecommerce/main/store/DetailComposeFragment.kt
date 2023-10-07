@@ -51,7 +51,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -72,7 +71,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.compose.AsyncImage
 import com.example.ecommerce.R
-import com.example.ecommerce.core.data.models.request.ListCheckout
 import com.example.ecommerce.core.data.models.response.ProductDetailData
 import com.example.ecommerce.core.data.models.response.ProductDetailResponse
 import com.example.ecommerce.utils.ComposeTheme

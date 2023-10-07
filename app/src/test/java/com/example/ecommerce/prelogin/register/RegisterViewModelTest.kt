@@ -1,9 +1,9 @@
 package com.example.ecommerce.prelogin.register
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.ecommerce.data.models.request.UserRequest
-import com.example.ecommerce.data.models.response.RegisterData
-import com.example.ecommerce.data.models.response.RegisterResponse
+import com.example.ecommerce.core.data.models.request.UserRequest
+import com.example.ecommerce.core.data.models.response.RegisterData
+import com.example.ecommerce.core.data.models.response.RegisterResponse
 import com.example.ecommerce.data.repository.UserRepository
 import com.example.ecommerce.core.data.preferences.PreferenceProvider
 import com.example.ecommerce.utils.MainDispatcherRule
@@ -44,7 +44,8 @@ class RegisterViewModelTest {
     @Test
     fun registerUser() = runTest{
         val actualResponse = userRepository.registerUser(userRequest = UserRequest(password = null,
-            firebaseToken = "", email = null))
+            firebaseToken = "", email = null)
+        )
         val expectedResponse = RegisterResponse(
             code = 200,
             message = "OK",

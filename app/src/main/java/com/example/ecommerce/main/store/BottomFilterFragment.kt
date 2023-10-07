@@ -130,8 +130,9 @@ class BottomFilterFragment : BottomSheetDialogFragment() {
     }
 
     private fun updateResetButtonVisibility() {
-        binding.btnResetFilter.isVisible = viewModel.isSortChipGroupChecked || viewModel.isCategoryChipGroupChecked
-                || viewModel.isHighestTextView || viewModel.isLowestTextView
+        binding.btnResetFilter.isVisible =
+            viewModel.isSortChipGroupChecked || viewModel.isCategoryChipGroupChecked
+                    || viewModel.isHighestTextView || viewModel.isLowestTextView
     }
 
 }

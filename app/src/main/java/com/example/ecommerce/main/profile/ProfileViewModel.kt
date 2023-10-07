@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ecommerce.core.data.models.request.ProfileRequest
 import com.example.ecommerce.core.data.models.response.ProfileResponse
-import com.example.ecommerce.data.repository.UserRepository
 import com.example.ecommerce.core.data.preferences.PreferenceProvider
+import com.example.ecommerce.data.repository.UserRepository
 import com.example.ecommerce.utils.ResourcesResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
